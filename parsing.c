@@ -6,11 +6,11 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:14:21 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/08 14:22:03 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:46:43 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
 void	error_42(void)
 {
@@ -94,28 +94,3 @@ int	check_map_is_rectangular(char *file_path)
 	colse(fd);
 	return (is_rect);
 }
-
-int		check_map_is_closed(char *file_path)
-{
-	int	fd;
-	char str;
-	int	i;
-	
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-	{
-		perror("ERROR\n");
-		return (1);
-	}
-	str = get_next_line(fd);
-	while (str[i])
-	{
-		if(str[i] != '1')
-			{
-				perror("Error\n");
-				free(str);
-				return(0);
-			}
-		i++;
-	}
-	free(str);
