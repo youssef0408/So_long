@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/11 21:48:00 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:44:42 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ bool	parse_file(char *file_path)
 {
 	int		fd;
 	char	*current_line;
-	char	*next_line;
-	int		is_rect;
 	bool	has_error;
-	int		line_length;
+	size_t		line_length;
 
 	has_error = false;
 	fd = open(file_path, O_RDONLY);

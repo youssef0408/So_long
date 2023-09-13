@@ -6,14 +6,14 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/11 21:46:44 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:43:20 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "libft/libft.h"
+#include "../obj/libft/includes/libft.h"
 # include <stdbool.h>
 
 void	init_game(void);
