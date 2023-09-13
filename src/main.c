@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/13 14:44:42 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:30:04 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long/includes/so_long.h"
 
 int	main(void)
 {
@@ -22,7 +22,7 @@ void	init_game(void)
 {
 	char	*file_name;
 
-	file_name = "./so_long/map.ber";
+	file_name = "so_long/src/map.ber";
 	//  read file
 	// parse file line by line
 	parse_file(file_name);
@@ -41,7 +41,7 @@ bool	parse_file(char *file_path)
 	int		fd;
 	char	*current_line;
 	bool	has_error;
-	size_t		line_length;
+	int		line_length;
 
 	has_error = false;
 	fd = open(file_path, O_RDONLY);
