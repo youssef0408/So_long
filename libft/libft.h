@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:11:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/08 13:34:34 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:15:35 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-
 size_t				ft_strlen(const char *s);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memset(void *str, int c, size_t len);
@@ -53,11 +52,11 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s1);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_substr(char *s, unsigned int start, size_t len);
 void				ft_putstr_fd(char *s, int fd);
 char				*ft_putstr(char *str);
 void				ft_putendl_fd(char *s, int fd);
-char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(char *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
@@ -79,14 +78,9 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
-char				*get_next_line(int fd);
 char				*ft_read_line(char *line, int fd, char *buffer);
 char				*ft_forward_line(char *line);
-char				*ft_strjoin(char *s1, const char *s2);
-char				*ft_strchr(char *s, int c);
-char				*ft_substr(char *str, unsigned int i, size_t ii);
+char				*get_next_line(int fd);
 size_t				ft_line_len(char *str);
-size_t				ft_strlen(const char *str);
-void				*ft_calloc(size_t count, size_t size);
 
 #endif

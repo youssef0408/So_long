@@ -3,40 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 14:43:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/07 17:15:26 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/13 14:21:38 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= so_long
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
+# Compilateur et drapeaux de compilation
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= main.c
-OBJS	:= ${SRCS:.c=.o}
+# Noms des exécutables
+NAME = so_long
+LIBFT = libft.a
 
-all: libmlx $(NAME)
+# Répertoires
+SRC_DIR = src
+OBJ_DIR = obj
+INCLUDES = includes
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+# Fichiers source et objet
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+# Dépendances
+LIBFT_PATH = libft
+LIBFT_INC = -I$(LIBFT_PATH)/$(INCLUDES)
+LIBFT_LINK = -L$(LIBFT_PATH) -lft
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+# Cibles
+all: $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT_PATH)/$(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_LINK)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(LIBFT_INC) -I$(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(LIBFT_PATH)/$(LIBFT):
+	$(MAKE) -C $(LIBFT_PATH)
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf $(OBJ_DIR)
+	$(MAKE) -C $(LIBFT_PATH) clean
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_PATH) fclean
 
-re: clean all
+re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all clean fclean re
