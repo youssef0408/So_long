@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/13 17:30:04 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:20:04 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long/includes/so_long.h"
+#include "so_long.h"
 
 int	main(void)
 {
@@ -41,7 +41,7 @@ bool	parse_file(char *file_path)
 	int		fd;
 	char	*current_line;
 	bool	has_error;
-	int		line_length;
+	size_t		line_length;
 
 	has_error = false;
 	fd = open(file_path, O_RDONLY);

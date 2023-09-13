@@ -6,40 +6,35 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/13 17:39:06 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/13 19:19:28 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+NAME = so_long
 
 # Compilateur et drapeaux de compilation
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-# Noms des exécutables
-NAME = so_long
-LIBFT = libft/libft.a
-
 # Répertoires
 SRC_DIR = src
 OBJ_DIR = obj
 INCLUDES = includes
+LIBFT_PATH = so_long/obj/libft/includes/libft.h
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_PATH)
-	
 # Fichiers source et objet
-SRCS = main.c map_check.c parsing.c
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # Dépendances
-LIBFT_PATH = libft
-LIBFT_INC = -I$(LIBFT_PATH)/$(INCLUDES)
+LIBFT_INC = -I$(LIBFT_PATH)/includes
 LIBFT_LINK = -L$(LIBFT_PATH) -lft
 
 # Cibles
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_LINK)
+$(NAME): $(OBJS) $(LIBFT_PATH)/libft.a
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LIBFT_LINK)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(LIBFT_INC) -I$(INCLUDES) -c $< -o $@
@@ -47,13 +42,15 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+$(LIBFT_PATH)/libft.a:
+	$(MAKE) -C $(LIBFT_PATH)
+
 clean:
-	$(MAKE) -C $(LIBFT_PATH) clean
 	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
+	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT_PATH) fclean
-	$(RM) -f $(NAME)
 
 re: fclean all
 
