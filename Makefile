@@ -6,10 +6,11 @@
 #    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/18 13:39:27 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/18 14:30:26 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Nom de l'exécutable
 NAME = so_long
 
 # Compilateur et drapeaux de compilation
@@ -18,41 +19,38 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Répertoires
 SRC_DIR = src
-LIB = lib
-INCLUDES = includes
-LIBFT_PATH = lib/libft/inc
-HEADER_SL = -I$(INCLUDES)/
-HEADER_LFT = -I$(LIB)/libft/inc
+LIB_DIR = lib
+INCLUDES_DIR = includes
+LIBFT_DIR = $(LIB_DIR)/libft
 
 # Fichiers source et objet
-SRCS = main.c parsing .c map_check.c\
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(LIB)/%.o, $(SRCS))
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(SRCS:.c=.o)
 
-libft:
-	-@make -C LIB/libft all
-gcc = $(CC) $(CFLAGS)
+# Chemin vers les fichiers d'en-tête
+INCLUDES = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)
+
 # Cibles
 all: libft $(NAME)
 
-$(NAME): $(OBJS) 
-	$(CC) $(CFLAGS) -L$(LIBFT_PATH)/libft.a $(HEADER_SL) $(HEADER_LFT) $(OBJS) -o 
+$(NAME): $(OBJS)
+	-@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
 
-$(LIB)/%.o: $(SRC_DIR)/%.c | $(LIB)
-	@gcc $(INCLUDES) -c $< -o $@
+%.o: %.c
+	-@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(LIB):
-	mkdir -p $(LIB)
-
-$(LIBFT_PATH)/libft.a:
-	$(MAKE) -C $(LIBFT_PATH)
+libft:
+	make -C $(LIBFT_DIR)
 
 clean:
-	$(RM) -r $(LIB)
+	-@rm -f $(OBJS)
+	-@make -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(LIBFT_PATH) fclean
+	-@rm -f $(NAME)
+	-@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libft
+
