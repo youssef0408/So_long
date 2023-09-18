@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:57 by yothmani         ###   ########.fr       */
+/*   Created: 2023/02/15 12:58:17 by yothmani          #+#    #+#             */
+/*   Updated: 2023/03/03 13:31:36 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "lib/libft/inc/libft.h"
-# include <stdbool.h>
-#include <fcntl.h>
+void	*ft_memmove(void *dst, const void *src, size_t n)
+{
+	char		*d;
+	const char	*s;
+	const char	*lasts;
+	char		*lastd;
 
-void	init_game(void);
-bool	parse_file(char *file_path);
-void	update_game(void);
-
-#endif
+	d = dst;
+	s = src;
+	if (!dst || !src)
+		return (0);
+	if (!n || dst == src)
+		return (dst);
+	if (d < s)
+	{
+		while (n--)
+			*d++ = *s++;
+	}
+	else
+	{
+		lasts = s + (n - 1);
+		lastd = d + (n - 1);
+		while (n--)
+			*lastd-- = *lasts--;
+	}
+	return (dst);
+}

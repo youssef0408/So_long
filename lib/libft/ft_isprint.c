@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:57 by yothmani         ###   ########.fr       */
+/*   Created: 2023/02/15 09:58:33 by yothmani          #+#    #+#             */
+/*   Updated: 2023/02/18 16:17:21 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "lib/libft/inc/libft.h"
-# include <stdbool.h>
-#include <fcntl.h>
-
-void	init_game(void);
-bool	parse_file(char *file_path);
-void	update_game(void);
-
-#endif
+int	ft_isprint(int c)
+{
+	if (c > 31 && c < 127)
+		return (c);
+	else
+		return (0);
+}

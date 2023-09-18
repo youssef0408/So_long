@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:57 by yothmani         ###   ########.fr       */
+/*   Created: 2023/02/20 09:41:59 by yothmani          #+#    #+#             */
+/*   Updated: 2023/03/03 12:46:27 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "lib/libft/inc/libft.h"
-# include <stdbool.h>
-#include <fcntl.h>
-
-void	init_game(void);
-bool	parse_file(char *file_path);
-void	update_game(void);
-
-#endif
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	while (*s)
+	{
+		write(fd, &(*s), 1);
+		s++;
+	}
+	write(fd, "\n", 1);
+}

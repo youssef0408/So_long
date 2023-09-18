@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:57 by yothmani         ###   ########.fr       */
+/*   Created: 2023/02/18 11:08:46 by yothmani          #+#    #+#             */
+/*   Updated: 2023/02/18 16:10:16 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "lib/libft/inc/libft.h"
-# include <stdbool.h>
-#include <fcntl.h>
-
-void	init_game(void);
-bool	parse_file(char *file_path);
-void	update_game(void);
-
-#endif
+int	ft_toupper(int c)
+{
+	if (c > 96 && c < 123)
+		c = c - 32;
+	return (c);
+}

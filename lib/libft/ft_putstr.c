@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:57 by yothmani         ###   ########.fr       */
+/*   Created: 2023/03/06 10:13:04 by yothmani          #+#    #+#             */
+/*   Updated: 2023/03/06 10:34:17 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "lib/libft/inc/libft.h"
-# include <stdbool.h>
-#include <fcntl.h>
-
-void	init_game(void);
-bool	parse_file(char *file_path);
-void	update_game(void);
-
-#endif
+char	*ft_putstr(char *str)
+{
+	if (!str)
+		return (NULL);
+	while (*str)
+	{
+		write(1, &(*str), 1);
+		str++;
+	}
+	return (str);
+}

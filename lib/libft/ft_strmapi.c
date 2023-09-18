@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:57 by yothmani         ###   ########.fr       */
+/*   Created: 2023/02/24 17:07:57 by yothmani          #+#    #+#             */
+/*   Updated: 2023/03/03 13:07:16 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "lib/libft/inc/libft.h"
-# include <stdbool.h>
-#include <fcntl.h>
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char	*new;
+	int		i;
 
-void	init_game(void);
-bool	parse_file(char *file_path);
-void	update_game(void);
-
-#endif
+	i = 0;
+	new = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (new == NULL)
+		return (NULL);
+	while (s[i])
+	{
+		new[i] = f(i, s[i]);
+		i++;
+	}
+	new[i] = 0;
+	return (new);
+}

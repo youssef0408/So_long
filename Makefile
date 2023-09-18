@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/13 19:19:28 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/18 13:39:27 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,35 +18,36 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Répertoires
 SRC_DIR = src
-OBJ_DIR = obj
+LIB = lib
 INCLUDES = includes
-LIBFT_PATH = so_long/obj/libft/includes/libft.h
+LIBFT_PATH = lib/libft/inc
+HEADER_SL = -I$(INCLUDES)/
+HEADER_LFT = -I$(LIB)/libft/inc
 
 # Fichiers source et objet
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+SRCS = main.c parsing .c map_check.c\
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(LIB)/%.o, $(SRCS))
 
-# Dépendances
-LIBFT_INC = -I$(LIBFT_PATH)/includes
-LIBFT_LINK = -L$(LIBFT_PATH) -lft
-
+libft:
+	-@make -C LIB/libft all
+gcc = $(CC) $(CFLAGS)
 # Cibles
-all: $(NAME)
+all: libft $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_PATH)/libft.a
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LIBFT_LINK)
+$(NAME): $(OBJS) 
+	$(CC) $(CFLAGS) -L$(LIBFT_PATH)/libft.a $(HEADER_SL) $(HEADER_LFT) $(OBJS) -o 
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(LIBFT_INC) -I$(INCLUDES) -c $< -o $@
+$(LIB)/%.o: $(SRC_DIR)/%.c | $(LIB)
+	@gcc $(INCLUDES) -c $< -o $@
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+$(LIB):
+	mkdir -p $(LIB)
 
 $(LIBFT_PATH)/libft.a:
 	$(MAKE) -C $(LIBFT_PATH)
 
 clean:
-	$(RM) -r $(OBJ_DIR)
+	$(RM) -r $(LIB)
 
 fclean: clean
 	$(RM) $(NAME)
