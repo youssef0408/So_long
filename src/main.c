@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/18 17:34:14 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:59:16 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ void	init_game(void)
 		exit(1);
 	}
 }
+static	size_t real_len(char *s)
+{
+	size_t i;
+
+	i = 0;
+	while(s[i] != '\n' && s[i] != '\0')
+		i++;
+	return(i);
+}
 
 // void	init_game(void)
 // {
@@ -59,6 +68,7 @@ void	update_game(void)
 	// handle pickups
 }
 
+
 bool	parse_file(char *file_path)
 {
 	int		fd;
@@ -68,31 +78,32 @@ bool	parse_file(char *file_path)
 
 	has_error = false;
 	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
+	current_line = get_next_line(fd);
+	if (fd < 0 || real_len(current_line) == 0)
 	{
 		perror("ERROR\n");
-		return (true);
-	}
-	current_line = get_next_line(fd);
-	line_length = ft_strlen(current_line);
-	if (line_length == 0)
-	{
-		perror("Error\n");
 		free(current_line);
 		close(fd);
 		return (true);
 	}
 	while (current_line != NULL && has_error == false)
 	{
-		if (line_length != ft_strlen((current_line)))
+		line_length = real_len(current_line);
+		if(line_length != 0)
+			printf("%s", current_line);
+		if (line_length != real_len(current_line))
 		{
 			perror("Error, your map is not rectangular\n");
 			has_error = true;
 		}
+		if (ft_strlen(current_line) != ft_strlen(get_next_line(fd)))
+			{
+				printf("%zu\n", ft_strlen(current_line));
+				printf("%zu\n", ft_strlen(get_next_line(fd)));
+				perror("wooooooooooooow\n");
+			}
 		free(current_line);
 		current_line = get_next_line(fd);
-		if (current_line != NULL)
-			printf("%s", current_line);
 	}
 	free(current_line);
 	close(fd);
