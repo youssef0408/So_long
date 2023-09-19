@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/19 15:59:16 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:37:43 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ void	init_game(void)
 		exit(1);
 	}
 }
-static	size_t real_len(char *s)
+static size_t	real_len(char *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	while(s[i] != '\n' && s[i] != '\0')
+	if (!s)
+		return (0);
+	while (s[i] != '\n' && s[i] != '\0')
 		i++;
-	return(i);
+	return (i);
 }
 
 // void	init_game(void)
@@ -68,13 +70,13 @@ void	update_game(void)
 	// handle pickups
 }
 
-
 bool	parse_file(char *file_path)
 {
 	int		fd;
 	char	*current_line;
 	bool	has_error;
 	size_t	line_length;
+	size_t	first_line_len;
 
 	has_error = false;
 	fd = open(file_path, O_RDONLY);
@@ -86,26 +88,33 @@ bool	parse_file(char *file_path)
 		close(fd);
 		return (true);
 	}
+	first_line_len = real_len(current_line);
 	while (current_line != NULL && has_error == false)
 	{
 		line_length = real_len(current_line);
-		if(line_length != 0)
+		if (line_length != 0)
 			printf("%s", current_line);
-		if (line_length != real_len(current_line))
+		if (line_length != first_line_len)
 		{
 			perror("Error, your map is not rectangular\n");
+			free(current_line);
 			has_error = true;
 		}
-		if (ft_strlen(current_line) != ft_strlen(get_next_line(fd)))
+		if (strchr(current_line, '\n'))
+		{
+			free(current_line);
+			current_line = get_next_line(fd);
+			if (real_len(current_line) != first_line_len)
 			{
-				printf("%zu\n", ft_strlen(current_line));
-				printf("%zu\n", ft_strlen(get_next_line(fd)));
 				perror("wooooooooooooow\n");
 			}
-		free(current_line);
-		current_line = get_next_line(fd);
+		}
+		else
+		{
+			free(current_line);
+			break;
+		}
 	}
-	free(current_line);
 	close(fd);
 	return (has_error);
 }
