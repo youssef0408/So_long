@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/20 21:03:08 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:16:00 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,39 @@ void	update_game(void)
 	// handle pickups
 }
 
-int	line_check(char *str, size_t mat_width, int count_c, bool has_p, bool has_e)
+int	line_check(char *str, size_t mat_width, int *count_c, bool *has_p,
+		bool *has_e)
 {
+	int	i;
+
+	i = 0;
 	if (!str)
 		return (-1);
 	if (mat_width != real_len(str))
 		return (-2);
-	while (*str)
+	while (str[i])
 	{
-		if (*str == 'E')
+		if (str[i] == 'E')
 		{
-			if (has_e)
+			if (*has_e)
 				return (-3);
 			else
-				has_e = true;
+				*has_e = true;
 		}
-		else if (*str == 'P')
+		else if (str[i] == 'P')
 		{
-			if (has_p)
+			if (*has_p)
 				return (-4);
 			else
-				has_p = true;
+				*has_p = true;
 		}
-		else if (*str == 'C')
+		else if (str[i] == 'C')
 		{
-			count_c++;
+			*count_c = *count_c + 1;
 		}
-		else if (*str != '1' && *str != '0' && *str != '\n')
+		else if (str[i] != '1' && str[i] != '0' && str[i] != '\n')
 			return (-5);
-		str++;
+		i++;
 	}
 	return (0);
 }
@@ -127,17 +131,26 @@ bool	parse_file(char *file_path)
 		return (true);
 	}
 	mat_width = real_len(current_line);
-	if (line_check(current_line, mat_width, count_c, has_p, has_e) < 0)
+	if (line_check(current_line, mat_width, &count_c, &has_p, &has_e) < 0)
 	{
 		free(current_line);
 		close(fd);
 		return (true);
 	}
 	printf("%s", current_line);
+	// current_line = get_next_line(fd);
 	while (current_line != NULL && has_error == false)
 	{
 		current_line = get_next_line(fd);
-		if (line_check(current_line, mat_width, count_c, has_p, has_e) < 0)
+		if (current_line == NULL)
+		{
+			free(current_line);
+			close(fd);
+			if (count_c == 0)
+				return (true);
+			return (false);
+		}
+		if (line_check(current_line, mat_width, &count_c, &has_p, &has_e) < 0)
 		{
 			has_error = true;
 			free(current_line);
@@ -145,11 +158,16 @@ bool	parse_file(char *file_path)
 			return (true);
 		}
 		printf("%s", current_line);
+		// current_line = get_next_line(fd);
+		// if (ft_forward_line(current_line) == NULL)
+		// {
+		// 	free(current_line);
+		// 	close(fd);
+		// 	return (false);
+		// }
 	}
 	free(current_line);
 	close(fd);
-	if (count_c == 0)
-		has_error = true;
 	return (has_error);
 }
 
