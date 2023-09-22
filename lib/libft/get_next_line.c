@@ -6,12 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:48:32 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/20 21:22:45 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:42:29 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 char	*ft_read_line(char *line, int fd, char *buffer)
 {
