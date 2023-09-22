@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/21 20:32:10 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:39:15 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,15 @@ bool	parse_file(char *file_path)
 		return (true);
 	}
 	printf("%s", current_line);
-	
 	while (current_line != NULL && has_error == false)
 	{
 		previous_line = current_line;
 		current_line = get_next_line(fd);
 		if (current_line == NULL)
 		{
+			if (previous_line[mat_width] == '\n')
+				return (true);
+				
 			while (i < mat_width - 1)
 			{
 				if (previous_line[i] != '1')
