@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
+/*   Updated: 2023/09/24 18:57:51 by yothmani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
@@ -37,16 +48,13 @@ void	show_grid(t_map *map)
 	char	obj;
 
 	i = 0;
-	j = 0;
-	
+	printf("\n");
 	while (i < map->height)
 	{
-			// printf("\nobj\n = %s", map->grid[i]);
-            j=0;
+		j = 0;
 		while (j < map->width)
 		{
 			obj = map->grid[i][j];
-			// printf("\nobj\n = %c", obj);
 			if (i == 0 || i == map->height - 1)
 				printf("-");
 			else if (obj == '0')
@@ -62,113 +70,119 @@ void	show_grid(t_map *map)
 	}
 }
 
-int	line_check2(char *str, t_map *mat)
+int	row_check(char *str, t_map *mat)
 {
-	size_t	i;
+	size_t	col_idx;
+	int		result;
 
-	i = 0;
+	col_idx = 0;
 	if (!str)
 		return (-1);
 	if (mat->width != real_len(str))
 		return (-2);
 	if (str[0] != '1' || str[mat->width - 1] != '1')
-	{
 		return (-8);
-	}
-	while (str[i] && i < mat->width - 1)
+	while (str[col_idx] && col_idx < mat->width - 1)
 	{
-		if (mat->height == 0 && str[i] != '1')
-			return (-9);
-		else if (str[i] == 'E')
-		{
-			if (mat->has_e)
-				return (-3);
-			else
-				mat->has_e = true;
-		}
-		else if (str[i] == 'P')
-		{
-			if (mat->has_p)
-				return (-4);
-			else
-				mat->has_p = true;
-		}
-		else if (str[i] == 'C')
-		{
-			mat->count_c = mat->count_c + 1;
-		}
-		else if (str[i] != '1' && str[i] != '0' && str[i] != '\n')
-			return (-5);
-		i++;
+		result = col_check(str, mat, mat->height, col_idx);
+		if (result < 0)
+			return (result);
+		col_idx++;
 	}
 	populate_row(str, mat->height, mat);
 	mat->height = mat->height + 1;
 	return (0);
 }
 
-bool	parse_file2(char *file_path, t_map *mat)
+int	col_check(char *str, t_map *mat, size_t row_idx, size_t col_idx)
 {
-	int		fd;
+	if (mat->height == 0 && str[col_idx] != '1')
+		return (-9);
+	else if (str[col_idx] == 'E')
+	{
+		if (mat->has_e)
+			return (-3);
+		else
+		{
+			mat->e_x = col_idx;
+			mat->e_y = row_idx;
+			mat->has_e = true;
+		}
+	}
+	else if (str[col_idx] == 'P')
+	{
+		if (mat->has_p)
+			return (-4);
+		else
+		{
+			mat->p_x = col_idx;
+			mat->p_y = row_idx;
+			mat->has_p = true;
+		}
+	}
+	else if (str[col_idx] == 'C')
+		mat->count_c = mat->count_c + 1;
+	else if (str[col_idx] != '1' && str[col_idx] != '0' && str[col_idx] != '\n')
+		return (-5);
+	return (0);
+}
+
+bool	parse_file(t_map *mat, int fd)
+{
 	char	*current_line;
 	char	*previous_line;
-	bool	has_error;
-	int		check;
-	size_t	i;
 
-	init_map(mat);
-	has_error = false;
-	i = 0;
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-	{
-		close(fd);
-		return (true);
-	}
 	current_line = get_next_line(fd);
-	if (real_len(current_line) == 0)
-	{
-		free(current_line);
-		close(fd);
-		return (true);
-	}
-	mat->width = real_len(current_line);
-	check = line_check2(current_line, mat);
-	if (check < 0)
-	{
-		free(current_line);
-		close(fd);
-		return (true);
-	}
-	// printf("%s", current_line);
-	while (current_line != NULL && has_error == false)
+	if (!check_first_line(current_line, mat, fd))
+		return (false);
+	while (current_line != NULL)
 	{
 		previous_line = current_line;
 		current_line = get_next_line(fd);
-		if (current_line == NULL)
+		if (!check_last_line(current_line, previous_line, mat, fd))
+			return (false);
+		if (row_check(current_line, mat) < 0)
 		{
-			if (previous_line[mat->width] == '\n')
-				return (true);
-			while (i < mat->width - 1)
-			{
-				if (previous_line[i] != '1')
-					return (true);
-				i++;
-			}
-			free(current_line);
-			close(fd);
-			if (mat->count_c == 0 || !mat->has_p || !mat->has_e)
-				return (true);
+			free_file(current_line, fd);
 			return (false);
 		}
-		check = line_check2(current_line, mat);
-		if (check < 0)
-		{
-			has_error = true;
-			free(current_line);
-			close(fd);
-			return (true);
-		}
-		// printf("%s", current_line);
 	}
-	return (has_error);
+	return (true);
+}
+
+bool	check_first_line(char *current_line, t_map *mat, int fd)
+{
+	if (real_len(current_line) == 0)
+	{
+		free_file(current_line, fd);
+		return (false);
+	}
+	mat->width = real_len(current_line);
+	if (row_check(current_line, mat) < 0)
+	{
+		free_file(current_line, fd);
+		return (false);
+	}
+	return (true);
+}
+
+bool	check_last_line(char *current_line, char *previous_line, t_map *mat,
+		int fd)
+{
+	if (current_line == NULL)
+	{
+		if (previous_line[mat->width] == '\n')
+			return (false);
+		while ((size_t)*previous_line < mat->width - 1)
+		{
+			if (*previous_line != '1')
+				return (false);
+			previous_line++;
+		}
+		free_file(current_line, fd);
+		if (mat->count_c == 0 || !mat->has_p || !mat->has_e)
+			return (false);
+		return (true);
+	}
+	return (true);
 }

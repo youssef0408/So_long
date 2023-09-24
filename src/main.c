@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/22 00:24:42 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:56:27 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,51 @@
 
 int	main(void)
 {
-	init_game();
-	return (0);
-}
-
-void	init_game(void)
-{
 	char	*file_name;
 	t_map	mat;
 
+	init_map(&mat);
 	file_name = "src/map.ber";
-	if (parse_file2(file_name, &mat))
-		perror("pfError\n");
-	show_grid(&mat);
+	init_game(file_name, &mat);
+	// show_grid(&mat);
+	update_game(&mat);
+	// input = show_command();
+	// printf("======%i\n", input);
+	return (0);
+}
+
+int	show_command(void)
+{
+	char	c;
+	int		asciiValue;
+
+	printf("W - UP \n");
+	printf("S - DOWN \n");
+	printf("A - LEFT \n");
+	printf("D - RIGHT \n");
+	printf("Q - Exit \n");
+	printf("Enter a character to find its ASCII value: ");
+	scanf("%c", &c);
+	asciiValue = c;
+	if (asciiValue != 87 && asciiValue != 65 && asciiValue != 83
+		&& asciiValue != 68 && asciiValue != 119 && asciiValue != 97
+		&& asciiValue != 115 && asciiValue != 100 && asciiValue != 81
+		&& asciiValue != 113)
+		return (-2);
+	return (asciiValue);
+}
+
+void	init_game(char *file_name,
+				t_map *mat)
+{
+	int	fd;
+
+	// init_map(&mat);
+	fd = open_file(file_name);
+	if (fd < 0)
+		perror("Error  Open file \n");
+	if (parse_file(mat, fd))
+		perror("Error Parsig file \n");
 }
 
 size_t	real_len(char *s)
@@ -69,15 +101,28 @@ size_t	real_len(char *s)
 // 	// generate map array
 // }
 
-void	update_game(void)
+void	update_game(t_map *mat)
 {
+	int	input;
+
 	// handle game state
 	// handle movement
 	// handle pickups
+	while (true)
+	{
+		show_grid(mat);
+		input = show_command();
+		if (input < 0)
+		{
+			perror("Error Invalid direction \n");
+		}
+		if (input == 81 || input == 113)
+			break ;
+	}
 }
 
 // int	line_check(char *str, size_t mat_width, size_t *mat_height,
-		//	int *count_c,
+//	int *count_c,
 // 		bool *has_p, bool *has_e)
 // {
 // 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/22 00:24:26 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:24:12 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ typedef struct s_map
 	bool	has_e;
 }			t_map;
 
-int			line_check2(char *str, t_map *mat);
-bool		parse_file2(char *file_path, t_map *mat);
-void	    show_grid(t_map *map);
+void		init_map(t_map *mat);
+int			row_check(char *str, t_map *mat);
+int			col_check(char *str, t_map *mat, size_t row_idx, size_t col_idx);
+bool		parse_file(t_map *mat, int fd);
+void		show_grid(t_map *map);
+bool		check_first_line(char *current_line, t_map *mat, int fd);
+bool		check_last_line(char *current_line, char *previous_line, t_map *mat,
+				int fd);
 
 #endif

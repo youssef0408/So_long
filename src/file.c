@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 17:30:44 by yothmani         ###   ########.fr       */
+/*   Created: 2023/09/24 16:01:04 by yothmani          #+#    #+#             */
+/*   Updated: 2023/09/24 16:06:28 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// up
-void	init_player_position(t_player *player, t_map map)
+int	open_file(char *file_path)
 {
-	player->x = map.p_x;
-	player->y = map.p_y;
+	int	fd;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+	{
+		close(fd);
+		return (-1);
+	}
+	return (fd);
 }
-void	move_up(t_player *player)
+
+void	free_file(char *str, int fd)
 {
-	player->y = player->y - 1;
+	free(str);
+	close(fd);
 }
-void	move_down(t_player *player)
-{
-	player->y = player->y + 1;
-}
-void	move_left(t_player *player)
-{
-	player->x = player->x - 1;
-}
-void	move_right(t_player *player)
-{
-	player->x = player->x + 1;
-}
+
