@@ -6,17 +6,18 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 20:16:30 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:34:38 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 // up
-void	init_player_position(t_player *player, t_map map)
+void	init_player(t_player *player, t_map map)
 {
 	player->x = map.p_x;
 	player->y = map.p_y;
+	player->count_c = 0;
 	 player->prev_x = -1;
 	 player->prev_y = -1;
 }

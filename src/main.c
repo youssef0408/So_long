@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 20:25:24 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:49:33 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(void)
 	init_map(&mat);
 	file_name = "src/map.ber";
 	init_game(file_name, &mat);
-	init_player_position(&player, mat);
+	init_player(&player, mat);
 	show_grid(&mat);
 	update_game(&mat, &player);
 	// input = show_command();
@@ -61,7 +61,7 @@ int	show_command(void)
 	if (asciiValue != 87 && asciiValue != 65 && asciiValue != 83
 		&& asciiValue != 68 && asciiValue != 119 && asciiValue != 97
 		&& asciiValue != 115 && asciiValue != 100 && asciiValue != 81
-		&& asciiValue != 113)
+		&& asciiValue != 113 && asciiValue != 10)
 		return (-2);
 	return (asciiValue);
 }
@@ -114,20 +114,21 @@ void	update_game(t_map *mat, t_player *player)
 	{
 		fflush(stdout);
 		input = show_command();
+		printf(" \n    Collectables  %i/%i \n", player->count_c, mat->count_c);
 		if (input < 0)
-		{
 			perror("Error Invalid direction \n");
-		}
-		if (input == 81 || input == 113)
+		else if (input == 81 || input == 113)
 			break ;
-		if (can_move(player, mat, input))
+		else if (can_move(player, mat, input))
 		{
 			show_grid(mat);
 			move(player, input);
-			mat->grid[player->y][player->x] = 'P';
+			if (mat->grid[player->y][player->x] == 'C')
+				player->count_c = player->count_c + 1;
 			if (player->prev_y > 0)
 				mat->grid[player->prev_y][player->prev_x] = '0';
 		}
+		mat->grid[player->y][player->x] = 'P';
 	}
 }
 

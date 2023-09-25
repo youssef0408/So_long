@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:07:12 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 20:10:50 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:34:46 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ typedef struct s_player
 	int	prev_x;
 	int	prev_y;
 	int	count_c;
+    
 }		t_player;
 
-void	init_player_position(t_player *player, t_map map);
+void	init_player(t_player *player, t_map map);
 
 void	move(t_player *player, int input);
 void	move_up(t_player *player);

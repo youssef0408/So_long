@@ -1,0 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    note.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
+#    Updated: 2023/09/24 20:51:34 by yothmani         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+1/ fix Exit bug
+
+2/ condition to win
+
+3/ add ascii code of directions
+
+4/ change the exit ascii code to esc
+
+5/ check norminette
+
+6/ MLX42 implementation 
