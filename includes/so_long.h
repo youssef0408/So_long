@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 18:38:59 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 19:22:12 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 
 void	init_game(char *file_name, t_map *mat);
 // bool		parse_file(char *file_path);
-void	update_game(t_map *mat);
+void	update_game(t_map *mat,t_player *player);
 int		show_command(void);
 size_t	real_len(char *s);
 // int			line_check(char *str, size_t mat_width, size_t *mat_height,

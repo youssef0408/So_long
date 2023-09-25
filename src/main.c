@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 18:56:27 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:25:24 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@
 
 int	main(void)
 {
-	char	*file_name;
-	t_map	mat;
+	char		*file_name;
+	t_map		mat;
+	t_player	player;
 
 	init_map(&mat);
 	file_name = "src/map.ber";
 	init_game(file_name, &mat);
-	// show_grid(&mat);
-	update_game(&mat);
+	init_player_position(&player, mat);
+	show_grid(&mat);
+	update_game(&mat, &player);
 	// input = show_command();
 	// printf("======%i\n", input);
 	return (0);
@@ -101,7 +103,7 @@ size_t	real_len(char *s)
 // 	// generate map array
 // }
 
-void	update_game(t_map *mat)
+void	update_game(t_map *mat, t_player *player)
 {
 	int	input;
 
@@ -110,7 +112,7 @@ void	update_game(t_map *mat)
 	// handle pickups
 	while (true)
 	{
-		show_grid(mat);
+		fflush(stdout);
 		input = show_command();
 		if (input < 0)
 		{
@@ -118,6 +120,14 @@ void	update_game(t_map *mat)
 		}
 		if (input == 81 || input == 113)
 			break ;
+		if (can_move(player, mat, input))
+		{
+			show_grid(mat);
+			move(player, input);
+			mat->grid[player->y][player->x] = 'P';
+			if (player->prev_y > 0)
+				mat->grid[player->prev_y][player->prev_x] = '0';
+		}
 	}
 }
 
