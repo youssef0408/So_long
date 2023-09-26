@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    note.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/24 20:51:34 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/26 15:10:06 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-1/ fix Exit bug
+1/ fix Exit bug ok
 
 2/ condition to win
 

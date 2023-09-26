@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 19:22:12 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:39:23 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <unistd.h>
+#include <../MLX42/include/MLX42/MLX42.h>
+
+
+#define WIDTH 512
+#define HEIGHT 512
 
 // typedef struct s_map
 // {

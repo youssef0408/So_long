@@ -6,7 +6,7 @@
 #    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/19 17:37:19 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/26 13:52:00 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,20 @@ OBJS = $(SRCS:.c=.o)
 # Chemin vers les fichiers d'en-tête
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)
 
+MLX42_DIR = MLX42
+MLX42_BUILD_DIR = $(MLX42_DIR)/build
+
+LIB_MLX = -framework Cocoa -framework OpenGL -framework IOKit $(MLX42_DIR)/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+
 # Cibles
 all: libft $(NAME)
 
 $(NAME): $(OBJS)
-	-@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
+	-@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(LIB_MLX)
+
+
+# @cd $(MLX42_DIR) && cmake -B build
+# 	@cd $(MLX42_DIR) && cmake --build build -j4
 
 %.o: %.c
 	-@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 20:34:38 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:03:23 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	init_player(t_player *player, t_map map)
 
 void	move(t_player *player, int input)
 {
+    
 	player->prev_x = player->x;
 	player->prev_y = player->y;
-    
 		if (input == 87 || input == 119)
 	{
 		move_up(player);
@@ -86,3 +86,30 @@ bool	can_move(t_player *player, t_map *map, int input)
 	}
 	return (true);
 }
+
+ 
+//ajouter la condi count_c != c
+// bool	can_move(t_player *player, t_map *map, int input)
+// {
+// 	if ((input == 87 || input == 119) &&
+// 		(map->grid[player->y - 1][player->x] == 'E'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if ((input == 115 || input == 83) &&
+// 				(map->grid[player->y + 1][player->x] == 'E'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if ((input == 97 || input == 65) &&
+// 				(map->grid[player->y][player->x - 1] == 'E'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if ((input == 100 || input == 68) &&
+// 				(map->grid[player->y][player->x + 1] == 'E'))
+// 	{
+// 		return (false);
+// 	}
+// 	return (true);
+// }
