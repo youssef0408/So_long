@@ -6,13 +6,14 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/26 13:39:23 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:36:20 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+#include <../MLX42/include/MLX42/MLX42.h>
 # include "../lib/libft/libft.h"
 # include "./file.h"
 # include "./map.h"
@@ -20,12 +21,10 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <unistd.h>
-#include <../MLX42/include/MLX42/MLX42.h>
 
 
-#define WIDTH 512
-#define HEIGHT 512
 
+#define SIZE_IMG 100
 // typedef struct s_map
 // {
 // 	size_t	height;

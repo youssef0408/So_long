@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:07:12 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 20:34:46 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:26:18 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	move_down(t_player *player);
 void	move_left(t_player *player);
 void	move_right(t_player *player);
 bool	can_move(t_player *player, t_map *map, int input);
+bool	can_exit(t_player *player, t_map *map, int input);
 #endif

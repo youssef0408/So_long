@@ -6,7 +6,7 @@
 #    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/26 13:52:00 by yothmani         ###   ########.fr        #
+#    Updated: 2023/09/28 17:57:46 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,9 @@ fclean: clean
 	-@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+leaks:
+	leaks --atExit -- ./so_long map-copy.ber
 
 .PHONY: all clean fclean re libft
 

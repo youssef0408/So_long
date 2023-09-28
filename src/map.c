@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:56 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:16:40 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,7 @@ void	init_map(t_map *mat)
 
 void	populate_row(char *str, size_t row_idx, t_map *map)
 {
-	// size_t j, i;
-	// i = 0;
-	// j = 0;
-	// while (j < map->width)
-	// {
-	// 	printf("   %c  ", str[j]);
-	// map->grid[row_idx][j] = str[j];
 	map->grid[row_idx] = str;
-	// 	j++;
-	// }
-	// while (i < map->width)
-	// {
-	// 	printf("   grid[%zu][%zu] = %c", row_idx, i, map->grid[row_idx][j]);
-	// 	i++;
-	// }
-	// printf("\n");
 }
 
 void	show_grid(t_map *map)
@@ -173,7 +158,7 @@ bool	check_last_line(char *current_line, char *previous_line, t_map *mat,
 	{
 		if (previous_line[mat->width] == '\n')
 			return (false);
-		while ((size_t)*previous_line < mat->width - 1)
+		while ((size_t)(*previous_line) < mat->width - 1)
 		{
 			if (*previous_line != '1')
 				return (false);

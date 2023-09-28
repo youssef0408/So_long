@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 17:24:12 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:30:13 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <unistd.h>
 
 typedef struct s_map
 {
@@ -23,6 +24,7 @@ typedef struct s_map
 	size_t	width;
 	char	*grid[100];
 	// char	grid[100][100];
+	char	**map_table;
 	int		p_x;
 	int		p_y;
 
@@ -33,6 +35,20 @@ typedef struct s_map
 	bool	has_p;
 	bool	has_e;
 }			t_map;
+
+typedef struct s_textures
+{
+	mlx_t* mlx;
+
+	mlx_texture_t* texture_player;
+	mlx_texture_t* texture_wall;
+	mlx_texture_t* texture_collecion;
+	mlx_texture_t* texture_exit;
+
+	mlx_image_t* img_player;
+	mlx_image_t* img_wall;
+	int type;
+}			t_textures;
 
 void		init_map(t_map *mat);
 int			row_check(char *str, t_map *mat);
