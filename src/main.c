@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/29 12:48:07 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:53:48 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,53 @@ void	ft_render_texture_img(t_map *map, t_textures *info, int x, int y)
 				* SIZE_IMG) < 0)
 			error();
 	}
+	if (map->grid[y][x] == '0')
+	{
+		if (mlx_image_to_window(info->mlx, info->img_field, x * SIZE_IMG, y
+				* SIZE_IMG) < 0)
+			error();
+	}
+	if (map->grid[y][x] == 'C')
+	{
+		if (mlx_image_to_window(info->mlx, info->img_ball, x * SIZE_IMG, y
+				* SIZE_IMG) < 0)
+			error();
+	}
+	if (map->grid[y][x] == 'E')
+	{
+		if (mlx_image_to_window(info->mlx, info->img_exit, x * SIZE_IMG, y
+				* SIZE_IMG) < 0)
+			error();
+	}
 }
 
 void	ft_create_texture(t_textures *info)
 {
 	info->texture_player = mlx_load_png("includes/chuki.png");
 	info->texture_wall = mlx_load_png("includes/wall.png");
+	info->texture_field = mlx_load_png("includes/field.png");
+	info->texture_ball = mlx_load_png("includes/ball.png");
+	info->texture_exit = mlx_load_png("includes/Exit.png");
 	if (!info->texture_player)
 		error();
 	if (!info->texture_wall)
 		error();
+	if (!info->texture_field)
+		error();
+	if (!info->texture_ball)
+		error();
+	if (!info->texture_exit)
+		error();
 	info->img_player = mlx_texture_to_image(info->mlx, info->texture_player);
 	info->img_wall = mlx_texture_to_image(info->mlx, info->texture_wall);
-	mlx_resize_image(info->img_player, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(info->img_wall, SIZE_IMG, SIZE_IMG);
+	info->img_field = mlx_texture_to_image(info->mlx, info->texture_field);
+	info->img_ball = mlx_texture_to_image(info->mlx, info->texture_ball);
+	info->img_exit = mlx_texture_to_image(info->mlx, info->texture_exit);
+	mlx_resize_image(info->img_player, SIZE_IMG,  SIZE_IMG);
+	mlx_resize_image(info->img_wall, SIZE_IMG,  SIZE_IMG);
+	mlx_resize_image(info->img_field, SIZE_IMG,  SIZE_IMG);
+	mlx_resize_image(info->img_ball, SIZE_IMG,  SIZE_IMG);
+	mlx_resize_image(info->img_exit, SIZE_IMG,   SIZE_IMG);
 }
 
 void	ft_render_winwow(t_map *map)
@@ -51,8 +84,7 @@ void	ft_render_winwow(t_map *map)
 	t_textures	info;
 
 	// t_textures *info;
-	if (!(info.mlx = mlx_init((map->width) * SIZE_IMG, map->height * SIZE_IMG,
-				"MLX42", false)))
+	if (!(info.mlx = mlx_init((map->width) * SIZE_IMG, map->height * SIZE_IMG, "MLX42", true)))
 	{
 		puts(mlx_strerror(10));
 		return ;
@@ -72,50 +104,10 @@ void	ft_render_winwow(t_map *map)
 	mlx_loop(info.mlx);
 	mlx_delete_texture(info.texture_player);
 	mlx_delete_texture(info.texture_wall);
+	mlx_delete_texture(info.texture_field);
+	mlx_delete_texture(info.texture_ball);
+	mlx_delete_texture(info.texture_exit);
 }
-
-// int	main(void)
-// {
-// 	mlx_t* mlx;
-// 	mlx_texture_t* texture_player;
-// 	mlx_texture_t* texture_wall;
-
-// 	mlx_image_t* img_player;
-// 	mlx_image_t* img_wall;
-
-// 	if (!(mlx = mlx_init(500, 200, "MLX42", false)))
-// 	{
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-
-// 	texture_player = mlx_load_png("includes/chuki.png");
-// 	texture_wall = mlx_load_png("includes/wall.png");
-
-// 	if (!texture_player)
-// 			error();
-// 	if (!texture_wall)
-// 			error();
-
-// 	img_player= mlx_texture_to_image(mlx, texture_player);
-// 	img_wall= mlx_texture_to_image(mlx, texture_wall);
-
-// 	mlx_resize_image(img_player, 100, 100);
-// 	mlx_resize_image(img_wall, 100, 100);
-
-// 	if (mlx_image_to_window(mlx, img_wall, 0, 0) < 0)
-// 			error();
-// 	if (mlx_image_to_window(mlx, img_wall, 100, 0) < 0)
-// 			error();
-// 	if (mlx_image_to_window(mlx, img_player, 200, 0) < 0)
-// 			error();
-// 	mlx_loop(mlx);
-
-// 	mlx_delete_texture(texture_player);
-// 	mlx_delete_texture(texture_wall);
-// 	mlx_terminate(mlx);
-// 	return (EXIT_SUCCESS);
-// }
 
 int	show_command(void)
 {
@@ -127,7 +119,7 @@ int	show_command(void)
 	printf("A / ◀️		- LEFT \n");
 	printf("D / ▶️ 		- RIGHT \n");
 	printf("Esc       - Exit \n");
-	printf("choose a direction : ");
+	printf("choose a direction : \n");
 	scanf("%c", &c);
 	command = c;
 	if (command != 'w' && command != 'W' && command != 'A' && command != 'a'
@@ -146,9 +138,9 @@ void	init_game(char *file_name, t_map *mat)
 
 	fd = open_file(file_name);
 	if (fd < 0)
-		perror("Error  Open file \n");
+		perror("Error openning file \n");
 	if (parse_file(mat, fd))
-		perror("Error Parsig file \n");
+		perror("Error Parsing file \n");
 }
 
 size_t	real_len(char *s)
@@ -208,7 +200,7 @@ char	**ft_create_render_map(t_map *mat, int fd)
 	char	*str;
 	int		i;
 
-	table = ft_calloc(sizeof(char *), (mat->height + 1)); //hight
+	table = ft_calloc(sizeof(char *), (mat->height + 1)); //height
 	i = 0;
 	str = get_next_line(fd);
 	while (str)
@@ -219,7 +211,6 @@ char	**ft_create_render_map(t_map *mat, int fd)
 	}
 	return (table);
 }
-
 
 int	main(void)
 {
@@ -233,10 +224,10 @@ int	main(void)
 	init_map(&mat);
 	init_game(file_name, &mat);
 	init_player(&player, mat);
+	update_game(&mat, &player);
 	// show_grid(&mat);
 	//  input = show_command();
 	//  printf("======%i\n", input);
-	update_game(&mat, &player);
 	// fd = open(file_name, O_RDONLY);
 	// mat.grid = ft_create_render_map(&mat, fd);
 	// close(fd);

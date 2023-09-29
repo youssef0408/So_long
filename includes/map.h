@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/28 20:21:58 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:16:36 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_map
 	// char	**grid;
 	char	*grid[100];
 	// char	grid[100][100];
-	 char	**map_table;
+	// char	**map_table;
 	int		p_x;
 	int		p_y;
 
@@ -43,11 +43,15 @@ typedef struct s_textures
 
 	mlx_texture_t* texture_player;
 	mlx_texture_t* texture_wall;
-	mlx_texture_t* texture_collecion;
+	mlx_texture_t* texture_field;
+	mlx_texture_t* texture_ball;
 	mlx_texture_t* texture_exit;
 
 	mlx_image_t* img_player;
 	mlx_image_t* img_wall;
+	mlx_image_t* img_field;
+	mlx_image_t* img_ball;
+	mlx_image_t* img_exit;
 	int type;
 }			t_textures;
 

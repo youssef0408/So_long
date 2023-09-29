@@ -3,25 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/28 20:21:18 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:19:57 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* 
-str = qwerty
- str[0]=q
- str[1]=w
- str[2]=e
-
-
- tab[0]= qwerty
- tab[1]=asdfgh
- tab[2]= mzxcvb
-
-*/
 
 #include "so_long.h"
 
@@ -32,7 +19,6 @@ void	init_map(t_map *mat)
 	mat->has_p = false;
 	mat->has_e = false;
 	mat->count_c = 0;
-	// mat->grid = ft_calloc(sizeof(char *), (1));
 }
 
 void	populate_row(char *str, size_t row_idx, t_map *map)
