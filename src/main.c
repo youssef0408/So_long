@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/28 20:56:21 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:48:07 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ char	**ft_create_render_map(t_map *mat, int fd)
 	}
 	return (table);
 }
-// map_table
+
 
 int	main(void)
 {
