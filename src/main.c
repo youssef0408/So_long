@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/29 16:53:48 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:23:26 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,10 @@ size_t	real_len(char *s)
 void	update_game(t_map *mat, t_player *player)
 {
 	int	input;
-
+	t_textures info;
 	while (true)
 	{
+		// mlx_key_hook(info.mlx, &move, NULL);
 		system("clear");
 		printf(" \n    Collectables  %i/%i \n", player->count_c, mat->count_c);
 		// show_grid(mat);
