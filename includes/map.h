@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/28 18:30:13 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:21:58 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ typedef struct s_map
 {
 	size_t	height;
 	size_t	width;
+	// char	**grid;
 	char	*grid[100];
 	// char	grid[100][100];
-	char	**map_table;
+	 char	**map_table;
 	int		p_x;
 	int		p_y;
 
