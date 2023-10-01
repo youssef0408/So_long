@@ -3,21 +3,22 @@
 #                                                         :::      ::::::::    #
 #    note.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/28 15:17:11 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/01 02:03:12 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-1/ fix Exit bug ok
-
-2/ condition to win ok
-
-3/ add ascii code of directions (MLX42.h)
-
-4/ change the exit ascii code to esc ok 
-
-5/ check norminette ok
-
-6/ MLX42 implementation ok
+1/ make enemy move manual with ijkl keys or keyboard arrows 
+2/ fix duplicating enemy bug
+3/ fix enemy and collectibales condition
+4/ add losing conditions ((if M == P || enemy->count_c > player count_c) && 
+player->count_c + enemy->count =  map->count_c)
+5/ display the number of movments
+6/ change the exit condition (if we have 2 count_c (player and enemy) and 
+the total of count_c is equal to the ma->count_c, then, can exit)
+7/verify the parsing part(test every example given in the subject)
+8/update player and enemy images
+9/ include mlx keyboard 
+10/ check Leaks, seg faults, modify the error messages and returns, check the code norms (norminette)

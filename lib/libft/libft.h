@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:11:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/24 18:18:08 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:24:06 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strrchr(const char *s, int c);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
-int					ft_atoi( char *str);
+int					ft_atoi(char *str);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 void				*ft_calloc(size_t count, size_t size);
@@ -83,5 +83,6 @@ char				*get_next_line(int fd);
 char				*ft_read_line(char *line, int fd, char *buffer);
 char				*ft_forward_line(char *line);
 size_t				ft_line_len(char *str);
+size_t				real_len(char *s);
 
 #endif
