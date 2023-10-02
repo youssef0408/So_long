@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/01 17:51:45 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:00:45 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,15 @@ void	move_auto(t_player *enemy, t_map *map, int input)
 {
 	bool	has_moved;
 
-	//input = 1;
 	has_moved = false;
 	enemy->prev_x = enemy->x;
 	enemy->prev_y = enemy->y;
+	input = 1;
 	printf("unput   %i\n", input);
-		printf(" 0 up pos   %c\n", map->grid[enemy->y - 1][enemy->x]);
-		printf(" 1 down pos   %c\n", map->grid[enemy->y + 1][enemy->x]);
-		printf(" 2 left pos   %c\n", map->grid[enemy->y][enemy->x - 1]);
-		printf(" 3 right pos  %c\n", map->grid[enemy->y][enemy->x + 1]);
-	// printf("cel   %c\n", map->grid[enemy->y + 1][enemy->x]);
+	printf(" 0 up pos   %c\n", map->grid[enemy->y - 1][enemy->x]);
+	printf(" 1 down pos   %c\n", map->grid[enemy->y + 1][enemy->x]);
+	printf(" 2 left pos   %c\n", map->grid[enemy->y][enemy->x - 1]);
+	printf(" 3 right pos  %c\n", map->grid[enemy->y][enemy->x + 1]);
 	if (input == 0 && map->grid[enemy->y - 1][enemy->x] != '1'
 		&& map->grid[enemy->y - 1][enemy->x] != 'C' && map->grid[enemy->y
 		- 1][enemy->x] != 'E')
@@ -148,8 +147,8 @@ bool	can_move(t_player *player, t_map *map, int input)
 	{
 		return (false);
 	}
-	// else if (can_exit(player, map, input) == false)
-	//
+	else if (can_exit(player, map, input) == false)
+		return (false);
 	return (true);
 }
 

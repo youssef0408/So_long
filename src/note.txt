@@ -3,21 +3,19 @@
 #                                                         :::      ::::::::    #
 #    note.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/01 16:51:06 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/02 16:02:05 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 1/ make enemy move manual with ijkl keys or keyboard arrows 
-2/ fix duplicating enemy bug
-3/ fix enemy and collectibales condition
-4/ add losing conditions ((if M == P || enemy->count_c > player count_c) && 
-player->count_c + enemy->count =  map->count_c)
-5/ display the number of movments
-6/ change the exit condition (if we have 2 count_c (player and enemy) and 
-the total of count_c is equal to the ma->count_c, then, can exit)
+2/ fix duplicating enemy bug ok 
+3/ fix enemy and collectibales condition  ok
+4/ add losing conditions (if M == P )  ok
+5/ display the number of movments  ok
+6/ can exit   ok
 7/verify the parsing part(test every example given in the subject)
 8/update player and enemy images
 9/ include mlx keyboard 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   console.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/01 17:46:20 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/02 17:05:01 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,49 +35,129 @@ int	show_command(void)
 	return (command);
 }
 
-void	update_game(t_map *mat, t_player *player, t_player *enemy)
-{
-	int		input;
-	int		input_e;
-	time_t	t;
+// void	update_game(t_map *mat, t_player *player, t_player *enemy)
+// {
+// 	int		input;
+// 	int		input_e;
+// 	time_t	t;
 
+// 	int	move_count;
+// 	srand((unsigned)time(&t));
+// 	// t_textures info;
+// 	move_count = 0;
+// 	while (true)
+// 	{
+// 		// mlx_key_hook(info.mlx, &move, NULL);
+// 		system("clear");
+// 		printf(" \n    Collectables  %i/%i \n", player->count_c, mat->count_c);
+// 		printf(" \n   your current moves are  %i moves \n", move_count);
+// 		show_grid(mat);
+// 		input_e = rand() % 5;
+// 		move_auto(enemy, mat, input_e);
+// 		// ft_render_winwow(mat);
+// 		input = show_command();
+// 		// exit game
+// 		if (input == 27)
+// 			break ;
+// 		if (can_move(player, mat, input))
+// 		{
+// 			move(player, input);
+// 			// move_count++;
+// 		}
+// 		if (mat->grid[player->y][player->x] == 'C')
+// 		{
+// 			player->count_c = player->count_c + 1;
+// 			move_count++;
+// 		}
+// 		else if (mat->grid[player->y][player->x] == 'E'
+// 				&& player->count_c == mat->count_c)
+// 		{
+// 			move_count++;
+// 			printf("you won!\n");
+// 			break ;
+// 		}
+// 		else if (mat->grid[player->y][player->x] == mat->grid[enemy->y][enemy->x])
+// 		{
+// 			printf("you Lost!\n");
+// 			move_count++;
+// 			break ;
+// 		}
+// 		else if (mat->grid[player->y][player->x] == '0')
+// 			move_count++;
+// 		// move_count++;
+
+// 		if (player->prev_y >= 0)
+// 			mat->grid[player->prev_y][player->prev_x] = '0';
+// 		// if (enemy->prev_y >= 0)
+// 		// 	mat->grid[enemy->prev_y][enemy->prev_x] = '0';
+// 		mat->grid[player->y][player->x] = 'P';
+// 		// mat->grid[enemy->y][enemy->x] = '*';
+// 	}
+// }
+
+// static void	ft_error(void)
+// {
+// 	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+// 	exit(EXIT_FAILURE);
+// }
+
+
+
+
+
+
+
+
+void	update_game(t_map *map, t_player *player, t_player *enemy)
+{
+	int			input;
+	int			input_e;
+	int			move_count;
+	 time_t		t;
+
+	 
 	srand((unsigned)time(&t));
-	// t_textures info;
-	while (true)
-	{
-		// mlx_key_hook(info.mlx, &move, NULL);
-		system("clear");
-		printf(" \n    Collectables  %i/%i \n", player->count_c, mat->count_c);
-		show_grid(mat);
-		input_e = rand() % 4;
-		move_auto(enemy, mat, input_e);
-		// ft_render_winwow(mat);
-		input = show_command();
-		// exit game
-		if (input == 27)
-			break ;
-		if (can_move(player, mat, input))
-		{
+	move_count = 0;
+	system("clear");
+	printf(" \n    Collectables  %i/%i \n", player->count_c, map->count_c);
+	printf(" \n   your current moves are  %i moves \n", move_count);
+	// show_grid(map);
+	input_e = rand() % 4;
+	move_auto(enemy, map, input_e);
+	// ft_render_winwow(map);
+	input = show_command();
+	// exit game
+	if (input == 27)
+		exit(0);
+		// break ;
+		if (can_move(player, map, input))
 			move(player, input);
-		}
-		if (mat->grid[player->y][player->x] == 'C')
-			player->count_c = player->count_c + 1;
-		else if (mat->grid[player->y][player->x] == 'E'
-				&& player->count_c == mat->count_c)
-		{
-			printf("you won!\n");
-			break ;
-		}
-		else if (mat->grid[player->y][player->x] == 'M')
-		{
-			printf("you Lost!\n");
-			break ;
-		}
-		if (player->prev_y >= 0)
-			mat->grid[player->prev_y][player->prev_x] = '0';
-		// if (enemy->prev_y >= 0)
-		// 	mat->grid[enemy->prev_y][enemy->prev_x] = '0';
-		mat->grid[player->y][player->x] = 'P';
-		// mat->grid[enemy->y][enemy->x] = '*';
+	if (map->grid[player->y][player->x] == 'C')
+	{
+		player->count_c = player->count_c + 1;
+		move_count++;
 	}
+	else if (map->grid[player->y][player->x] == 'E'
+			&& player->count_c == map->count_c)
+	{
+		move_count++;
+		printf("you won!\n");
+		exit(0);
+		// break ;
+	}
+	else if (map->grid[player->y][player->x] == map->grid[enemy->y][enemy->x])
+	{
+		printf("you Lost!\n");
+		move_count++;
+		exit(0);
+		// break ;
+	}
+	else if (map->grid[player->y][player->x] == '0')
+		move_count++;
+	if (player->prev_y >= 0)
+		map->grid[player->prev_y][player->prev_x] = '0';
+	if (enemy->prev_y >= 0)
+		map->grid[enemy->prev_y][enemy->prev_x] = '0';
+	map->grid[player->y][player->x] = 'P';
+	map->grid[enemy->y][enemy->x] = '*';
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/30 20:37:43 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:11:37 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ static void	error(void)
 	exit(EXIT_FAILURE);
 }
 
+
 void	ft_create_texture(t_textures *info)
 {
-	info->texture_player = mlx_load_png("includes/chuki.png");
-	info->texture_wall = mlx_load_png("includes/wall.png");
-	info->texture_field = mlx_load_png("includes/field.png");
-	info->texture_ball = mlx_load_png("includes/ball.png");
-	info->texture_exit = mlx_load_png("includes/Exit.png");
+	info->texture_player = mlx_load_png("includes/textures/chuki.png");
+	info->texture_wall = mlx_load_png("includes/textures/wall.png");
+	info->texture_field = mlx_load_png("includes/textures/field.png");
+	info->texture_ball = mlx_load_png("includes/textures/ball.png");
+	info->texture_exit = mlx_load_png("includes/textures/Exit.png");
 	if (!info->texture_player)
 		error();
 	if (!info->texture_wall)
@@ -53,9 +54,7 @@ void	ft_render_winwow(t_map *map)
 	size_t		y;
 	t_textures	info;
 
-	// t_textures *info;
-	if (!(info.mlx = mlx_init((map->width) * SIZE_IMG, map->height * SIZE_IMG,
-				"MLX42", true)))
+	if (!(info.mlx = mlx_init((map->width) * SIZE_IMG, map->height * SIZE_IMG,"so_long", false)))
 	{
 		puts(mlx_strerror(10));
 		return ;
@@ -72,13 +71,16 @@ void	ft_render_winwow(t_map *map)
 		}
 		y++;
 	}
+	mlx_key_hook(info.mlx, key_hook, NULL);
 	mlx_loop(info.mlx);
-	mlx_delete_texture(info.texture_player);
-	mlx_delete_texture(info.texture_wall);
-	mlx_delete_texture(info.texture_field);
-	mlx_delete_texture(info.texture_ball);
-	mlx_delete_texture(info.texture_exit);
+	// mlx_delete_texture(info.texture_player);
+	// mlx_delete_texture(info.texture_wall);
+	// mlx_delete_texture(info.texture_field);
+	// mlx_delete_texture(info.texture_ball);
+	// mlx_delete_texture(info.texture_exit);
+	mlx_terminate(info.mlx);
 }
+
 void	ft_render_texture_img(t_map *map, t_textures *info, int x, int y)
 {
 	if (map->grid[y][x] == '1')
@@ -129,4 +131,38 @@ char	**ft_create_render_map(t_map *mat, int fd)
 		i++;
 	}
 	return (table);
+}
+
+
+
+
+t_player	*get_player(void)
+{
+	static t_player	player;
+	return(&player);
+}
+
+
+void	key_hook(mlx_key_data_t keydata, void* param)
+{
+	t_player	*player;
+	(void)param;
+	player = get_player();
+		printf("hi");
+	if (keydata.key == 87 || keydata.key == 119)
+	{
+		move_up(player);
+	}
+	else if (keydata.key == 115 || keydata.key == 83)
+	{
+		move_down(player);
+	}
+	else if (keydata.key == 97 || keydata.key == 65)
+	{
+		move_left(player);
+	}
+	else if (keydata.key == 100 || keydata.key == 68)
+	{
+		move_right(player);
+	}
 }
