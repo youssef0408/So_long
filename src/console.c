@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/01 01:39:09 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:46:20 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,36 @@ void	update_game(t_map *mat, t_player *player, t_player *enemy)
 		// mlx_key_hook(info.mlx, &move, NULL);
 		system("clear");
 		printf(" \n    Collectables  %i/%i \n", player->count_c, mat->count_c);
+		show_grid(mat);
 		input_e = rand() % 4;
 		move_auto(enemy, mat, input_e);
-		show_grid(mat);
 		// ft_render_winwow(mat);
 		input = show_command();
-		if (input < 0)
-			perror("Error Invalid direction \n");
-		else if (input == 27)
+		// exit game
+		if (input == 27)
 			break ;
-		else if (can_move(player, mat, input))
+		if (can_move(player, mat, input))
 		{
 			move(player, input);
-			if (mat->grid[player->y][player->x] == 'E')
-			{
-				printf("you won!\n");
-				break ;
-			}
-			if ( mat->grid[player->y][player->x] == 'M')
-			{
-				printf("you Lost!\n");
-				break ;
-			}
-			if (mat->grid[player->y][player->x] == 'C')
-				player->count_c = player->count_c + 1;
-			if (player->prev_y > 0)
-				mat->grid[player->prev_y][player->prev_x] = '0';
-			if (enemy->prev_y > 0)
-				mat->grid[enemy->prev_y][enemy->prev_x] = '0';
 		}
+		if (mat->grid[player->y][player->x] == 'C')
+			player->count_c = player->count_c + 1;
+		else if (mat->grid[player->y][player->x] == 'E'
+				&& player->count_c == mat->count_c)
+		{
+			printf("you won!\n");
+			break ;
+		}
+		else if (mat->grid[player->y][player->x] == 'M')
+		{
+			printf("you Lost!\n");
+			break ;
+		}
+		if (player->prev_y >= 0)
+			mat->grid[player->prev_y][player->prev_x] = '0';
+		// if (enemy->prev_y >= 0)
+		// 	mat->grid[enemy->prev_y][enemy->prev_x] = '0';
 		mat->grid[player->y][player->x] = 'P';
-		mat->grid[enemy->y][enemy->x] = '*';
+		// mat->grid[enemy->y][enemy->x] = '*';
 	}
 }

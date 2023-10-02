@@ -6,7 +6,7 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/01 02:03:12 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/01 16:51:06 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,3 +22,4 @@ the total of count_c is equal to the ma->count_c, then, can exit)
 8/update player and enemy images
 9/ include mlx keyboard 
 10/ check Leaks, seg faults, modify the error messages and returns, check the code norms (norminette)
+11/ ENEMY IS COVID 19

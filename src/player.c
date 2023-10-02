@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/01 01:43:35 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:51:45 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,52 @@ void	move(t_player *player, int input)
 	}
 }
 
-void	move_auto(t_player *player, t_map *map, int input)
+void	move_auto(t_player *enemy, t_map *map, int input)
 {
-	player->prev_x = player->x;
-	player->prev_y = player->y;
-	printf("%i", input);
-	if (input == 0)
+	bool	has_moved;
+
+	//input = 1;
+	has_moved = false;
+	enemy->prev_x = enemy->x;
+	enemy->prev_y = enemy->y;
+	printf("unput   %i\n", input);
+		printf(" 0 up pos   %c\n", map->grid[enemy->y - 1][enemy->x]);
+		printf(" 1 down pos   %c\n", map->grid[enemy->y + 1][enemy->x]);
+		printf(" 2 left pos   %c\n", map->grid[enemy->y][enemy->x - 1]);
+		printf(" 3 right pos  %c\n", map->grid[enemy->y][enemy->x + 1]);
+	// printf("cel   %c\n", map->grid[enemy->y + 1][enemy->x]);
+	if (input == 0 && map->grid[enemy->y - 1][enemy->x] != '1'
+		&& map->grid[enemy->y - 1][enemy->x] != 'C' && map->grid[enemy->y
+		- 1][enemy->x] != 'E')
 	{
-		if ((map->grid[player->y - 1][player->x] != '1'))
-			move_up(player);
-		map->grid[player->prev_y][player->prev_x] = map->grid[player->prev_y][player->prev_x];
+		move_up(enemy);
+		has_moved = true;
 	}
-	else if (input == 1 && map->grid[player->y + 1][player->x] != '1')
+	else if (input == 1 && map->grid[enemy->y + 1][enemy->x] != '1'
+			&& map->grid[enemy->y + 1][enemy->x] == 'C' &&
+				map->grid[enemy->y + 1][enemy->x] != 'E')
 	{
-		if ((map->grid[player->y + 1][player->x] != '1'))
-			move_down(player);
-		map->grid[player->prev_y][player->prev_x] = map->grid[player->prev_y][player->prev_x];
+		move_down(enemy);
+		has_moved = true;
 	}
-	else if (input == 2 && map->grid[player->y][player->x - 1] != '1')
+	else if (input == 2 && map->grid[enemy->y][enemy->x - 1] != '1'
+			&& map->grid[enemy->y][enemy->x - 1] != 'C' &&
+				map->grid[enemy->y][enemy->x - 1] != 'E')
 	{
-		if ((map->grid[player->y][player->x - 1] != '1'))
-			move_left(player);
-		map->grid[player->prev_y][player->prev_x] = map->grid[player->prev_y][player->prev_x];
+		move_left(enemy);
+		has_moved = true;
 	}
-	else if (input == 3 && map->grid[player->y][player->x + 1] != '1')
+	else if (input == 3 && map->grid[enemy->y][enemy->x + 1] != '1'
+			&& map->grid[enemy->y][enemy->x + 1] != 'C'
+			&& map->grid[enemy->y][enemy->x + 1] != 'E')
 	{
-		if ((map->grid[player->y][player->x + 1] != '1'))
-			move_right(player);
-		map->grid[player->prev_y][player->prev_x] = map->grid[player->prev_y][player->prev_x];
+		move_right(enemy);
+		has_moved = true;
+	}
+	if (has_moved)
+	{
+		map->grid[enemy->prev_y][enemy->prev_x] = '0';
+		map->grid[enemy->y][enemy->x] = '*';
 	}
 }
 
@@ -105,8 +123,13 @@ void	move_right(t_player *player)
 
 bool	can_move(t_player *player, t_map *map, int input)
 {
-	if ((input == 87 || input == 119) && (map->grid[player->y
-			- 1][player->x] == '1'))
+	if (input < 0)
+	{
+		perror("Error Invalid direction \n");
+		return (false);
+	}
+	else if ((input == 87 || input == 119) && (map->grid[player->y
+				- 1][player->x] == '1'))
 	{
 		return (false);
 	}
@@ -125,8 +148,8 @@ bool	can_move(t_player *player, t_map *map, int input)
 	{
 		return (false);
 	}
-	else if (can_exit(player, map, input) == false)
-		return (false);
+	// else if (can_exit(player, map, input) == false)
+	//
 	return (true);
 }
 
