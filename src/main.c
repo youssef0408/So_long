@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/02 18:08:52 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:11:30 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	init_game(char *file_name, t_map *mat)
 // 	t_map		mat;
 // 	t_player	player;
 // 	t_player	enemy;
-	
+
 // 	file_name = "src/map.ber";
 // 	init_map(&mat);
-	
+
 // 	init_game(file_name, &mat);
 // 	init_player(&player, mat.p_x, mat.p_y);
 // 	init_player(&enemy, mat.m_x, mat.m_y);
@@ -46,23 +46,24 @@ void	init_game(char *file_name, t_map *mat)
 // 	exit(EXIT_FAILURE);
 // }
 
-
 int	main(void)
 {
-	char		*file_name;
-	t_map		map;
-	t_player	*player;
-	t_player	enemy;
-	
-	player = get_player();
-	
+	char *file_name;
+	// t_map map;
+	// t_player *player;
+	// t_player enemy;
+
+	t_game game;
+
+	// game.map = map;
+	// game.texture = info
+
+
 	file_name = "src/map.ber";
-	init_map(&map);
-	init_game(file_name, &map);
-	init_player(player, map.p_x, map.p_y);
-	init_player(&enemy, map.p_x, map.p_y);
-	
-	ft_render_winwow(&map);
-	update_game(&map, player, &enemy);
-	return(EXIT_SUCCESS);
+	init_map(game.map);
+	init_game(file_name, game.map);
+
+	play_game(&game);
+
+	return (EXIT_SUCCESS);
 }

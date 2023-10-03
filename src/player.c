@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/02 16:00:45 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:29:38 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,79 +120,79 @@ void	move_right(t_player *player)
 	player->x = player->x + 1;
 }
 
-bool	can_move(t_player *player, t_map *map, int input)
-{
-	if (input < 0)
-	{
-		perror("Error Invalid direction \n");
-		return (false);
-	}
-	else if ((input == 87 || input == 119) && (map->grid[player->y
-				- 1][player->x] == '1'))
-	{
-		return (false);
-	}
-	else if ((input == 115 || input == 83) && (map->grid[player->y
-				+ 1][player->x] == '1'))
-	{
-		return (false);
-	}
-	else if ((input == 97 || input == 65) && (map->grid[player->y][player->x
-				- 1] == '1'))
-	{
-		return (false);
-	}
-	else if ((input == 100 || input == 68) && (map->grid[player->y][player->x
-				+ 1] == '1'))
-	{
-		return (false);
-	}
-	else if (can_exit(player, map, input) == false)
-		return (false);
-	return (true);
-}
+// bool	can_move(t_player *player, t_map *map, int input)
+// {
+// 	if (input < 0)
+// 	{
+// 		perror("Error Invalid direction \n");
+// 		return (false);
+// 	}
+// 	else if ((input == 87 || input == 119) && (map->grid[player->y
+// 				- 1][player->x] == '1'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if ((input == 115 || input == 83) && (map->grid[player->y
+// 				+ 1][player->x] == '1'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if ((input == 97 || input == 65) && (map->grid[player->y][player->x
+// 				- 1] == '1'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if ((input == 100 || input == 68) && (map->grid[player->y][player->x
+// 				+ 1] == '1'))
+// 	{
+// 		return (false);
+// 	}
+// 	else if (can_exit(player, map, input) == false)
+// 		return (false);
+// 	return (true);
+// }
 
-bool	can_exit(t_player *player, t_map *map, int input)
-{
-	if ((input == 87 || input == 119) && (map->grid[player->y
-			- 1][player->x] == 'E'))
-	{
-		if (player->count_c < map->count_c)
-		{
-			perror("you can't exit the game without all the colectables!\n");
-			return (false);
-		}
-		return (true);
-	}
-	else if ((input == 115 || input == 83) && (map->grid[player->y
-				+ 1][player->x] == 'E'))
-	{
-		if (player->count_c < map->count_c)
-		{
-			perror("you can't exit the game without all the colectables!\n");
-			return (false);
-		}
-		return (true);
-	}
-	else if ((input == 97 || input == 65) && (map->grid[player->y][player->x
-				- 1] == 'E'))
-	{
-		if (player->count_c < map->count_c)
-		{
-			perror("you can't exit the game without all the colectables!\n");
-			return (false);
-		}
-		return (true);
-	}
-	else if ((input == 100 || input == 68) && (map->grid[player->y][player->x
-				+ 1] == 'E'))
-	{
-		if (player->count_c < map->count_c)
-		{
-			perror("you can't exit the game without all the colectables!\n");
-			return (false);
-		}
-		return (true);
-	}
-	return (true);
-}
+// bool	can_exit(t_player *player, t_map *map, int input)
+// {
+// 	if ((input == 87 || input == 119) && (map->grid[player->y
+// 			- 1][player->x] == 'E'))
+// 	{
+// 		if (player->count_c < map->count_c)
+// 		{
+// 			perror("you can't exit the game without all the colectables!\n");
+// 			return (false);
+// 		}
+// 		return (true);
+// 	}
+// 	else if ((input == 115 || input == 83) && (map->grid[player->y
+// 				+ 1][player->x] == 'E'))
+// 	{
+// 		if (player->count_c < map->count_c)
+// 		{
+// 			perror("you can't exit the game without all the colectables!\n");
+// 			return (false);
+// 		}
+// 		return (true);
+// 	}
+// 	else if ((input == 97 || input == 65) && (map->grid[player->y][player->x
+// 				- 1] == 'E'))
+// 	{
+// 		if (player->count_c < map->count_c)
+// 		{
+// 			perror("you can't exit the game without all the colectables!\n");
+// 			return (false);
+// 		}
+// 		return (true);
+// 	}
+// 	else if ((input == 100 || input == 68) && (map->grid[player->y][player->x
+// 				+ 1] == 'E'))
+// 	{
+// 		if (player->count_c < map->count_c)
+// 		{
+// 			perror("you can't exit the game without all the colectables!\n");
+// 			return (false);
+// 		}
+// 		return (true);
+// 	}
+// 	return (true);
+// }

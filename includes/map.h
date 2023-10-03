@@ -6,13 +6,14 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/01 01:13:54 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:20:39 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
+# include "player.h"
 # include <fcntl.h>
 # include <stdbool.h>
 # include <unistd.h>
@@ -41,7 +42,6 @@ typedef struct s_map
 typedef struct s_textures
 {
 	mlx_t			*mlx;
-
 	mlx_texture_t	*texture_player;
 	mlx_texture_t	*texture_wall;
 	mlx_texture_t	*texture_field;
@@ -55,6 +55,14 @@ typedef struct s_textures
 	mlx_image_t		*img_exit;
 	int				type;
 }					t_textures;
+
+typedef struct s_game
+{
+	mlx_t			*mlx;
+	t_map			*map;
+	t_textures		*texture;
+	t_player		*player;
+}					t_game;
 
 void				init_map(t_map *mat);
 int					row_check(char *str, t_map *mat);
