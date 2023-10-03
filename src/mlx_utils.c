@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 12:28:05 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:56:37 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,55 +18,60 @@ static void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_create_texture(t_textures *texture)
+void	ft_create_texture(t_textures *texture, mlx_t	*mlx)
 {
-	texture->texture_player = mlx_load_png("includes/textures/chuki.png");
+	
+	texture->texture_player = mlx_load_png("includes/textures/player.png");
 	texture->texture_wall = mlx_load_png("includes/textures/wall.png");
-	texture->texture_field = mlx_load_png("includes/textures/field.png");
-	texture->texture_ball = mlx_load_png("includes/textures/ball.png");
-	texture->texture_exit = mlx_load_png("includes/textures/Exit.png");
+	texture->texture_floor = mlx_load_png("includes/textures/floor.png");
+	texture->texture_collectables = mlx_load_png("includes/textures/collectables.png");
+	texture->texture_exit = mlx_load_png("includes/textures/EmergenyExit.png");
+	texture->texture_ennemy = mlx_load_png("includes/textures/ennemy.png");
 	if (!texture->texture_player)
 		error();
 	if (!texture->texture_wall)
 		error();
-	if (!texture->texture_field)
+	if (!texture->texture_floor)
 		error();
-	if (!texture->texture_ball)
+	if (!texture->texture_collectables)
 		error();
 	if (!texture->texture_exit)
 		error();
-	texture->img_player = mlx_texture_to_image(texture->mlx, texture->texture_player);
-	texture->img_wall = mlx_texture_to_image(texture->mlx, texture->texture_wall);
-	texture->img_field = mlx_texture_to_image(texture->mlx, texture->texture_field);
-	texture->img_ball = mlx_texture_to_image(texture->mlx, texture->texture_ball);
-	texture->img_exit = mlx_texture_to_image(texture->mlx, texture->texture_exit);
+	if (!texture->texture_ennemy)
+		error();
+	texture->img_player = mlx_texture_to_image(mlx, texture->texture_player);
+	texture->img_wall = mlx_texture_to_image(mlx, texture->texture_wall);
+	texture->img_floor = mlx_texture_to_image(mlx, texture->texture_floor);
+	texture->img_collectables = mlx_texture_to_image(mlx, texture->texture_collectables);
+	texture->img_exit = mlx_texture_to_image(mlx, texture->texture_exit);
+	texture->img_ennemy = mlx_texture_to_image(mlx, texture->texture_ennemy);
 	mlx_resize_image(texture->img_player, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(texture->img_wall, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_field, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_ball, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(texture->img_floor, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(texture->img_collectables, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(texture->img_exit, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(texture->img_ennemy, SIZE_IMG, SIZE_IMG);
 }
 
-void	ft_render_winwow(t_map *map)
+void	ft_render_window(t_game *game)
 {
 	size_t		x;
 	size_t		y;
-	t_textures	texture;
 
-	if (!(texture.mlx = mlx_init((map->width) * SIZE_IMG,
-		map->height * SIZE_IMG, "so_long", false)))
+	if (!(game->mlx = mlx_init((game->map->width) * SIZE_IMG,
+		game->map->height * SIZE_IMG, "so_long", false)))
 	{
 		puts(mlx_strerror(10));
 		return ;
 	}
-	ft_create_texture(&texture);
+	ft_create_texture(game->texture, game->mlx);
 	y = 0;
-	while (y < map->height)
+	while (y < game->map->height)
 	{
 		x = 0;
-		while (x < map->width)
+		while (x < game->map->width)
 		{
-			ft_render_texture_img(map, &texture, x, y);
+			ft_render_texture_img(game, x, y);
 			x++;
 		}
 		y++;
@@ -75,41 +80,47 @@ void	ft_render_winwow(t_map *map)
 
 void	play_game(t_game *game)
 {
-	ft_render_winwow(game->map);
+	ft_render_window(game);
 	mlx_key_hook(game->mlx, key_hook, &game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }
 
-void	ft_render_texture_img(t_map *map, t_textures *texture, int x, int y)
+void	ft_render_texture_img(t_game *game, int x, int y)
 {
-	if (map->grid[y][x] == '1')
+	if (game->map->grid[y][x] == '1')
 	{
-		if (mlx_image_to_window(texture->mlx, texture->img_wall, x * SIZE_IMG, y
+		if (mlx_image_to_window(game->mlx, game->texture->img_wall, x * SIZE_IMG, y
 				* SIZE_IMG) < 0)
 			error();
 	}
-	if (map->grid[y][x] == '0' || map->grid[y][x] == 'P')
+	if (game->map->grid[y][x] == '0' || game->map->grid[y][x] == 'P')
 	{
-		if (mlx_image_to_window(texture->mlx, texture->img_field, x * SIZE_IMG, y
+		if (mlx_image_to_window(game->mlx, game->texture->img_floor, x * SIZE_IMG, y
 				* SIZE_IMG) < 0)
 			error();
 	}
-	if (map->grid[y][x] == 'P')
+	if (game->map->grid[y][x] == 'P')
 	{
-		if (mlx_image_to_window(texture->mlx, texture->img_player, x * SIZE_IMG, y
+		if (mlx_image_to_window(game->mlx, game->texture->img_player, x * SIZE_IMG, y
 				* SIZE_IMG) < 0)
 			error();
 	}
-	if (map->grid[y][x] == 'C')
+	if (game->map->grid[y][x] == 'C')
 	{
-		if (mlx_image_to_window(texture->mlx, texture->img_ball, x * SIZE_IMG, y
+		if (mlx_image_to_window(game->mlx, game->texture->img_collectables, x * SIZE_IMG, y
 				* SIZE_IMG) < 0)
 			error();
 	}
-	if (map->grid[y][x] == 'E')
+	if (game->map->grid[y][x] == 'E')
 	{
-		if (mlx_image_to_window(texture->mlx, texture->img_exit, x * SIZE_IMG, y
+		if (mlx_image_to_window(game->mlx, game->texture->img_exit, x * SIZE_IMG, y
+				* SIZE_IMG) < 0)
+			error();
+	}
+	if (game->map->grid[y][x] == 'E')
+	{
+		if (mlx_image_to_window(game->mlx, game->texture->img_ennemy, x * SIZE_IMG, y
 				* SIZE_IMG) < 0)
 			error();
 	}
