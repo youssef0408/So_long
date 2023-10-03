@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/02 21:11:30 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:30:45 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,22 @@ void	init_game(char *file_name, t_map *mat)
 int	main(void)
 {
 	char *file_name;
-	// t_map map;
 	// t_player *player;
 	// t_player enemy;
 
 	t_game game;
+	// game = (t_game){
+	// 	.map = NULL};
+	init_map2(&game);
 
-	// game.map = map;
 	// game.texture = info
 
-
 	file_name = "src/map.ber";
-	init_map(game.map);
-	init_game(file_name, game.map);
+	// init_map(&game.map);
+	// init_map(game->map);
+	init_game(file_name, &game.map);
 
+	// printf("ffff %c", game.map.grid[0][0]);
 	play_game(&game);
 
 	return (EXIT_SUCCESS);

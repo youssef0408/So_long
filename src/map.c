@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/01 01:09:39 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:14:17 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ void	init_map(t_map *mat)
 	mat->has_p = false;
 	mat->has_e = false;
 	mat->count_c = 0;
+}
+
+void	init_map2(t_game *game)
+{
+	t_map	mat;
+
+	mat = (t_map){
+		.height = 0,
+		.width = 0,
+		.has_p = false,
+		.has_e = false,
+		.count_c = 0,
+	};
+	
+	game->map = mat;
 }
 
 void	populate_row(char *str, size_t row_idx, t_map *map)

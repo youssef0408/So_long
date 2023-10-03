@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 15:56:37 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:53:55 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,58 +18,62 @@ static void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_create_texture(t_textures *texture, mlx_t	*mlx)
+void	ft_create_texture(t_game *game)
 {
-	
-	texture->texture_player = mlx_load_png("includes/textures/player.png");
-	texture->texture_wall = mlx_load_png("includes/textures/wall.png");
-	texture->texture_floor = mlx_load_png("includes/textures/floor.png");
-	texture->texture_collectables = mlx_load_png("includes/textures/collectables.png");
-	texture->texture_exit = mlx_load_png("includes/textures/EmergenyExit.png");
-	texture->texture_ennemy = mlx_load_png("includes/textures/ennemy.png");
-	if (!texture->texture_player)
+	game->texture.texture_player = mlx_load_png("./includes/textures/player.png");
+	game->texture.texture_wall = mlx_load_png("./includes/textures/wall.png");
+	game->texture.texture_floor = mlx_load_png("./includes/textures/floor.png");
+	game->texture.texture_collectables = mlx_load_png("./includes/textures/collectables.png");
+	game->texture.texture_exit = mlx_load_png("./includes/textures/sortie.png");
+	game->texture.texture_ennemy = mlx_load_png("./includes/textures/enemy.png");
+	if (!game->texture.texture_player)
 		error();
-	if (!texture->texture_wall)
+	if (!game->texture.texture_wall)
 		error();
-	if (!texture->texture_floor)
+	if (!game->texture.texture_floor)
 		error();
-	if (!texture->texture_collectables)
+	if (!game->texture.texture_collectables)
 		error();
-	if (!texture->texture_exit)
+	if (!game->texture.texture_exit)
 		error();
-	if (!texture->texture_ennemy)
+	if (!game->texture.texture_ennemy)
 		error();
-	texture->img_player = mlx_texture_to_image(mlx, texture->texture_player);
-	texture->img_wall = mlx_texture_to_image(mlx, texture->texture_wall);
-	texture->img_floor = mlx_texture_to_image(mlx, texture->texture_floor);
-	texture->img_collectables = mlx_texture_to_image(mlx, texture->texture_collectables);
-	texture->img_exit = mlx_texture_to_image(mlx, texture->texture_exit);
-	texture->img_ennemy = mlx_texture_to_image(mlx, texture->texture_ennemy);
-	mlx_resize_image(texture->img_player, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_wall, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_floor, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_collectables, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_exit, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(texture->img_ennemy, SIZE_IMG, SIZE_IMG);
+	game->texture.img_player = mlx_texture_to_image(game->mlx,
+													game->texture.texture_player);
+	game->texture.img_wall = mlx_texture_to_image(game->mlx,
+													game->texture.texture_wall);
+	game->texture.img_floor = mlx_texture_to_image(game->mlx,
+													game->texture.texture_floor);
+	game->texture.img_collectables = mlx_texture_to_image(game->mlx,
+															game->texture.texture_collectables);
+	game->texture.img_exit = mlx_texture_to_image(game->mlx,
+													game->texture.texture_exit);
+	game->texture.img_ennemy = mlx_texture_to_image(game->mlx,
+													game->texture.texture_ennemy);
+	mlx_resize_image(game->texture.img_player, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(game->texture.img_wall, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(game->texture.img_floor, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(game->texture.img_collectables, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(game->texture.img_exit, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(game->texture.img_ennemy, SIZE_IMG, SIZE_IMG);
 }
 
 void	ft_render_window(t_game *game)
 {
-	size_t		x;
-	size_t		y;
+	size_t	x;
+	size_t	y;
 
-	if (!(game->mlx = mlx_init((game->map->width) * SIZE_IMG,
-		game->map->height * SIZE_IMG, "so_long", false)))
+	if (!(game->mlx = mlx_init((game->map.width) * SIZE_IMG,game->map.height * SIZE_IMG, "so_long", false)))
 	{
 		puts(mlx_strerror(10));
 		return ;
 	}
-	ft_create_texture(game->texture, game->mlx);
+	ft_create_texture(game);
 	y = 0;
-	while (y < game->map->height)
+	while (y < game->map.height)
 	{
 		x = 0;
-		while (x < game->map->width)
+		while (x < game->map.width)
 		{
 			ft_render_texture_img(game, x, y);
 			x++;
@@ -81,47 +85,47 @@ void	ft_render_window(t_game *game)
 void	play_game(t_game *game)
 {
 	ft_render_window(game);
-	mlx_key_hook(game->mlx, key_hook, &game);
+	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }
 
 void	ft_render_texture_img(t_game *game, int x, int y)
 {
-	if (game->map->grid[y][x] == '1')
+	if (game->map.grid[y][x] == '1')
 	{
-		if (mlx_image_to_window(game->mlx, game->texture->img_wall, x * SIZE_IMG, y
-				* SIZE_IMG) < 0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_wall, x * SIZE_IMG,
+				y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map->grid[y][x] == '0' || game->map->grid[y][x] == 'P')
+	if (game->map.grid[y][x] == '0' || game->map.grid[y][x] == 'P')
 	{
-		if (mlx_image_to_window(game->mlx, game->texture->img_floor, x * SIZE_IMG, y
-				* SIZE_IMG) < 0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_floor, x
+				* SIZE_IMG, y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map->grid[y][x] == 'P')
+	if (game->map.grid[y][x] == 'P')
 	{
-		if (mlx_image_to_window(game->mlx, game->texture->img_player, x * SIZE_IMG, y
-				* SIZE_IMG) < 0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_player, x
+				* SIZE_IMG, y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map->grid[y][x] == 'C')
+	if (game->map.grid[y][x] == 'C')
 	{
-		if (mlx_image_to_window(game->mlx, game->texture->img_collectables, x * SIZE_IMG, y
-				* SIZE_IMG) < 0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_collectables, x
+				* SIZE_IMG, y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map->grid[y][x] == 'E')
+	if (game->map.grid[y][x] == 'E')
 	{
-		if (mlx_image_to_window(game->mlx, game->texture->img_exit, x * SIZE_IMG, y
-				* SIZE_IMG) < 0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_exit, x * SIZE_IMG,
+				y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map->grid[y][x] == 'E')
+	if (game->map.grid[y][x] == 'E')
 	{
-		if (mlx_image_to_window(game->mlx, game->texture->img_ennemy, x * SIZE_IMG, y
-				* SIZE_IMG) < 0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_ennemy, x
+				* SIZE_IMG, y * SIZE_IMG) < 0)
 			error();
 	}
 }
@@ -153,17 +157,14 @@ t_player	*get_player(void)
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
-	
-		t_game *game = param;
+	t_game *game = param;
 
-	
-
-		if ((keydata.key == 87 || keydata.key == 119)
-			&& keydata.action == MLX_PRESS)
+	if ((keydata.key == 87 || keydata.key == 119)
+		&& keydata.action == MLX_PRESS)
 
 	{
 		puts("up ");
-		game->texture->img_player->instances[0].y -= SIZE_IMG;
+		game->texture.img_player->instances[0].y -= SIZE_IMG;
 		// move_up(player);
 	}
 	else if ((keydata.key == 115 || keydata.key == 83)
@@ -172,19 +173,19 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	{
 		puts("down ");
 		// move_down(player);
-		game->texture->img_player->instances[0].y += SIZE_IMG;
+		game->texture.img_player->instances[0].y += SIZE_IMG;
 	}
 	else if ((keydata.key == 97 || keydata.key == 65)
 			&& keydata.action == MLX_PRESS)
 	{
 		puts("left");
-		game->texture->img_player->instances[0].x -= SIZE_IMG;
+		game->texture.img_player->instances[0].x -= SIZE_IMG;
 		// move_left(player);
 	}
 	else if ((keydata.key == 100 || keydata.key == 68)
 			&& keydata.action == MLX_PRESS)
 	{
-		game->texture->img_player->instances[0].x += SIZE_IMG;
+		game->texture.img_player->instances[0].x += SIZE_IMG;
 		puts("right ");
 		// move_right(player);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:25:13 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 15:52:46 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:35:25 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MLX_UTILS_H
 
 // void	ft_create_texture(t_textures *texture);
-void	ft_create_texture(t_textures *texture, mlx_t	*mlx);
+void	ft_create_texture(t_game *game);
 void	ft_render_window(t_game *game);
 char	**ft_create_render_map(t_map *mat, int fd);
 void	key_hook(mlx_key_data_t keydata, void *param);
