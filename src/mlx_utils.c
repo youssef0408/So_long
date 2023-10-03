@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 18:53:55 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:34:32 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	ft_render_window(t_game *game)
 	size_t	x;
 	size_t	y;
 
-	if (!(game->mlx = mlx_init((game->map.width) * SIZE_IMG,game->map.height * SIZE_IMG, "so_long", false)))
+	if (!(game->mlx = mlx_init((game->map.width) * SIZE_IMG, game->map.height
+				* SIZE_IMG, "so_long", false)))
 	{
 		puts(mlx_strerror(10));
 		return ;
@@ -80,6 +81,15 @@ void	ft_render_window(t_game *game)
 		}
 		y++;
 	}
+	if (mlx_image_to_window(game->mlx, game->texture.img_player, game->map.p_x
+			* SIZE_IMG, game->map.p_y * SIZE_IMG) < 0)
+		error();
+	if (mlx_image_to_window(game->mlx, game->texture.img_exit, game->map.e_x
+			* SIZE_IMG, game->map.e_y* SIZE_IMG) < 0)
+		error();
+	if (mlx_image_to_window(game->mlx, game->texture.img_ennemy, game->map.m_x
+			* SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
+		error();
 }
 
 void	play_game(t_game *game)
@@ -92,42 +102,27 @@ void	play_game(t_game *game)
 
 void	ft_render_texture_img(t_game *game, int x, int y)
 {
+	if (mlx_image_to_window(game->mlx, game->texture.img_floor, x * SIZE_IMG, y
+			* SIZE_IMG) < 0)
+		error();
 	if (game->map.grid[y][x] == '1')
 	{
 		if (mlx_image_to_window(game->mlx, game->texture.img_wall, x * SIZE_IMG,
 				y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map.grid[y][x] == '0' || game->map.grid[y][x] == 'P')
-	{
-		if (mlx_image_to_window(game->mlx, game->texture.img_floor, x
-				* SIZE_IMG, y * SIZE_IMG) < 0)
-			error();
-	}
-	if (game->map.grid[y][x] == 'P')
-	{
-		if (mlx_image_to_window(game->mlx, game->texture.img_player, x
-				* SIZE_IMG, y * SIZE_IMG) < 0)
-			error();
-	}
-	if (game->map.grid[y][x] == 'C')
+	else if (game->map.grid[y][x] == 'C')
 	{
 		if (mlx_image_to_window(game->mlx, game->texture.img_collectables, x
 				* SIZE_IMG, y * SIZE_IMG) < 0)
 			error();
 	}
-	if (game->map.grid[y][x] == 'E')
-	{
-		if (mlx_image_to_window(game->mlx, game->texture.img_exit, x * SIZE_IMG,
-				y * SIZE_IMG) < 0)
-			error();
-	}
-	if (game->map.grid[y][x] == 'E')
-	{
-		if (mlx_image_to_window(game->mlx, game->texture.img_ennemy, x
-				* SIZE_IMG, y * SIZE_IMG) < 0)
-			error();
-	}
+	// else if (game->map.grid[y][x] == 'P')
+	// {
+	// 	if (mlx_image_to_window(game->mlx, game->texture.img_player, x
+	// 			* SIZE_IMG, y * SIZE_IMG) < 0)
+	// 		error();
+	// }
 }
 
 char	**ft_create_render_map(t_map *map, int fd)
