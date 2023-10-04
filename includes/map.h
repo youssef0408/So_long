@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 18:19:32 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:24:23 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_textures
 	mlx_image_t			*img_wall;
 	mlx_image_t			*img_floor;
 	mlx_image_t			*img_collectables;
+	// mlx_image_t			*img_collectables[100];
 	mlx_image_t			*img_exit;
 	mlx_image_t			*img_ennemy;
 	int					type;
