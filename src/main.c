@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 18:30:45 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:57:01 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_game(char *file_name, t_map *mat)
 		perror("Error openning file \n");
 	if (parse_file(mat, fd))
 		perror("Error Parsing file \n");
+	// mat->count_c = 0;
 }
 
 // int	main(void)
@@ -63,9 +64,7 @@ int	main(void)
 	// init_map(&game.map);
 	// init_map(game->map);
 	init_game(file_name, &game.map);
-
 	// printf("ffff %c", game.map.grid[0][0]);
 	play_game(&game);
-
 	return (EXIT_SUCCESS);
 }
