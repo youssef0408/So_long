@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/04 17:57:01 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:42:09 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	main(void)
 	// init_map(&game.map);
 	// init_map(game->map);
 	init_game(file_name, &game.map);
-	// printf("ffff %c", game.map.grid[0][0]);
-	play_game(&game);
+	init_player(&game.player, game.map.p_x, game.map.p_y);
+		// printf("ffff %c", game.map.grid[0][0]);
+		play_game(&game);
 	return (EXIT_SUCCESS);
 }

@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/04 18:07:47 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/04 21:26:21 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+// 1257
+//1*1000 = 2
+mlx_image_t	*img_p_move = NULL;
+mlx_image_t	*img_nb_coll = NULL;
+mlx_image_t	*img_win = NULL;
 
 static void	error(void)
 {
@@ -63,8 +69,8 @@ void	ft_render_window(t_game *game)
 	size_t	x;
 	size_t	y;
 
-	if (!(game->mlx = mlx_init((game->map.width) * SIZE_IMG, game->map.height
-				* SIZE_IMG, "so_long", false)))
+	if (!(game->mlx = mlx_init((game->map.width) * SIZE_IMG, (game->map.height
+					* SIZE_IMG) + 100, "so_long", false)))
 	{
 		puts(mlx_strerror(10));
 		return ;
@@ -82,7 +88,6 @@ void	ft_render_window(t_game *game)
 		y++;
 	}
 	// puts("DIEGO");
-	
 	if (mlx_image_to_window(game->mlx, game->texture.img_player, game->map.p_x
 			* SIZE_IMG, game->map.p_y * SIZE_IMG) < 0)
 		error();
@@ -96,14 +101,23 @@ void	ft_render_window(t_game *game)
 
 void	play_game(t_game *game)
 {
-	char *str1 = ft_itoa(game->player.count_c);
-	char *str2 = ft_itoa(game->map.count_c);
+	// char	*str2;
+	// char	*output;
+	// output = "Collectables ";
+	// str2 = ft_itoa(game->map.count_c);
 	ft_render_window(game);
-	// printf(" \n    Collectables  %i/%i \n", player->count_c, mat->count_c);
-	mlx_put_string(game->mlx, "Collectables ", 26, 26);
-	mlx_put_string(game->mlx, str1, 200, 26);
-	mlx_put_string(game->mlx, "/", 210, 26);
-	mlx_put_string(game->mlx, str2, 220, 26);
+	mlx_put_string(game->mlx, "Collectables:", SIZE_IMG, (game->map.height
+				* SIZE_IMG) + 25);
+	img_nb_coll = mlx_put_string(game->mlx, ft_itoa(game->player.count_c),
+			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 25);
+	mlx_put_string(game->mlx, "/", SIZE_IMG * 5 + 10, (game->map.height
+				* SIZE_IMG) + 25);
+	mlx_put_string(game->mlx, ft_itoa(game->map.count_c), SIZE_IMG * 5 + 20,
+			(game->map.height * SIZE_IMG) + 25);
+	mlx_put_string(game->mlx, "Moves:", SIZE_IMG, (game->map.height * SIZE_IMG)
+			+ 50);
+	img_p_move = mlx_put_string(game->mlx, ft_itoa(game->player.count_move),
+			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 50);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
@@ -125,7 +139,6 @@ void	ft_render_texture_img(t_game *game, int x, int y)
 		if (mlx_image_to_window(game->mlx, game->texture.img_collectables, x
 				* SIZE_IMG, y * SIZE_IMG) < 0)
 			error();
-		// game->map.count_c += 1;
 	}
 }
 
@@ -147,13 +160,6 @@ char	**ft_create_render_map(t_map *map, int fd)
 	return (table);
 }
 
-t_player	*get_player(void)
-{
-	static t_player	player;
-
-	return (&player);
-}
-
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
@@ -170,80 +176,84 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if ((keydata.key == 87 || keydata.key == 119) && keydata.action == MLX_PRESS
 		&& (game->map.grid[map_pos_y - 1][map_pos_x] != '1'))
 	{
-		//puts("up ");
 		game->texture.img_player->instances[0].y -= SIZE_IMG;
+		show_move(game);
 		if (game->map.grid[map_pos_y - 1][map_pos_x] == 'C')
 		{
 			delete_c_img(game);
-			game->map.count_c--;
 		}
-		if (game->map.grid[map_pos_y - 1][map_pos_x] == 'E')
-		{
-			if(game->map.count_c == 0)
-				puts("U WON!");
-		}
+		win_condition(game, map_pos_x, map_pos_y - 1);
 	}
 	else if ((keydata.key == 115 || keydata.key == 83)
 			&& keydata.action == MLX_PRESS && (game->map.grid[map_pos_y
 				+ 1][map_pos_x] != '1'))
 	{
-		//puts("down ");
 		game->texture.img_player->instances[0].y += SIZE_IMG;
+		show_move(game);
 		if (game->map.grid[map_pos_y + 1][map_pos_x] == 'C')
 		{
 			delete_c_img(game);
-			game->map.count_c--;
 		}
-		if (game->map.grid[map_pos_y + 1][map_pos_x] == 'E')
-		{
-			if(game->map.count_c == 0)
-				puts("U WON!");
-		}
+		win_condition(game, map_pos_x, map_pos_y + 1);
 	}
 	else if ((keydata.key == 97 || keydata.key == 65)
 			&& keydata.action == MLX_PRESS
 			&& (game->map.grid[map_pos_y][map_pos_x - 1] != '1'))
 	{
-		//puts("left");
 		game->texture.img_player->instances[0].x -= SIZE_IMG;
+		show_move(game);
 		if (game->map.grid[map_pos_y][map_pos_x - 1] == 'C')
 		{
 			delete_c_img(game);
-			game->map.count_c--;
 		}
-		if (game->map.grid[map_pos_y][map_pos_x - 1] == 'E')
-		{
-			if(game->map.count_c == 0)
-				puts("U WON!");
-		}
+		win_condition(game, map_pos_x - 1, map_pos_y);
 	}
 	else if ((keydata.key == 100 || keydata.key == 68)
 			&& keydata.action == MLX_PRESS
 			&& (game->map.grid[map_pos_y][map_pos_x + 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x += SIZE_IMG;
+		show_move(game);
 		if (game->map.grid[map_pos_y][map_pos_x + 1] == 'C')
 		{
 			delete_c_img(game);
-			game->map.count_c--;
 		}
-		if (game->map.grid[map_pos_y][map_pos_x + 1] == 'E')
-		{
-			if(game->map.count_c == 0)
-				puts("U WON!");
-		}
+		win_condition(game, map_pos_x + 1, map_pos_y);
 	}
+}
+void	show_move(t_game *game)
+{
+	if (img_p_move)
+	{
+		mlx_delete_image(game->mlx, img_p_move);
+	}
+	game->player.count_move += 1;
+	img_p_move = mlx_put_string(game->mlx, ft_itoa(game->player.count_move),
+			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 50);
+}
+
+void	show_nb_col(t_game *game)
+{
+	if (img_nb_coll)
+	{
+		mlx_delete_image(game->mlx, img_nb_coll);
+	}
+	// game->player.count_c += 1;
+	img_nb_coll = mlx_put_string(game->mlx, ft_itoa(game->player.count_c),
+			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 25);
 }
 
 void	delete_c_img(t_game *game)
 {
 	int	i;
 	int	final_count;
+	int	p_x;
+	int	p_y;
 
-	int p_x, p_y;
 	p_x = game->texture.img_player->instances[0].x;
 	p_y = game->texture.img_player->instances[0].y;
-	final_count = game->map.count_c ;
+	
+	final_count = game->map.count_c;
 	i = 0;
 	while (i <= final_count)
 	{
@@ -252,12 +262,20 @@ void	delete_c_img(t_game *game)
 		{
 			game->texture.img_collectables->instances[i]
 				.enabled = false;
-			final_count --;
-			// game->player.count_c += 1;
+			game->map.grid[p_y / SIZE_IMG][p_x / SIZE_IMG] = '0';
+			game->player.count_c += 1;
 			break ;
 		}
 		i++;
-		
 	}
+	show_nb_col(game);
 }
 
+void	win_condition(t_game *game, int x, int y)
+{
+	if (game->map.grid[y][x] == 'E'
+		&& game->map.count_c == game->player.count_c)
+	{
+		puts("U WON!");
+	}
+}

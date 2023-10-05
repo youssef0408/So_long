@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:07:12 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/02 21:09:20 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:48:08 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_player
 	int	prev_x;
 	int	prev_y;
 	int	count_c;
+	int	count_move;
 
 }		t_player;
 

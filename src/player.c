@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 19:37:21 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:42:57 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_player(t_player *player, int x, int y)
 	player->count_c = 0;
 	player->prev_x = -1;
 	player->prev_y = -1;
+	player->count_move=0;
 }
 
 void	move(t_player *player, int input)
