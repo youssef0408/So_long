@@ -6,7 +6,7 @@
 #    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/02 16:02:05 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/05 15:42:45 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,3 +21,12 @@
 9/ include mlx keyboard 
 10/ check Leaks, seg faults, modify the error messages and returns, check the code norms (norminette)
 11/ ENEMY IS COVID 19
+
+
+
+
+1/Add the parsing
+2/Add 2 conditions (p!=e &&p!=m)
+3/add photo of winning and losing
+4/add ennemy movments
+5/norminette

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 20:24:23 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:57:50 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,21 @@ typedef struct s_map
 
 typedef struct s_textures
 {
-	// mlx_t			*mlx;
 	mlx_texture_t		*texture_player;
 	mlx_texture_t		*texture_wall;
 	mlx_texture_t		*texture_floor;
 	mlx_texture_t		*texture_collectables;
 	mlx_texture_t		*texture_exit;
 	mlx_texture_t		*texture_ennemy;
+	mlx_texture_t		*texture_win;
+	mlx_texture_t		*texture_loser;
 
+	mlx_image_t			*img_win;
+	mlx_image_t			*img_loser;
 	mlx_image_t			*img_player;
 	mlx_image_t			*img_wall;
 	mlx_image_t			*img_floor;
 	mlx_image_t			*img_collectables;
-	// mlx_image_t			*img_collectables[100];
 	mlx_image_t			*img_exit;
 	mlx_image_t			*img_ennemy;
 	int					type;

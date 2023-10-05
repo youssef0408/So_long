@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/04 20:42:09 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:05:31 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_game(char *file_name, t_map *mat)
 		perror("Error openning file \n");
 	if (parse_file(mat, fd))
 		perror("Error Parsing file \n");
-	// mat->count_c = 0;
 }
 
 // int	main(void)
@@ -50,22 +49,12 @@ void	init_game(char *file_name, t_map *mat)
 int	main(void)
 {
 	char *file_name;
-	// t_player *player;
-	// t_player enemy;
-
 	t_game game;
-	// game = (t_game){
-	// 	.map = NULL};
-	init_map2(&game);
-
-	// game.texture = info
-
+	
 	file_name = "src/map.ber";
-	// init_map(&game.map);
-	// init_map(game->map);
+	init_map2(&game);
 	init_game(file_name, &game.map);
 	init_player(&game.player, game.map.p_x, game.map.p_y);
-		// printf("ffff %c", game.map.grid[0][0]);
-		play_game(&game);
+	play_game(&game);
 	return (EXIT_SUCCESS);
 }

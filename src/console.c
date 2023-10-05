@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   console.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/03 12:06:45 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:10:07 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ int	show_command(void)
 // 	printf(" \n    Collectables  %i/%i \n", player->count_c, map->count_c);
 // 	printf(" \n   your current moves are  %i moves \n", move_count);
 // 	// show_grid(map);
-// 	input_e = rand() % 4;
-// 	move_auto(enemy, map, input_e);
+	// input_e = rand() % 4;
+	// move_auto(enemy, map, input_e);
 // 	// ft_render_winwow(map);
 // 	input = show_command();
 // 	// exit game
