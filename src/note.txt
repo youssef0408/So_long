@@ -6,19 +6,28 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/06 15:48:46 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/06 16:08:43 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-1/ update enemy position on the map
+
+
+
+
+
+1/ update enemy position on the map(verifier si on peut inclure t_enemy en t_map)
 
 2/ add the parsing part
 
-3/ Handle mem. leaks
+3/ stop the count mirroring and the player should not be able to move (once won or lost )
 
-4/ repartion of the functions (5 func./file)
+4/ handle the graphic part (sprites and movements)
 
-5/ norminette 
+5/ Handle mem. leaks
+
+6/ repartion of the functions (5 func./file)
+
+7/ norminette 
 
 
 

@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 15:42:32 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:02:34 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,8 +348,8 @@ void	enemy_moves(t_game *game, int input)
 	}
 	if (has_moved == true)
 	{
-		game->map.grid[game->map.m_y][game->map.m_x] = '0';
-		// game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		// game->map.grid[game->map.m_y][game->map.m_x] = '0';
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[game->enemy.y][game->enemy.x] = 'M';
 	}
 }

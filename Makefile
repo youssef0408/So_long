@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/28 17:57:46 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/06 16:15:04 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,10 @@ fclean: clean
 re: fclean all
 
 leaks:
-	leaks --atExit -- ./so_long map-copy.ber
+	leaks --atExit -- ./so_long map.ber
+
+run:
+	make && ./so_long map.ber
 
 .PHONY: all clean fclean re libft
 
