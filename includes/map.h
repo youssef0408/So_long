@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/05 16:57:50 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:51:31 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,21 @@ typedef struct s_game
 	struct s_map		map;
 	struct s_textures	texture;
 	struct s_player		player;
+	struct s_player		enemy;
+	
+	
 }						t_game;
 
-void					init_map(t_map *mat);
-int						row_check(char *str, t_map *mat);
-int						col_check(char *str, t_map *mat, size_t row_idx,
+void					init_map(t_map *map);
+int						row_check(char *str, t_map *map);
+int						col_check(char *str, t_map *map, size_t row_idx,
 							size_t col_idx);
-bool					parse_file(t_map *mat, int fd);
+bool					parse_file(t_map *map, int fd);
 void					show_grid(t_map *map);
-bool					check_first_line(char *current_line, t_map *mat,
+bool					check_first_line(char *current_line, t_map *map,
 							int fd);
 bool					check_last_line(char *current_line, char *previous_line,
-							t_map *mat, int fd);
+							t_map *map, int fd);
 void					populate_row(char *str, size_t row_idx, t_map *map);
 
 size_t					real_len(char *s);

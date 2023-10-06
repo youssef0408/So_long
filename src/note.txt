@@ -3,30 +3,23 @@
 #                                                         :::      ::::::::    #
 #    note.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/05 15:42:45 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/06 15:48:46 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-1/ make enemy move manual with ijkl keys or keyboard arrows 
-2/ fix duplicating enemy bug ok 
-3/ fix enemy and collectibales condition  ok
-4/ add losing conditions (if M == P )  ok
-5/ display the number of movments  ok
-6/ can exit   ok
-7/verify the parsing part(test every example given in the subject)
-8/update player and enemy images
-9/ include mlx keyboard 
-10/ check Leaks, seg faults, modify the error messages and returns, check the code norms (norminette)
-11/ ENEMY IS COVID 19
+1/ update enemy position on the map
+
+2/ add the parsing part
+
+3/ Handle mem. leaks
+
+4/ repartion of the functions (5 func./file)
+
+5/ norminette 
 
 
 
 
-1/Add the parsing
-2/Add 2 conditions (p!=e &&p!=m)
-3/add photo of winning and losing
-4/add ennemy movments
-5/norminette

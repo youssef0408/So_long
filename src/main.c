@@ -3,41 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/05 18:05:31 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:50:07 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_game(char *file_name, t_map *mat)
+void	init_game(char *file_name, t_map *map)
 {
 	int	fd;
 
 	fd = open_file(file_name);
 	if (fd < 0)
 		perror("Error openning file \n");
-	if (parse_file(mat, fd))
+	if (parse_file(map, fd))
 		perror("Error Parsing file \n");
 }
 
 // int	main(void)
 // {
 // 	char		*file_name;
-// 	t_map		mat;
+// 	t_map		map;
 // 	t_player	player;
 // 	t_player	enemy;
 
 // 	file_name = "src/map.ber";
-// 	init_map(&mat);
+// 	init_map(&map);
 
-// 	init_game(file_name, &mat);
-// 	init_player(&player, mat.p_x, mat.p_y);
-// 	init_player(&enemy, mat.m_x, mat.m_y);
+// 	init_game(file_name, &map);
+// 	init_player(&player, map.p_x, map.p_y);
+// 	init_player(&enemy, map.m_x, map.m_y);
 // 	// console
-// 	update_game(&mat, &player, &enemy);
+// 	update_game(&map, &player, &enemy);
 // }
 
 // static void	ft_error(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/05 18:46:05 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:42:32 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ void	ft_create_texture(t_game *game)
 	mlx_resize_image(game->texture.img_collectables, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_exit, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_ennemy, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(game->texture.img_win, SIZE_IMG *  game->map.width, game->map.height * SIZE_IMG + 100);
-	mlx_resize_image(game->texture.img_loser, SIZE_IMG *  game->map.width, game->map.height * SIZE_IMG + 100);
+	mlx_resize_image(game->texture.img_win, SIZE_IMG * game->map.width,
+			game->map.height * SIZE_IMG + 100);
+	mlx_resize_image(game->texture.img_loser, SIZE_IMG * game->map.width,
+			game->map.height * SIZE_IMG + 100);
 }
 
 void	ft_render_window(t_game *game)
@@ -167,12 +169,16 @@ char	**ft_create_render_map(t_map *map, int fd)
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
+	time_t	t;
 	t_game	*game;
 	int		real_pos_x;
 	int		real_pos_y;
 	int		map_pos_x;
 	int		map_pos_y;
+	int		enemy_input;
 
+	srand((unsigned)time(&t));
+	enemy_input = rand() % 4;
 	game = param;
 	real_pos_x = game->texture.img_player->instances[0].x;
 	real_pos_y = game->texture.img_player->instances[0].y;
@@ -182,15 +188,18 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		&& (game->map.grid[map_pos_y - 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y -= SIZE_IMG;
+		enemy_moves(game, enemy_input);
 		show_move_count(game);
 		if (game->map.grid[map_pos_y - 1][map_pos_x] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x, map_pos_y - 1);
 	}
-	else if ((keydata.key == 264 || keydata.key == 83) && keydata.action == MLX_PRESS 
-		&& (game->map.grid[map_pos_y + 1][map_pos_x] != '1'))
+	else if ((keydata.key == 264 || keydata.key == 83)
+			&& keydata.action == MLX_PRESS && (game->map.grid[map_pos_y
+				+ 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y += SIZE_IMG;
+		enemy_moves(game, enemy_input);
 		show_move_count(game);
 		if (game->map.grid[map_pos_y + 1][map_pos_x] == 'C')
 			delete_c_img(game);
@@ -201,6 +210,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			&& (game->map.grid[map_pos_y][map_pos_x - 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x -= SIZE_IMG;
+		enemy_moves(game, enemy_input);
 		show_move_count(game);
 		if (game->map.grid[map_pos_y][map_pos_x - 1] == 'C')
 			delete_c_img(game);
@@ -211,14 +221,14 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			&& (game->map.grid[map_pos_y][map_pos_x + 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x += SIZE_IMG;
+		enemy_moves(game, enemy_input);
 		show_move_count(game);
 		if (game->map.grid[map_pos_y][map_pos_x + 1] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x + 1, map_pos_y);
 	}
-	else if ((keydata.key == 256)&& keydata.action == MLX_PRESS)
+	else if ((keydata.key == 256) && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-		
 }
 void	show_move_count(t_game *game)
 {
@@ -250,7 +260,6 @@ void	delete_c_img(t_game *game)
 
 	p_x = game->texture.img_player->instances[0].x;
 	p_y = game->texture.img_player->instances[0].y;
-	
 	final_count = game->map.count_c;
 	i = 0;
 	while (i <= final_count)
@@ -269,16 +278,13 @@ void	delete_c_img(t_game *game)
 	show_items_count(game);
 }
 
-
-
 void	win_or_lose(t_game *game, int x, int y)
 {
-	
 	if (game->map.grid[y][x] == 'E'
 		&& game->map.count_c == game->player.count_c)
 	{
 		puts("U WON!");
-		if (mlx_image_to_window(game->mlx, game->texture.img_win, 0, 0)<0)
+		if (mlx_image_to_window(game->mlx, game->texture.img_win, 0, 0) < 0)
 			error();
 		// sleep(3);
 	}
@@ -289,5 +295,61 @@ void	win_or_lose(t_game *game, int x, int y)
 			error();
 		// sleep(3);
 		// mlx_close_window(game->mlx);
+	}
+}
+
+void	enemy_moves(t_game *game, int input)
+{
+	int		real_pos_x;
+	int		real_pos_y;
+	int		map_pos_x;
+	int		map_pos_y;
+	bool	has_moved;
+
+	game->enemy.x = game->map.m_x;
+	game->enemy.y = game->map.m_y;
+
+
+	
+	game->enemy.prev_x = game->enemy.x;
+	game->enemy.prev_y = game->enemy.y;
+	has_moved = false;
+	real_pos_x = game->texture.img_ennemy->instances[0].x;
+	real_pos_y = game->texture.img_ennemy->instances[0].y;
+	map_pos_x = real_pos_x / SIZE_IMG;
+	map_pos_y = real_pos_y / SIZE_IMG;
+	if (input == 0 && game->map.grid[map_pos_y - 1][map_pos_x] != '1'
+		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'C'
+		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'E')
+	{
+		game->texture.img_ennemy->instances[0].y -= SIZE_IMG;
+		has_moved = true;
+	}
+	else if (input == 1 && game->map.grid[map_pos_y + 1][map_pos_x] != '1'
+			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'C'
+			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'E')
+	{
+		game->texture.img_ennemy->instances[0].y += SIZE_IMG;
+		has_moved = true;
+	}
+	else if (input == 2 && game->map.grid[map_pos_y][map_pos_x - 1] != '1'
+			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'C'
+			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'E')
+	{
+		game->texture.img_ennemy->instances[0].x -= SIZE_IMG;
+		has_moved = true;
+	}
+	else if (input == 3 && game->map.grid[map_pos_y][map_pos_x + 1] != '1'
+			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'C'
+			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'E')
+	{
+		game->texture.img_ennemy->instances[0].x += SIZE_IMG;
+		has_moved = true;
+	}
+	if (has_moved == true)
+	{
+		game->map.grid[game->map.m_y][game->map.m_x] = '0';
+		// game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[game->enemy.y][game->enemy.x] = 'M';
 	}
 }
