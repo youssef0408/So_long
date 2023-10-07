@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 15:50:07 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:14:52 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,21 @@ void	init_game(char *file_name, t_map *map)
 
 int	main(void)
 {
-	char *file_name;
-	t_game game;
-	
-	file_name = "src/map.ber";
+	char	*file_name;
+	t_game	game;
+	time_t	t;
+	int		map_rand;
+
+	srand((unsigned)time(&t));
+	map_rand = rand() % 4;
+	file_name = "src/map";
+	file_name = ft_strjoin(file_name, ft_itoa(map_rand));
+	file_name=ft_strjoin(file_name, ".ber");
+	printf("ahawa  %s\n", file_name);
 	init_map2(&game);
 	init_game(file_name, &game.map);
 	init_player(&game.player, game.map.p_x, game.map.p_y);
+	init_player(&game.enemy, game.map.m_x, game.map.m_y);
 	play_game(&game);
 	return (EXIT_SUCCESS);
 }

@@ -6,15 +6,16 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 16:02:34 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:30:51 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-mlx_image_t	*img_p_move = NULL;
-mlx_image_t	*img_nb_coll = NULL;
-mlx_image_t	*img_win = NULL;
+mlx_image_t		*img_p_move = NULL;
+mlx_image_t		*img_nb_coll = NULL;
+mlx_image_t		*img_win = NULL;
+long long int	timer;
 
 static void	error(void)
 {
@@ -112,6 +113,7 @@ void	ft_render_window(t_game *game)
 
 void	play_game(t_game *game)
 {
+	timer = 0;
 	ft_render_window(game);
 	mlx_put_string(game->mlx, "Collectables:", SIZE_IMG, (game->map.height
 				* SIZE_IMG) + 25);
@@ -126,6 +128,7 @@ void	play_game(t_game *game)
 	img_p_move = mlx_put_string(game->mlx, ft_itoa(game->player.count_move),
 			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 50);
 	mlx_key_hook(game->mlx, key_hook, game);
+	mlx_loop_hook(game->mlx, enemy_moves, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }
@@ -169,63 +172,74 @@ char	**ft_create_render_map(t_map *map, int fd)
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
-	time_t	t;
 	t_game	*game;
 	int		real_pos_x;
 	int		real_pos_y;
 	int		map_pos_x;
 	int		map_pos_y;
-	int		enemy_input;
 
-	srand((unsigned)time(&t));
-	enemy_input = rand() % 4;
 	game = param;
 	real_pos_x = game->texture.img_player->instances[0].x;
 	real_pos_y = game->texture.img_player->instances[0].y;
 	map_pos_x = real_pos_x / SIZE_IMG;
 	map_pos_y = real_pos_y / SIZE_IMG;
+	game->player.prev_x = map_pos_x;
+	game->player.prev_y = map_pos_y;
+	
 	if ((keydata.key == 87 || keydata.key == 265) && keydata.action == MLX_PRESS
 		&& (game->map.grid[map_pos_y - 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y -= SIZE_IMG;
-		enemy_moves(game, enemy_input);
+		// enemy_moves(game, enemy_input);
 		show_move_count(game);
+		show_grid(&game->map);
 		if (game->map.grid[map_pos_y - 1][map_pos_x] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x, map_pos_y - 1);
+		game->map.grid[game->player.prev_y][game->player.prev_x] = '0';
+		game->map.grid[map_pos_y - 1][map_pos_x] = 'P';
 	}
 	else if ((keydata.key == 264 || keydata.key == 83)
 			&& keydata.action == MLX_PRESS && (game->map.grid[map_pos_y
 				+ 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y += SIZE_IMG;
-		enemy_moves(game, enemy_input);
+		// enemy_moves(game, enemy_input);
 		show_move_count(game);
+		show_grid(&game->map);
 		if (game->map.grid[map_pos_y + 1][map_pos_x] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x, map_pos_y + 1);
+		game->map.grid[game->player.prev_y][game->player.prev_x] = '0';
+		game->map.grid[map_pos_y + 1][map_pos_x] = 'P';
 	}
 	else if ((keydata.key == 263 || keydata.key == 65)
 			&& keydata.action == MLX_PRESS
 			&& (game->map.grid[map_pos_y][map_pos_x - 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x -= SIZE_IMG;
-		enemy_moves(game, enemy_input);
+		// enemy_moves(game, enemy_input);
 		show_move_count(game);
+		show_grid(&game->map);
 		if (game->map.grid[map_pos_y][map_pos_x - 1] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x - 1, map_pos_y);
+		game->map.grid[game->player.prev_y][game->player.prev_x] = '0';
+		game->map.grid[map_pos_y][map_pos_x - 1] = 'P';
 	}
 	else if ((keydata.key == 262 || keydata.key == 68)
 			&& keydata.action == MLX_PRESS
 			&& (game->map.grid[map_pos_y][map_pos_x + 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x += SIZE_IMG;
-		enemy_moves(game, enemy_input);
+		// enemy_moves(game, enemy_input);
 		show_move_count(game);
+		show_grid(&game->map);
 		if (game->map.grid[map_pos_y][map_pos_x + 1] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x + 1, map_pos_y);
+		game->map.grid[game->player.prev_y][game->player.prev_x] = '0';
+		game->map.grid[map_pos_y][map_pos_x + 1] = 'P';
 	}
 	else if ((keydata.key == 256) && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
@@ -298,58 +312,77 @@ void	win_or_lose(t_game *game, int x, int y)
 	}
 }
 
-void	enemy_moves(t_game *game, int input)
+// void	*enemy_moves(t_game *game)
+void	enemy_moves(void *param)
 {
 	int		real_pos_x;
 	int		real_pos_y;
 	int		map_pos_x;
 	int		map_pos_y;
-	bool	has_moved;
+	int		input;
+	t_game	*game;
 
-	game->enemy.x = game->map.m_x;
-	game->enemy.y = game->map.m_y;
-
-
-	
-	game->enemy.prev_x = game->enemy.x;
-	game->enemy.prev_y = game->enemy.y;
-	has_moved = false;
+	timer += 1;
+	if (timer < 30)
+		return ;
+	timer = 0;
+	game = param;
+	input = rand() % 4;
 	real_pos_x = game->texture.img_ennemy->instances[0].x;
 	real_pos_y = game->texture.img_ennemy->instances[0].y;
 	map_pos_x = real_pos_x / SIZE_IMG;
 	map_pos_y = real_pos_y / SIZE_IMG;
+	game->enemy.prev_x = map_pos_x;
+	game->enemy.prev_y = map_pos_y;
 	if (input == 0 && game->map.grid[map_pos_y - 1][map_pos_x] != '1'
 		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'C'
 		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'E')
 	{
 		game->texture.img_ennemy->instances[0].y -= SIZE_IMG;
-		has_moved = true;
+		kill_player(game, map_pos_x, map_pos_y - 1);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y - 1][map_pos_x] = 'M';
+		// has_moved = true;
 	}
 	else if (input == 1 && game->map.grid[map_pos_y + 1][map_pos_x] != '1'
 			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'C'
 			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'E')
 	{
 		game->texture.img_ennemy->instances[0].y += SIZE_IMG;
-		has_moved = true;
+		kill_player(game, map_pos_x, map_pos_y + 1);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y + 1][map_pos_x] = 'M';
+		// has_moved = true;
 	}
 	else if (input == 2 && game->map.grid[map_pos_y][map_pos_x - 1] != '1'
 			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'C'
 			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'E')
 	{
 		game->texture.img_ennemy->instances[0].x -= SIZE_IMG;
-		has_moved = true;
+		kill_player(game, map_pos_x - 1, map_pos_y);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y][map_pos_x - 1] = 'M';
+		// has_moved = true;
 	}
 	else if (input == 3 && game->map.grid[map_pos_y][map_pos_x + 1] != '1'
 			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'C'
 			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'E')
 	{
 		game->texture.img_ennemy->instances[0].x += SIZE_IMG;
-		has_moved = true;
-	}
-	if (has_moved == true)
-	{
-		// game->map.grid[game->map.m_y][game->map.m_x] = '0';
+		kill_player(game, map_pos_x + 1, map_pos_y);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
-		game->map.grid[game->enemy.y][game->enemy.x] = 'M';
+		game->map.grid[map_pos_y][map_pos_x + 1] = 'M';
+		// has_moved = true;
+	}
+}
+
+void	kill_player(t_game *game, int x, int y)
+{
+	// show_grid(&game->map);
+	if (game->map.grid[y][x] == 'P')
+	{
+		puts("U LOST!");
+		if (mlx_image_to_window(game->mlx, game->texture.img_loser, 0, 0) < 0)
+			error();
 	}
 }

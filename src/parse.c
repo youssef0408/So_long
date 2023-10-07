@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 16:03:14 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:08:58 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,9 @@ int	col_check(char *str, t_map *map, size_t row_idx, size_t col_idx)
 		{
 			map->m_x = col_idx;
 			map->m_y = row_idx;
-			// map->enemy.x = col_idx;
-			// map->enemy.y = row_idx;
+		
 			map->has_m = true;
 		}
-		// map->enemy.x = col_idx;
-		// map->enemy.y = row_idx;
-		map->m_x = col_idx;
-		map->m_y = row_idx;
 	}
 	else if (str[col_idx] == 'C')
 		map->count_c = map->count_c + 1;

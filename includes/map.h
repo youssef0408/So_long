@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 15:58:28 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:27:14 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_map
 	bool					has_p;
 	bool					has_e;
 	bool					has_m;
-	struct s_enemy			enemy;
 }							t_map;
 
 typedef struct s_textures
