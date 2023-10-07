@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 18:08:58 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:01:10 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	row_check(char *str, t_map *map)
 
 	col_idx = 0;
 	if (!str)
-		return (-1);
+		return (0);
 	if (map->width != real_len(str))
 		return (-2);
 	if (str[0] != '1' || str[map->width - 1] != '1')
@@ -70,7 +70,6 @@ int	col_check(char *str, t_map *map, size_t row_idx, size_t col_idx)
 		{
 			map->m_x = col_idx;
 			map->m_y = row_idx;
-		
 			map->has_m = true;
 		}
 	}
@@ -89,13 +88,20 @@ bool	parse_file(t_map *map, int fd)
 
 	current_line = get_next_line(fd);
 	if (!check_first_line(current_line, map, fd))
+	{
 		return (false);
+		
+	}
 	while (current_line != NULL)
 	{
 		previous_line = current_line;
 		current_line = get_next_line(fd);
 		if (!check_last_line(current_line, previous_line, map, fd))
+		{
+			
 			return (false);
+		}
+		
 		if (row_check(current_line, map) < 0)
 		{
 			free_file(current_line, fd);

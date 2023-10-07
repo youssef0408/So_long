@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 15:47:07 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:59:34 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	init_map2(t_game *game)
 {
 	t_map	map;
 
-	map = (t_map){
+	map = (t_map)
+	{
 		.height = 0,
 		.width = 0,
 		.has_p = false,
 		.has_e = false,
 		.count_c = 0,
 	};
-	
 	game->map = map;
 }
 
