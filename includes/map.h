@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/09 23:34:47 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 01:43:32 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ typedef struct s_textures
 	mlx_image_t			*img_collectables;
 	mlx_image_t			*img_exit;
 	mlx_image_t			*img_ennemy;
+	mlx_image_t			*g_img_p_move;
+	mlx_image_t			*g_img_nb_coll;
+	mlx_image_t			*g_img_win;
 	int					type;
-
-	mlx_image_t *g_img_p_move;
-	mlx_image_t *g_img_nb_coll;
-	mlx_image_t *g_img_win;
 }						t_textures;
 
 typedef struct s_game
@@ -74,7 +73,6 @@ typedef struct s_game
 	struct s_player		enemy;
 	bool				g_stop_action;
 	int					g_timer;
-	
 
 }						t_game;
 

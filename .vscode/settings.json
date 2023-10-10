@@ -1,8 +1,3 @@
 {
-    "C_Cpp.errorSquiggles": "disabled",
-    "files.associations": {
-        "__tree": "c",
-        "map": "c",
-        "so_long.h": "c"
-    }
+    "C_Cpp.errorSquiggles": "disabled"
 }

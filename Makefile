@@ -6,7 +6,7 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/09 17:05:55 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/10 01:49:38 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJS = $(SRCS:.c=.o)
 # Chemin vers les fichiers d'en-tête
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)
 
-MLX42_DIR = MLX42
+MLX42_DIR = lib/MLX42
 MLX42_BUILD_DIR = $(MLX42_DIR)/build
 
 LIB_MLX = -framework Cocoa -framework OpenGL -framework IOKit $(MLX42_DIR)/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
@@ -65,7 +65,10 @@ leaks:
 	leaks --atExit -- ./so_long 
 
 run:
-	make && ./so_long 
+	make && ./so_long
+
+mlx:
+	git clone https://github.com/codam-coding-college/MLX42.git && cd MLX42 && cmake -B build && cmake --build build -j4
 
 .PHONY: all clean fclean re libft
 

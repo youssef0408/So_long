@@ -5,21 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 18:23:16 by yothmani         ###   ########.fr       */
+/*   Created: 2023/10/10 00:32:43 by yothmani          #+#    #+#             */
+/*   Updated: 2023/10/10 01:45:56 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// void	init_player(t_player *player, t_map map)
-// {
-// 	player->x = map.p_x;
-// 	player->y = map.p_y;
-// 	player->count_c = 0;
-// 	player->prev_x = -1;
-// 	player->prev_y = -1;
-// }
 
 void	init_player(t_player *player, int x, int y)
 {
@@ -31,169 +22,79 @@ void	init_player(t_player *player, int x, int y)
 	player->count_move = 0;
 }
 
-void	move(t_player *player, int input)
+void	enemy_moves(void *param)
 {
-	player->prev_x = player->x;
-	player->prev_y = player->y;
-	if (input == 87 || input == 119)
+	int		real_pos_x;
+	int		real_pos_y;
+	int		map_pos_x;
+	int		map_pos_y;
+	int		input;
+	t_game	*game;
+
+	game = param;
+	game->g_timer += 1;
+	if (game->g_timer < 30)
+		return ;
+	game->g_timer = 0;
+	input = rand() % 4;
+	real_pos_x = game->texture.img_ennemy->instances[0].x;
+	real_pos_y = game->texture.img_ennemy->instances[0].y;
+	map_pos_x = real_pos_x / SIZE_IMG;
+	map_pos_y = real_pos_y / SIZE_IMG;
+	game->enemy.prev_x = map_pos_x;
+	game->enemy.prev_y = map_pos_y;
+	if (game->g_stop_action == true)
+		return ;
+	if (input == 0 && game->map.grid[map_pos_y - 1][map_pos_x] != '1'
+		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'C'
+		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'E')
 	{
-		move_up(player);
+		game->texture.img_ennemy->instances[0].y -= SIZE_IMG;
+		kill_player(game, map_pos_x, map_pos_y - 1);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y - 1][map_pos_x] = 'M';
+		// has_moved = true;
 	}
-	else if (input == 115 || input == 83)
+	else if (input == 1 && game->map.grid[map_pos_y + 1][map_pos_x] != '1'
+			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'C'
+			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'E')
 	{
-		move_down(player);
+		game->texture.img_ennemy->instances[0].y += SIZE_IMG;
+		kill_player(game, map_pos_x, map_pos_y + 1);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y + 1][map_pos_x] = 'M';
+		// has_moved = true;
 	}
-	else if (input == 97 || input == 65)
+	else if (input == 2 && game->map.grid[map_pos_y][map_pos_x - 1] != '1'
+			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'C'
+			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'E')
 	{
-		move_left(player);
+		game->texture.img_ennemy->instances[0].x -= SIZE_IMG;
+		kill_player(game, map_pos_x - 1, map_pos_y);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y][map_pos_x - 1] = 'M';
+		// has_moved = true;
 	}
-	else if (input == 100 || input == 68)
+	else if (input == 3 && game->map.grid[map_pos_y][map_pos_x + 1] != '1'
+			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'C'
+			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'E')
 	{
-		move_right(player);
+		game->texture.img_ennemy->instances[0].x += SIZE_IMG;
+		kill_player(game, map_pos_x + 1, map_pos_y);
+		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
+		game->map.grid[map_pos_y][map_pos_x + 1] = 'M';
+		// has_moved = true;
 	}
 }
 
-void	move_auto(t_player *enemy, t_map *map, int input)
+void	kill_player(t_game *game, size_t x, size_t y)
 {
-	bool	has_moved;
-
-	has_moved = false;
-	enemy->prev_x = enemy->x;
-	enemy->prev_y = enemy->y;
-	input = 1;
-	printf("unput   %i\n", input);
-	printf(" 0 up pos   %c\n", map->grid[enemy->y - 1][enemy->x]);
-	printf(" 1 down pos   %c\n", map->grid[enemy->y + 1][enemy->x]);
-	printf(" 2 left pos   %c\n", map->grid[enemy->y][enemy->x - 1]);
-	printf(" 3 right pos  %c\n", map->grid[enemy->y][enemy->x + 1]);
-	if (input == 0 && map->grid[enemy->y - 1][enemy->x] != '1'
-		&& map->grid[enemy->y - 1][enemy->x] != 'C' && map->grid[enemy->y
-		- 1][enemy->x] != 'E')
+	// show_grid(&game->map);
+	if (game->map.grid[y][x] == 'P')
 	{
-		move_up(enemy);
-		has_moved = true;
-	}
-	else if (input == 1 && map->grid[enemy->y + 1][enemy->x] != '1'
-			&& map->grid[enemy->y + 1][enemy->x] == 'C' &&
-				map->grid[enemy->y + 1][enemy->x] != 'E')
-	{
-		move_down(enemy);
-		has_moved = true;
-	}
-	else if (input == 2 && map->grid[enemy->y][enemy->x - 1] != '1'
-			&& map->grid[enemy->y][enemy->x - 1] != 'C' &&
-				map->grid[enemy->y][enemy->x - 1] != 'E')
-	{
-		move_left(enemy);
-		has_moved = true;
-	}
-	else if (input == 3 && map->grid[enemy->y][enemy->x + 1] != '1'
-			&& map->grid[enemy->y][enemy->x + 1] != 'C'
-			&& map->grid[enemy->y][enemy->x + 1] != 'E')
-	{
-		move_right(enemy);
-		has_moved = true;
-	}
-	if (has_moved)
-	{
-		map->grid[enemy->prev_y][enemy->prev_x] = '0';
-		map->grid[enemy->y][enemy->x] = '*';
+		puts("U LOST!");
+		if (mlx_image_to_window(game->mlx, game->texture.img_loser, 0, 0) < 0)
+			errror();
+		game->g_stop_action = true;
 	}
 }
-
-void	move_up(t_player *player)
-{
-	player->y = player->y - 1;
-}
-
-void	move_down(t_player *player)
-{
-	player->y = player->y + 1;
-}
-
-void	move_left(t_player *player)
-{
-	player->x = player->x - 1;
-}
-
-void	move_right(t_player *player)
-{
-	player->x = player->x + 1;
-}
-
-// bool	can_move(t_player *player, t_map *map, int input)
-// {
-// 	if (input < 0)
-// 	{
-// 		perror("Error Invalid direction \n");
-// 		return (false);
-// 	}
-// 	else if ((input == 87 || input == 119) && (map->grid[player->y
-// 				- 1][player->x] == '1'))
-// 	{
-// 		return (false);
-// 	}
-// 	else if ((input == 115 || input == 83) && (map->grid[player->y
-// 				+ 1][player->x] == '1'))
-// 	{
-// 		return (false);
-// 	}
-// 	else if ((input == 97 || input == 65) && (map->grid[player->y][player->x
-// 				- 1] == '1'))
-// 	{
-// 		return (false);
-// 	}
-// 	else if ((input == 100 || input == 68) && (map->grid[player->y][player->x
-// 				+ 1] == '1'))
-// 	{
-// 		return (false);
-// 	}
-// 	else if (can_exit(player, map, input) == false)
-// 		return (false);
-// 	return (true);
-// }
-
-// bool	can_exit(t_player *player, t_map *map, int input)
-// {
-// 	if ((input == 87 || input == 119) && (map->grid[player->y
-// 			- 1][player->x] == 'E'))
-// 	{
-// 		if (player->count_c < map->count_c)
-// 		{
-// 			perror("you can't exit the game without all the colectables!\n");
-// 			return (false);
-// 		}
-// 		return (true);
-// 	}
-// 	else if ((input == 115 || input == 83) && (map->grid[player->y
-// 				+ 1][player->x] == 'E'))
-// 	{
-// 		if (player->count_c < map->count_c)
-// 		{
-// 			perror("you can't exit the game without all the colectables!\n");
-// 			return (false);
-// 		}
-// 		return (true);
-// 	}
-// 	else if ((input == 97 || input == 65) && (map->grid[player->y][player->x
-// 				- 1] == 'E'))
-// 	{
-// 		if (player->count_c < map->count_c)
-// 		{
-// 			perror("you can't exit the game without all the colectables!\n");
-// 			return (false);
-// 		}
-// 		return (true);
-// 	}
-// 	else if ((input == 100 || input == 68) && (map->grid[player->y][player->x
-// 				+ 1] == 'E'))
-// 	{
-// 		if (player->count_c < map->count_c)
-// 		{
-// 			perror("you can't exit the game without all the colectables!\n");
-// 			return (false);
-// 		}
-// 		return (true);
-// 	}
-// 	return (true);
-// }
