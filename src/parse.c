@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 16:58:37 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:48:42 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ bool	parse_file(t_map *map, int fd)
 	current_line = get_next_line(fd);
 	if (!check_first_line(current_line, map, fd))
 	{
-		free_file(previous_line, fd);
-		free_file(current_line, fd);
+		free(previous_line);
+		free(current_line);
 		current_line = NULL;
 		 previous_line = NULL;
 		return (false);
@@ -103,11 +103,11 @@ bool	parse_file(t_map *map, int fd)
 		current_line = get_next_line(fd);
 		if (!check_last_line(current_line, previous_line, map, fd))
 		{
-			free(previous_line);
-			free(current_line);
-			current_line = NULL;
-			previous_line = NULL;
-			return (false);
+		// 	free(previous_line);
+		// 	free(current_line);
+		// 	current_line = NULL;
+		// 	previous_line = NULL;
+		// 	return (false);
 		}
 		if (row_check(current_line, map) < 0)
 		{
