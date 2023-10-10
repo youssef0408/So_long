@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:32:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 15:30:22 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:44:01 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	enemy_moves(void *param)
 		kill_player(game, map_pos_x, map_pos_y - 1);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y - 1][map_pos_x] = 'M';
-		// has_moved = true;
 	}
 	else if (input == 1 && game->map.grid[map_pos_y + 1][map_pos_x] != '1'
 			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'C'
@@ -63,7 +62,6 @@ void	enemy_moves(void *param)
 		kill_player(game, map_pos_x, map_pos_y + 1);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y + 1][map_pos_x] = 'M';
-		// has_moved = true;
 	}
 	else if (input == 2 && game->map.grid[map_pos_y][map_pos_x - 1] != '1'
 			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'C'
@@ -73,7 +71,6 @@ void	enemy_moves(void *param)
 		kill_player(game, map_pos_x - 1, map_pos_y);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y][map_pos_x - 1] = 'M';
-		// has_moved = true;
 	}
 	else if (input == 3 && game->map.grid[map_pos_y][map_pos_x + 1] != '1'
 			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'C'
@@ -83,13 +80,11 @@ void	enemy_moves(void *param)
 		kill_player(game, map_pos_x + 1, map_pos_y);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y][map_pos_x + 1] = 'M';
-		// has_moved = true;
 	}
 }
 
 void	kill_player(t_game *game, size_t x, size_t y)
 {
-	// show_grid(&game->map);
 	if (game->map.grid[y][x] == 'P')
 	{
 		puts("U LOST!");

@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:47:24 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 16:14:36 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:42:22 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,17 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 
 void	show_move_count(t_game *game)
 {
-	char *nbm;
-
+	char *moves_count;
+	system("clear");
 	if (game->texture.g_img_p_move)
-	{
 		mlx_delete_image(game->mlx, game->texture.g_img_p_move);
-	}
 	game->player.count_move += 1;
-	nbm = ft_itoa(game->player.count_move);
-	game->texture.g_img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5,
+	moves_count = ft_itoa(game->player.count_move);
+	printf(" \n   your current moves are  %i moves \n", game->player.count_move);
+	game->texture.g_img_p_move = mlx_put_string(game->mlx, moves_count, SIZE_IMG * 5,
 			(game->map.height * SIZE_IMG) + 50);
-	free(nbm);
-	nbm = NULL;
+	free(moves_count);
+	moves_count = NULL;
 }
 
 int	errror(void)

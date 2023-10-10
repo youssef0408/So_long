@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:35:48 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 16:00:09 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:38:57 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	show_command(void)
 {
 	char	c;
 	int		command;
-
 	printf("W / ⬆   - UP \n");
 	printf("S / ⬇   - DOWN \n");
 	printf("A / ◀️   - LEFT \n");
