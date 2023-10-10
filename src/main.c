@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/09 20:10:25 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:26:40 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ bool	init_game(char *file_name, t_map *map)
 	if (!parse_file(map, fd))
 	{
 		// close(fd);
-		free_map(map->grid, map->height);
-		file_name = NULL;
+		// free_map(map->grid, map->height);
+		// file_name = NULL;
 		perror("Error Parsing file \n");
 		return (false);
 	}

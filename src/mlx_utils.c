@@ -6,25 +6,34 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/09 19:58:41 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:59:10 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-mlx_image_t		*img_p_move = NULL;
-mlx_image_t		*img_nb_coll = NULL;
-mlx_image_t		*img_win = NULL;
-long long int	timer;
-bool			stop_action;
-
 static void	error(void)
 {
-	// puts(mlx_strerror(mlx_errno));
+	puts(mlx_strerror(mlx_errno));
 	exit(EXIT_FAILURE);
 }
 
+// void	ft_create_texture(t_game *game)
+// {
+// 	load_textures(game);
+// 	create_texture_images(game);
+// 	resize_images(game);
+// }
+
+
 void	ft_create_texture(t_game *game)
+{
+	load_textures(game);
+	create_texture_images(game);
+	resize_images(game);
+}
+
+void	load_textures(t_game *game)
 {
 	game->texture.texture_player = mlx_load_png("./includes/textures/player.png");
 	game->texture.texture_wall = mlx_load_png("./includes/textures/wall.png");
@@ -34,38 +43,37 @@ void	ft_create_texture(t_game *game)
 	game->texture.texture_ennemy = mlx_load_png("./includes/textures/enemy.png");
 	game->texture.texture_win = mlx_load_png("./includes/textures/winner.png");
 	game->texture.texture_loser = mlx_load_png("./includes/textures/loser.png");
-	if (!game->texture.texture_win)
+	if (!game->texture.texture_win || !game->texture.texture_loser ||
+		!game->texture.texture_player || !game->texture.texture_wall ||
+		!game->texture.texture_floor || !game->texture.texture_collectables ||
+		!game->texture.texture_exit || !game->texture.texture_ennemy)
+	{
 		error();
-	if (!game->texture.texture_loser)
-		error();
-	if (!game->texture.texture_player)
-		error();
-	if (!game->texture.texture_wall)
-		error();
-	if (!game->texture.texture_floor)
-		error();
-	if (!game->texture.texture_collectables)
-		error();
-	if (!game->texture.texture_exit)
-		error();
-	if (!game->texture.texture_ennemy)
-		error();
+	}
+}
+
+void	create_texture_images(t_game *game)
+{
 	game->texture.img_player = mlx_texture_to_image(game->mlx,
-													game->texture.texture_player);
+			game->texture.texture_player);
 	game->texture.img_wall = mlx_texture_to_image(game->mlx,
-													game->texture.texture_wall);
+			game->texture.texture_wall);
 	game->texture.img_floor = mlx_texture_to_image(game->mlx,
-													game->texture.texture_floor);
+			game->texture.texture_floor);
 	game->texture.img_collectables = mlx_texture_to_image(game->mlx,
-															game->texture.texture_collectables);
+			game->texture.texture_collectables);
 	game->texture.img_exit = mlx_texture_to_image(game->mlx,
-													game->texture.texture_exit);
+			game->texture.texture_exit);
 	game->texture.img_ennemy = mlx_texture_to_image(game->mlx,
-													game->texture.texture_ennemy);
+			game->texture.texture_ennemy);
 	game->texture.img_win = mlx_texture_to_image(game->mlx,
-													game->texture.texture_win);
+			game->texture.texture_win);
 	game->texture.img_loser = mlx_texture_to_image(game->mlx,
-													game->texture.texture_loser);
+			game->texture.texture_loser);
+}
+
+void	resize_images(t_game *game)
+{
 	mlx_resize_image(game->texture.img_player, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_wall, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_floor, SIZE_IMG, SIZE_IMG);
@@ -94,7 +102,6 @@ void	ft_render_window(t_game *game)
 	while (y < game->map.height)
 	{
 		x = 0;
-		// if ((size_t)y > game->map.height - 3)
 		while (x < game->map.width)
 		{
 			ft_render_texture_img(game, x, y);
@@ -118,15 +125,15 @@ void	play_game(t_game *game)
 	char	*nbm;
 	char	*nbc;
 	char	*max_c;
-
-	timer = 0;
-	stop_action = false;
+	
+	game->g_timer = 0;
+	game->g_stop_action = false;
 	ft_render_window(game);
 	mlx_put_string(game->mlx, "Collectables:", SIZE_IMG, (game->map.height
 				* SIZE_IMG) + 25);
 	nbc = ft_itoa(game->player.count_c);
-	img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5, (game->map.height
-				* SIZE_IMG) + 25);
+	game->texture.g_img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5,
+			(game->map.height * SIZE_IMG) + 25);
 	free(nbc);
 	nbc = NULL;
 	mlx_put_string(game->mlx, "/", SIZE_IMG * 5 + 13, (game->map.height
@@ -139,15 +146,19 @@ void	play_game(t_game *game)
 	mlx_put_string(game->mlx, "Moves:", SIZE_IMG, (game->map.height * SIZE_IMG)
 			+ 50);
 	nbm = ft_itoa(game->player.count_move);
-	img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5, (game->map.height
-				* SIZE_IMG) + 50);
+	game->texture.g_img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5,
+			(game->map.height * SIZE_IMG) + 50);
 	free(nbm);
 	nbm = NULL;
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, enemy_moves, game);
 	mlx_loop(game->mlx);
+	// free_game(game);
+	// free_imgs();
+	// free(game->texture.g_img_win);
+	// free(game->texture.g_img_p_move);
+	// free(game->texture.g_img_nb_coll);
 	mlx_terminate(game->mlx);
-	game->mlx = NULL;
 }
 
 void	ft_render_texture_img(t_game *game, size_t x, size_t y)
@@ -186,7 +197,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	game->player.prev_y = map_pos_y;
 	if ((keydata.key == 256) && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	if (stop_action == true)
+	if (game->g_stop_action == true)
 		return ;
 	if ((keydata.key == 87 || keydata.key == 265) && keydata.action == MLX_PRESS
 		&& (game->map.grid[map_pos_y - 1][map_pos_x] != '1'))
@@ -249,14 +260,15 @@ void	show_move_count(t_game *game)
 {
 	char	*nbm;
 
-	if (img_p_move)
+	if (game->texture.g_img_p_move)
 	{
-		mlx_delete_image(game->mlx, img_p_move);
+		mlx_delete_image(game->mlx, game->texture.g_img_p_move);
 	}
 	game->player.count_move += 1;
 	nbm = ft_itoa(game->player.count_move);
-	img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5, (game->map.height
-				* SIZE_IMG) + 50);
+	game->texture.g_img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5,
+			(game->map.height * SIZE_IMG) + 50);
+	// free(img_p_move);
 	free(nbm);
 	nbm = NULL;
 }
@@ -265,13 +277,13 @@ void	show_items_count(t_game *game)
 {
 	char	*nbc;
 
-	if (img_nb_coll)
+	if (game->texture.g_img_nb_coll)
 	{
-		mlx_delete_image(game->mlx, img_nb_coll);
+		mlx_delete_image(game->mlx, game->texture.g_img_nb_coll);
 	}
 	nbc = ft_itoa(game->player.count_c);
-	img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5, (game->map.height
-				* SIZE_IMG) + 25);
+	game->texture.g_img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5,
+			(game->map.height * SIZE_IMG) + 25);
 	free(nbc);
 	nbc = NULL;
 }
@@ -311,7 +323,7 @@ void	win_or_lose(t_game *game, size_t x, size_t y)
 		puts("U WON!");
 		if (mlx_image_to_window(game->mlx, game->texture.img_win, 0, 0) < 0)
 			error();
-		stop_action = true;
+		game->g_stop_action = true;
 		// mlx_close_window(game->mlx);
 		// sleep(3);
 	}
@@ -320,7 +332,7 @@ void	win_or_lose(t_game *game, size_t x, size_t y)
 		puts("U LOST!");
 		if (mlx_image_to_window(game->mlx, game->texture.img_loser, 0, 0) < 0)
 			error();
-		stop_action = true;
+		game->g_stop_action = true;
 		// sleep(3);
 		// mlx_close_window(game->mlx);
 	}
@@ -336,11 +348,11 @@ void	enemy_moves(void *param)
 	int		input;
 	t_game	*game;
 
-	timer += 1;
-	if (timer < 30)
-		return ;
-	timer = 0;
 	game = param;
+	game->g_timer += 1;
+	if (game->g_timer < 30)
+		return ;
+	game->g_timer = 0;
 	input = rand() % 4;
 	real_pos_x = game->texture.img_ennemy->instances[0].x;
 	real_pos_y = game->texture.img_ennemy->instances[0].y;
@@ -348,7 +360,7 @@ void	enemy_moves(void *param)
 	map_pos_y = real_pos_y / SIZE_IMG;
 	game->enemy.prev_x = map_pos_x;
 	game->enemy.prev_y = map_pos_y;
-	if (stop_action == true)
+	if (game->g_stop_action == true)
 		return ;
 	if (input == 0 && game->map.grid[map_pos_y - 1][map_pos_x] != '1'
 		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'C'
@@ -400,6 +412,6 @@ void	kill_player(t_game *game, size_t x, size_t y)
 		puts("U LOST!");
 		if (mlx_image_to_window(game->mlx, game->texture.img_loser, 0, 0) < 0)
 			error();
-		stop_action = true;
+		game->g_stop_action = true;
 	}
 }

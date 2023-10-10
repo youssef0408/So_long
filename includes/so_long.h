@@ -6,15 +6,15 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 21:05:17 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:59:23 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../lib/libft/libft.h"
 # include <../MLX42/include/MLX42/MLX42.h>
+# include "../lib/libft/libft.h"
 # include "so_long.h"
 # include "./map.h"
 # include "./player.h"

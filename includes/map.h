@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/09 19:04:02 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:34:47 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_map
 	size_t				height;
 	size_t				width;
 	// char				*grid[100];
-	 char					**grid;
+	char				**grid;
 	size_t				map_size;
 	int					p_x;
 	int					p_y;
@@ -59,6 +59,10 @@ typedef struct s_textures
 	mlx_image_t			*img_exit;
 	mlx_image_t			*img_ennemy;
 	int					type;
+
+	mlx_image_t *g_img_p_move;
+	mlx_image_t *g_img_nb_coll;
+	mlx_image_t *g_img_win;
 }						t_textures;
 
 typedef struct s_game
@@ -68,6 +72,9 @@ typedef struct s_game
 	struct s_textures	texture;
 	struct s_player		player;
 	struct s_player		enemy;
+	bool				g_stop_action;
+	int					g_timer;
+	
 
 }						t_game;
 
@@ -79,7 +86,8 @@ bool					parse_file(t_map *map, int fd);
 void					show_grid(t_map *map);
 bool					check_first_line(char *current_line, t_map *map,
 							int fd);
-bool					check_last_line(char *current_line, char *previous_line, t_map *map, int fd);
+bool					check_last_line(char *current_line, char *previous_line,
+							t_map *map, int fd);
 void					populate_row(char *str, size_t row_idx, t_map *map);
 
 size_t					real_len(char *s);
