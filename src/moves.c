@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:47:24 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 00:48:35 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:14:36 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		&& (game->map.grid[map_pos_y - 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y -= SIZE_IMG;
-		// enemy_moves(game, enemy_input);
 		show_move_count(game);
-		// show_grid(&game->map);
 		if (game->map.grid[map_pos_y - 1][map_pos_x] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x, map_pos_y - 1);
@@ -49,9 +47,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 				+ 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y += SIZE_IMG;
-		// enemy_moves(game, enemy_input);
 		show_move_count(game);
-		// show_grid(&game->map);
 		if (game->map.grid[map_pos_y + 1][map_pos_x] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x, map_pos_y + 1);
@@ -63,9 +59,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			&& (game->map.grid[map_pos_y][map_pos_x - 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x -= SIZE_IMG;
-		// enemy_moves(game, enemy_input);
 		show_move_count(game);
-		// show_grid(&game->map);
 		if (game->map.grid[map_pos_y][map_pos_x - 1] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x - 1, map_pos_y);
@@ -77,9 +71,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			&& (game->map.grid[map_pos_y][map_pos_x + 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x += SIZE_IMG;
-		// enemy_moves(game, enemy_input);
 		show_move_count(game);
-		// show_grid(&game->map);
 		if (game->map.grid[map_pos_y][map_pos_x + 1] == 'C')
 			delete_c_img(game);
 		win_or_lose(game, map_pos_x + 1, map_pos_y);
@@ -100,7 +92,12 @@ void	show_move_count(t_game *game)
 	nbm = ft_itoa(game->player.count_move);
 	game->texture.g_img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5,
 			(game->map.height * SIZE_IMG) + 50);
-	// free(img_p_move);
 	free(nbm);
 	nbm = NULL;
+}
+
+int	errror(void)
+{
+	puts(mlx_strerror(mlx_errno));
+	exit(-1);
 }

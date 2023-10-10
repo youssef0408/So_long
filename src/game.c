@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:35:48 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 02:13:42 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:00:09 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,44 +51,52 @@ void	win_or_lose(t_game *game, size_t x, size_t y)
 	}
 }
 
+static void	display_collectables_and_moves(t_game *game)
+{
+	char	*items_collected;
+	char	*total_items;
+	char	*moves_count;
+
+	mlx_put_string(game->mlx, "Collectables:", SIZE_IMG, (game->map.height
+			* SIZE_IMG) + 25);
+	items_collected = ft_itoa(game->player.count_c);
+	game->texture.g_img_nb_coll = mlx_put_string(game->mlx, items_collected,
+			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 25);
+	free(items_collected);
+	items_collected = NULL;
+	mlx_put_string(game->mlx, "/", SIZE_IMG * 5 + 20, (game->map.height
+			* SIZE_IMG) + 25);
+	total_items = ft_itoa(game->map.count_c);
+	mlx_put_string(game->mlx, total_items, SIZE_IMG * 5 + 30, (game->map.height
+			* SIZE_IMG) + 25);
+	free(total_items);
+	total_items = NULL;
+	mlx_put_string(game->mlx, "Moves:", SIZE_IMG, (game->map.height * SIZE_IMG)
+		+ 50);
+	moves_count = ft_itoa(game->player.count_move);
+	game->texture.g_img_p_move = mlx_put_string(game->mlx, moves_count, SIZE_IMG
+			* 5, (game->map.height * SIZE_IMG) + 50);
+	free(moves_count);
+	moves_count = NULL;
+}
+
 void	play_game(t_game *game)
 {
-	char	*nbm;
-	char	*nbc;
-	char	*max_c;
-
 	game->g_timer = 0;
 	game->g_stop_action = false;
 	ft_render_window(game);
 	mlx_put_string(game->mlx, "Collectables:", SIZE_IMG, (game->map.height
 			* SIZE_IMG) + 25);
-	nbc = ft_itoa(game->player.count_c);
-	game->texture.g_img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5,
-			(game->map.height * SIZE_IMG) + 25);
-	free(nbc);
-	nbc = NULL;
-	mlx_put_string(game->mlx, "/", SIZE_IMG * 5 + 13, (game->map.height
-			* SIZE_IMG) + 25);
-	max_c = ft_itoa(game->map.count_c);
-	mlx_put_string(game->mlx, max_c, SIZE_IMG * 5 + 20, (game->map.height
-			* SIZE_IMG) + 25);
-	free(max_c);
-	max_c = NULL;
-	mlx_put_string(game->mlx, "Moves:", SIZE_IMG, (game->map.height * SIZE_IMG)
-		+ 50);
-	nbm = ft_itoa(game->player.count_move);
-	game->texture.g_img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5,
-			(game->map.height * SIZE_IMG) + 50);
-	free(nbm);
-	nbm = NULL;
+	display_collectables_and_moves(game);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, enemy_moves, game);
 	mlx_loop(game->mlx);
-	free(game->texture.g_img_win);
-	free(game->texture.g_img_p_move);
-	free(game->texture.g_img_nb_coll);
 	mlx_terminate(game->mlx);
 }
+
+// free(game->texture.g_img_win);
+// free(game->texture.g_img_p_move);
+// free(game->texture.g_img_nb_coll);
 
 int	show_command(void)
 {

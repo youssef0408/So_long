@@ -3,27 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 01:51:26 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:13:31 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_render_window(t_game *game)
+static void	render_map_textures(t_game *game)
 {
 	size_t	x;
 	size_t	y;
 
-	if (!(game->mlx = mlx_init((game->map.width) * SIZE_IMG, (game->map.height
-					* SIZE_IMG) + 100, "so_long", false)))
-	{
-		puts(mlx_strerror(10));
-		return ;
-	}
-	ft_create_texture(game);
 	y = 0;
 	while (y < game->map.height)
 	{
@@ -35,6 +28,10 @@ void	ft_render_window(t_game *game)
 		}
 		y++;
 	}
+}
+
+static void	render_objects(t_game *game)
+{
 	if (mlx_image_to_window(game->mlx, game->texture.img_exit, game->map.e_x
 			* SIZE_IMG, game->map.e_y * SIZE_IMG) < 0)
 		errror();
@@ -44,6 +41,17 @@ void	ft_render_window(t_game *game)
 	if (mlx_image_to_window(game->mlx, game->texture.img_ennemy, game->map.m_x
 			* SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
 		errror();
+}
+
+void	ft_render_window(t_game *game)
+{
+	game->mlx = mlx_init((game->map.width) * SIZE_IMG,
+			(game->map.height * SIZE_IMG) + 100, "so_long", false);
+	if (!game->mlx)
+		errror();
+	ft_create_texture(game);
+	render_map_textures(game);
+	render_objects(game);
 }
 
 void	show_items_count(t_game *game)
@@ -86,10 +94,4 @@ void	delete_c_img(t_game *game)
 		i++;
 	}
 	show_items_count(game);
-}
-
-int	errror()
-{
-	puts(mlx_strerror(mlx_errno));
-	exit(-1);
 }
