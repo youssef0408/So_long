@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:17:11 by yothmani          #+#    #+#              #
-#    Updated: 2023/09/18 14:23:10 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/09 16:56:06 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ft_memmove.c ft_memchr.c ft_memcmp.c ft_strncmp.c ft_strrchr.c ft_strlcpy.c\
 ft_strlcat.c ft_atoi.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_substr.c\
 ft_strjoin.c ft_strtrim.c ft_split.c ft_putnbr_fd.c ft_strmapi.c\
 ft_itoa.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
-ft_putnbr_fd.c ft_strmapi.c  ft_strchr.c ft_isascii.c ft_striteri.c get_next_line.c\
+ft_putnbr_fd.c ft_strmapi.c  ft_strchr.c ft_isascii.c ft_striteri.c get_next_line.c get_next_line_utils.c\
 
 
 BONS		=	ft_lstmap_bonus.c ft_lstiter_bonus.c ft_lstclear_bonus.c\

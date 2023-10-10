@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/07 16:06:48 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:58:41 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	ft_render_window(t_game *game)
 	while (y < game->map.height)
 	{
 		x = 0;
+		// if ((size_t)y > game->map.height - 3)
 		while (x < game->map.width)
 		{
 			ft_render_texture_img(game, x, y);
@@ -114,28 +115,42 @@ void	ft_render_window(t_game *game)
 
 void	play_game(t_game *game)
 {
+	char	*nbm;
+	char	*nbc;
+	char	*max_c;
+
 	timer = 0;
 	stop_action = false;
 	ft_render_window(game);
 	mlx_put_string(game->mlx, "Collectables:", SIZE_IMG, (game->map.height
 				* SIZE_IMG) + 25);
-	img_nb_coll = mlx_put_string(game->mlx, ft_itoa(game->player.count_c),
-			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 25);
-	mlx_put_string(game->mlx, "/", SIZE_IMG * 5 + 10, (game->map.height
+	nbc = ft_itoa(game->player.count_c);
+	img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5, (game->map.height
 				* SIZE_IMG) + 25);
-	mlx_put_string(game->mlx, ft_itoa(game->map.count_c), SIZE_IMG * 5 + 20,
-			(game->map.height * SIZE_IMG) + 25);
+	free(nbc);
+	nbc = NULL;
+	mlx_put_string(game->mlx, "/", SIZE_IMG * 5 + 13, (game->map.height
+				* SIZE_IMG) + 25);
+	max_c = ft_itoa(game->map.count_c);
+	mlx_put_string(game->mlx, max_c, SIZE_IMG * 5 + 20, (game->map.height
+				* SIZE_IMG) + 25);
+	free(max_c);
+	max_c = NULL;
 	mlx_put_string(game->mlx, "Moves:", SIZE_IMG, (game->map.height * SIZE_IMG)
 			+ 50);
-	img_p_move = mlx_put_string(game->mlx, ft_itoa(game->player.count_move),
-			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 50);
+	nbm = ft_itoa(game->player.count_move);
+	img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5, (game->map.height
+				* SIZE_IMG) + 50);
+	free(nbm);
+	nbm = NULL;
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, enemy_moves, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
+	game->mlx = NULL;
 }
 
-void	ft_render_texture_img(t_game *game, int x, int y)
+void	ft_render_texture_img(t_game *game, size_t x, size_t y)
 {
 	if (mlx_image_to_window(game->mlx, game->texture.img_floor, x * SIZE_IMG, y
 			* SIZE_IMG) < 0)
@@ -154,24 +169,6 @@ void	ft_render_texture_img(t_game *game, int x, int y)
 	}
 }
 
-char	**ft_create_render_map(t_game *game, int fd)
-{
-	char	**table;
-	char	*str;
-	int		i;
-
-	table = ft_calloc(sizeof(char *), (game->map->height + 1));
-	i = 0;
-	str = get_next_line(fd);
-	while (str)
-	{
-		table[i] = str;
-		str = get_next_line(fd);
-		i++;
-	}
-	return (table);
-}
-
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
@@ -187,7 +184,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	map_pos_y = real_pos_y / SIZE_IMG;
 	game->player.prev_x = map_pos_x;
 	game->player.prev_y = map_pos_y;
-	 if ((keydata.key == 256) && keydata.action == MLX_PRESS)
+	if ((keydata.key == 256) && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
 	if (stop_action == true)
 		return ;
@@ -247,25 +244,36 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		game->map.grid[map_pos_y][map_pos_x + 1] = 'P';
 	}
 }
+
 void	show_move_count(t_game *game)
 {
+	char	*nbm;
+
 	if (img_p_move)
 	{
 		mlx_delete_image(game->mlx, img_p_move);
 	}
 	game->player.count_move += 1;
-	img_p_move = mlx_put_string(game->mlx, ft_itoa(game->player.count_move),
-			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 50);
+	nbm = ft_itoa(game->player.count_move);
+	img_p_move = mlx_put_string(game->mlx, nbm, SIZE_IMG * 5, (game->map.height
+				* SIZE_IMG) + 50);
+	free(nbm);
+	nbm = NULL;
 }
 
 void	show_items_count(t_game *game)
 {
+	char	*nbc;
+
 	if (img_nb_coll)
 	{
 		mlx_delete_image(game->mlx, img_nb_coll);
 	}
-	img_nb_coll = mlx_put_string(game->mlx, ft_itoa(game->player.count_c),
-			SIZE_IMG * 5, (game->map.height * SIZE_IMG) + 25);
+	nbc = ft_itoa(game->player.count_c);
+	img_nb_coll = mlx_put_string(game->mlx, nbc, SIZE_IMG * 5, (game->map.height
+				* SIZE_IMG) + 25);
+	free(nbc);
+	nbc = NULL;
 }
 
 void	delete_c_img(t_game *game)
@@ -295,7 +303,7 @@ void	delete_c_img(t_game *game)
 	show_items_count(game);
 }
 
-void	win_or_lose(t_game *game, int x, int y)
+void	win_or_lose(t_game *game, size_t x, size_t y)
 {
 	if (game->map.grid[y][x] == 'E'
 		&& game->map.count_c == game->player.count_c)
@@ -384,7 +392,7 @@ void	enemy_moves(void *param)
 	}
 }
 
-void	kill_player(t_game *game, int x, int y)
+void	kill_player(t_game *game, size_t x, size_t y)
 {
 	// show_grid(&game->map);
 	if (game->map.grid[y][x] == 'P')

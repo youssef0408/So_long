@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:11:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/09/30 20:24:06 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:55:48 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,20 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
 char				*get_next_line(int fd);
-char				*ft_read_line(char *line, int fd, char *buffer);
-char				*ft_forward_line(char *line);
-size_t				ft_line_len(char *str);
-size_t				real_len(char *s);
+
+char				*get_before_newline(const char *str);
+char				*get_after_newline(const char *str);
+void				ft_read_line(int fd, char **save, char **temporary);
+char				*ft_parse_line(char **save, char **temporary);
+
+void				*ft_malloc_zero(size_t count, size_t size);
+char				*ft_strdup(const char *str_1);
+void				ft_strs_cleans(char **str_1, char **str_2, char **str_3);
+int					ft_contains_newline(const char *str);
+char				*ft_join_strs(const char *str_1, const char *str_2);
+// char				*ft_read_line(char *line, int fd, char *buffer);
+// char				*ft_forward_line(char *line);
+// size_t				ft_line_len(char *str);
+// size_t				real_len(char *s);
 
 #endif

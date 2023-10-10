@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/07 16:01:10 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:05:41 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,18 @@ int	col_check(char *str, t_map *map, size_t row_idx, size_t col_idx)
 bool	parse_file(t_map *map, int fd)
 {
 	char	*current_line;
-	char	*previous_line;
+	 char	*previous_line;
 
+	
+	 previous_line = NULL;
 	current_line = get_next_line(fd);
 	if (!check_first_line(current_line, map, fd))
 	{
+		free_file(previous_line, fd);
+		free_file(current_line, fd);
+		current_line = NULL;
+		 previous_line = NULL;
 		return (false);
-		
 	}
 	while (current_line != NULL)
 	{
@@ -98,16 +103,25 @@ bool	parse_file(t_map *map, int fd)
 		current_line = get_next_line(fd);
 		if (!check_last_line(current_line, previous_line, map, fd))
 		{
-			
+			free(previous_line);
+			free(current_line);
+			current_line = NULL;
+			previous_line = NULL;
 			return (false);
 		}
-		
 		if (row_check(current_line, map) < 0)
 		{
-			free_file(current_line, fd);
+			free(previous_line);
+			free(current_line);
+			current_line = NULL;
+			previous_line = NULL;
 			return (false);
 		}
 	}
+	free(current_line);
+	current_line = NULL;
+	// free(previous_line);
+	// previous_line = NULL;
 	return (true);
 }
 
@@ -116,6 +130,7 @@ bool	check_first_line(char *current_line, t_map *map, int fd)
 	if (real_len(current_line) == 0)
 	{
 		free_file(current_line, fd);
+		
 		return (false);
 	}
 	map->width = real_len(current_line);

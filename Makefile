@@ -6,7 +6,7 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/06 16:15:04 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/09 17:05:55 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,10 +62,10 @@ fclean: clean
 re: fclean all
 
 leaks:
-	leaks --atExit -- ./so_long map.ber
+	leaks --atExit -- ./so_long 
 
 run:
-	make && ./so_long map.ber
+	make && ./so_long 
 
 .PHONY: all clean fclean re libft
 
