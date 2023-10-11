@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:50:53 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 16:37:41 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:46:44 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	load_textures(t_game *game)
 	game->texture.texture_wall = mlx_load_png("includes/textures/wall2.0.png");
 	game->texture.texture_floor = mlx_load_png("includes/textures/terrain.png");
 	game->texture.texture_collectables = mlx_load_png("includes/textures/syringe-147034_640.png");
-	game->texture.texture_exit = mlx_load_png("./includes/textures/sortie.png");
+	game->texture.texture_exit = mlx_load_png("includes/textures/open_exit.png");
 	game->texture.texture_ennemy =
 		mlx_load_png("includes/textures/covid.png");
 	game->texture.texture_win = mlx_load_png("./includes/textures/winner.png");
@@ -88,7 +88,7 @@ void	resize_images(t_game *game)
 	mlx_resize_image(game->texture.img_wall, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_floor, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_collectables, SIZE_IMG, SIZE_IMG);
-	mlx_resize_image(game->texture.img_exit, SIZE_IMG, SIZE_IMG);
+	mlx_resize_image(game->texture.img_exit,SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_ennemy, SIZE_IMG, SIZE_IMG);
 	mlx_resize_image(game->texture.img_win, SIZE_IMG * game->map.width,
 			game->map.height * SIZE_IMG + 100);
