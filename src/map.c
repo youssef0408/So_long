@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 00:40:18 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:15:09 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	init_map2(t_game *game)
 		.width = 0,
 		.has_p = false,
 		.has_e = false,
+		.has_m = false,
 		.count_c = 0,
+		.items = 0,
 		.grid = (char **)malloc(sizeof(char *) * (100))};
 }
 

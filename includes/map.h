@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 01:43:32 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:17:19 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ typedef struct s_map
 	int					p_y;
 	int					m_x;
 	int					m_y;
-
 	int					e_x;
 	int					e_y;
-
+	int					is_possible;
+	int					items;
 	int					count_c;
 	bool				has_p;
 	bool				has_e;
@@ -91,5 +91,9 @@ void					populate_row(char *str, size_t row_idx, t_map *map);
 size_t					real_len(char *s);
 
 void					init_map2(t_game *game);
+
+bool					is_position_valid(t_game *game, size_t x, size_t y);
+void					path_finder(t_game *game, size_t x, size_t y);
+bool					map_is_playable(t_game *game);
 
 #endif

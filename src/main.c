@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 18:01:47 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:24:20 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,22 @@ int	main(void)
 
 	srand((unsigned)time(&t));
 	file_name = generate_file_name();
-	free(file_name);
+	init_map2(&game);
+	// free(file_name);
+	if (!init_game(file_name, &game.map))
+	{
+		free_map(game.map.grid, game.map.height);	
+		return (-1);
+	}
+	init_player(&game.player, game.map.p_x, game.map.p_y);
+	init_player(&game.enemy, game.map.m_x, game.map.m_y);
+	if(!map_is_playable(&game))
+	{
+		printf("MAP IS NOT PLAYABLE!\n");
+		free(file_name);
+		free_map(game.map.grid, game.map.height);
+		return(-1);
+	}
 	init_map2(&game);
 	if (!init_game(file_name, &game.map))
 	{
@@ -46,5 +61,7 @@ int	main(void)
 	play_game(&game);
 	free_map(game.map.grid, game.map.height);
 	clean_texture(game);
+	free(file_name);	
 	file_name = NULL;
+	return 0;
 }

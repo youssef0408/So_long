@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 17:48:42 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:14:51 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ int	col_check(char *str, t_map *map, size_t row_idx, size_t col_idx)
 		}
 	}
 	else if (str[col_idx] == 'C')
+	{
 		map->count_c = map->count_c + 1;
+		map->items = map->items + 1;
+	}
 	else if (str[col_idx] != '1' && str[col_idx] != 'M' && str[col_idx] != '0'
 			&& str[col_idx] != '\n')
 		return (-5);
