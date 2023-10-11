@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 15:14:51 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:35:06 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ bool	parse_file(t_map *map, int fd)
 		// 	free(current_line);
 		// 	current_line = NULL;
 		// 	previous_line = NULL;
-		// 	return (false);
+			return (false);
 		}
 		if (row_check(current_line, map) < 0)
 		{

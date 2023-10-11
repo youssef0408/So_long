@@ -3,32 +3,17 @@
 #                                                         :::      ::::::::    #
 #    note.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 20:49:54 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/10 02:28:28 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/11 17:10:48 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
- gcc -g -o ./so_long src/main.c
-
-
-
-1/ update enemy position on the map(verifier si on peut inclure t_enemy en t_map)
-
-2/ add the parsing part
-
-3/ stop the count mirroring and the player should not be able to move (once won or lost )
-
-4/ handle the graphic part (sprites and movements)
-
-5/ Handle mem. leaks
-
-6/ repartion of the functions (5 func./file)
-
-7/ norminette 
-
+ 1/ 'E' should act like '1' if all items are not collected yet!  (key_hook func.)
+ 
+ 2/ 
 
 
 

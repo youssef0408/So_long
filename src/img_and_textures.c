@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:50:53 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 17:54:44 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:37:41 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_create_texture(t_game *game)
 
 void	load_textures(t_game *game)
 {
-	game->texture.texture_player = mlx_load_png("./includes/textures/player.png");
-	game->texture.texture_wall = mlx_load_png("./includes/textures/wall.png");
-	game->texture.texture_floor = mlx_load_png("./includes/textures/floor.png");
-	game->texture.texture_collectables = mlx_load_png("./includes/textures/collectables.png");
+	game->texture.texture_player = mlx_load_png("includes/textures/NURSE.png");
+	game->texture.texture_wall = mlx_load_png("includes/textures/wall2.0.png");
+	game->texture.texture_floor = mlx_load_png("includes/textures/terrain.png");
+	game->texture.texture_collectables = mlx_load_png("includes/textures/syringe-147034_640.png");
 	game->texture.texture_exit = mlx_load_png("./includes/textures/sortie.png");
 	game->texture.texture_ennemy =
-		mlx_load_png("./includes/textures/enemy.png");
+		mlx_load_png("includes/textures/covid.png");
 	game->texture.texture_win = mlx_load_png("./includes/textures/winner.png");
 	game->texture.texture_loser = mlx_load_png("./includes/textures/loser.png");
 	if (!game->texture.texture_win || !game->texture.texture_loser

@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 15:10:31 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 15:10:33 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:27:45 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,5 @@ bool	map_is_playable(t_game *game)
 		free_map(game->map.grid, game->map.height);
 		return(true);
 	}
-	// free_map(game->map.grid, game->map.height);
 	return(false);
 }

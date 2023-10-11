@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 15:24:20 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:58:00 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,37 @@ static void	clean_texture(t_game game)
 	return ;
 }
 
+void	show_grid(t_map *map)
+{
+	size_t	i;
+	size_t	j;
+	char	obj;
+
+	i = 0;
+	printf("\n");
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			obj = map->grid[i][j];
+			if (i == 0 || i == map->height - 1)
+				printf("█");
+			else if (obj == '0')
+				printf(" ");
+			else if (obj == '1')
+				printf("█");
+			else if (obj == 'M')
+				printf("*");
+			else
+				printf("%c", obj);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
 int	main(void)
 {
 	char	*file_name;
@@ -38,6 +69,7 @@ int	main(void)
 	// free(file_name);
 	if (!init_game(file_name, &game.map))
 	{
+		free(file_name);
 		free_map(game.map.grid, game.map.height);	
 		return (-1);
 	}
