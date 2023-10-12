@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:47:24 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 18:04:21 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:10:34 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		game->map.grid[map_pos_y - 1][map_pos_x] = 'P';
 	}
 	else if ((keydata.key == 264 || keydata.key == 83)
-			&& keydata.action == MLX_PRESS && (game->map.grid[map_pos_y
+		&& keydata.action == MLX_PRESS && (game->map.grid[map_pos_y
 				+ 1][map_pos_x] != '1'))
 	{
 		game->texture.img_player->instances[0].y += SIZE_IMG;
@@ -55,8 +55,8 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		game->map.grid[map_pos_y + 1][map_pos_x] = 'P';
 	}
 	else if ((keydata.key == 263 || keydata.key == 65)
-			&& keydata.action == MLX_PRESS
-			&& (game->map.grid[map_pos_y][map_pos_x - 1] != '1'))
+		&& keydata.action == MLX_PRESS
+		&& (game->map.grid[map_pos_y][map_pos_x - 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x -= SIZE_IMG;
 		show_move_count(game);
@@ -67,8 +67,8 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		game->map.grid[map_pos_y][map_pos_x - 1] = 'P';
 	}
 	else if ((keydata.key == 262 || keydata.key == 68)
-			&& keydata.action == MLX_PRESS
-			&& (game->map.grid[map_pos_y][map_pos_x + 1] != '1'))
+		&& keydata.action == MLX_PRESS
+		&& (game->map.grid[map_pos_y][map_pos_x + 1] != '1'))
 	{
 		game->texture.img_player->instances[0].x += SIZE_IMG;
 		show_move_count(game);
@@ -82,15 +82,17 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 
 void	show_move_count(t_game *game)
 {
-	char *moves_count;
+	char	*moves_count;
+
 	system("clear");
 	if (game->texture.g_img_p_move)
 		mlx_delete_image(game->mlx, game->texture.g_img_p_move);
 	game->player.count_move += 1;
 	moves_count = ft_itoa(game->player.count_move);
-	printf(" \n   your current moves are  %i moves \n", game->player.count_move);
-	game->texture.g_img_p_move = mlx_put_string(game->mlx, moves_count, SIZE_IMG * 5,
-			(game->map.height * SIZE_IMG) + 50);
+	printf(" \n   your current moves are  %i moves \n",
+		game->player.count_move);
+	game->texture.g_img_p_move = mlx_put_string(game->mlx, moves_count, SIZE_IMG
+			* 5, (game->map.height * SIZE_IMG) + 50);
 	free(moves_count);
 	moves_count = NULL;
 }

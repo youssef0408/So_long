@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:32:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 17:16:17 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:07:50 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,28 @@
 
 void	init_player(t_player *player, int x, int y)
 {
+	if (x == -1 && y == -1)
+		return ;
 	player->x = x;
 	player->y = y;
 	player->count_c = 0;
 	player->prev_x = -1;
 	player->prev_y = -1;
 	player->count_move = 0;
+}
+
+void	toggle_img(t_game *game)
+{
+	game->texture.img_ennemy->enabled = !game->texture.img_ennemy->enabled;
+	game->texture.img_ennemy2->enabled = !game->texture.img_ennemy->enabled;
+}
+
+void	update_img_pos(t_game *game, size_t x, size_t y)
+{
+	game->texture.img_ennemy->instances[0].x = x;
+	game->texture.img_ennemy->instances[0].y = y;
+	game->texture.img_ennemy2->instances[0].x = x;
+	game->texture.img_ennemy2->instances[0].y = y;
 }
 
 void	enemy_moves(void *param)
@@ -32,11 +48,14 @@ void	enemy_moves(void *param)
 	t_game	*game;
 
 	game = param;
+	if (!game->map.has_m)
+		return ;
 	game->g_timer += 1;
-	if (game->g_timer < 30)
+	if (game->g_timer < 25)
 		return ;
 	game->g_timer = 0;
 	input = rand() % 4;
+	toggle_img(game);
 	real_pos_x = game->texture.img_ennemy->instances[0].x;
 	real_pos_y = game->texture.img_ennemy->instances[0].y;
 	map_pos_x = real_pos_x / SIZE_IMG;
@@ -49,7 +68,7 @@ void	enemy_moves(void *param)
 		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'C'
 		&& game->map.grid[map_pos_y - 1][map_pos_x] != 'E')
 	{
-		game->texture.img_ennemy->instances[0].y -= SIZE_IMG;
+		update_img_pos(game, real_pos_x, real_pos_y - SIZE_IMG);
 		kill_player(game, map_pos_x, map_pos_y - 1);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y - 1][map_pos_x] = 'M';
@@ -58,7 +77,7 @@ void	enemy_moves(void *param)
 			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'C'
 			&& game->map.grid[map_pos_y + 1][map_pos_x] != 'E')
 	{
-		game->texture.img_ennemy->instances[0].y += SIZE_IMG;
+		update_img_pos(game, real_pos_x, real_pos_y + SIZE_IMG);
 		kill_player(game, map_pos_x, map_pos_y + 1);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y + 1][map_pos_x] = 'M';
@@ -67,7 +86,7 @@ void	enemy_moves(void *param)
 			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'C'
 			&& game->map.grid[map_pos_y][map_pos_x - 1] != 'E')
 	{
-		game->texture.img_ennemy->instances[0].x -= SIZE_IMG;
+		update_img_pos(game, real_pos_x - SIZE_IMG, real_pos_y);
 		kill_player(game, map_pos_x - 1, map_pos_y);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y][map_pos_x - 1] = 'M';
@@ -76,7 +95,7 @@ void	enemy_moves(void *param)
 			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'C'
 			&& game->map.grid[map_pos_y][map_pos_x + 1] != 'E')
 	{
-		game->texture.img_ennemy->instances[0].x += SIZE_IMG;
+		update_img_pos(game, real_pos_x + SIZE_IMG, real_pos_y);
 		kill_player(game, map_pos_x + 1, map_pos_y);
 		game->map.grid[game->enemy.prev_y][game->enemy.prev_x] = '0';
 		game->map.grid[map_pos_y][map_pos_x + 1] = 'M';

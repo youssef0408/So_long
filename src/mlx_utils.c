@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 17:55:39 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:12:55 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,24 @@ static void	render_map_textures(t_game *game)
 
 static void	render_objects(t_game *game)
 {
-	if (mlx_image_to_window(game->mlx, game->texture.img_exit, game->map.e_x
-			* SIZE_IMG, game->map.e_y * SIZE_IMG) < 0)
+	if (mlx_image_to_window(game->mlx, game->texture.img_exit_open,
+			game->map.e_x * SIZE_IMG, game->map.e_y * SIZE_IMG) < 0)
+		errror();
+	if (mlx_image_to_window(game->mlx, game->texture.img_exit_close,
+			game->map.e_x * SIZE_IMG, game->map.e_y * SIZE_IMG) < 0)
 		errror();
 	if (mlx_image_to_window(game->mlx, game->texture.img_player, game->map.p_x
 			* SIZE_IMG, game->map.p_y * SIZE_IMG) < 0)
 		errror();
-	if (mlx_image_to_window(game->mlx, game->texture.img_ennemy, game->map.m_x
-			* SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
-		errror();
+	if (game->map.has_m)
+	{
+		if (mlx_image_to_window(game->mlx, game->texture.img_ennemy,
+				game->map.m_x * SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
+			errror();
+		if (mlx_image_to_window(game->mlx, game->texture.img_ennemy2,
+				game->map.m_x * SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
+			errror();
+	}
 }
 
 void	ft_render_window(t_game *game)

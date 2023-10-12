@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/10 17:20:42 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/12 03:28:15 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME = so_long
 
 # Compilateur et drapeaux de compilation
 CC = gcc
-CFLAGS = -g
-# CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS = -g
+CFLAGS = -Wall -Wextra -Werror -g
 
 # Répertoires
 SRC_DIR = src
@@ -68,8 +68,16 @@ leaks:
 run:
 	make && ./so_long
 
-mlx:
-	git clone https://github.com/codam-coding-college/MLX42.git && cd MLX42 && cmake -B build && cmake --build build -j4
+one:
+	-@cd lib
+two:
+	git clone https://github.com/codam-coding-college/MLX42.git
+three:
+	cd MLX42
+four:
+	cmake -B build
+five:
+	cmake --build build -j4
 
 .PHONY: all clean fclean re libft
 

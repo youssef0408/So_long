@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:08:40 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 16:47:49 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:19:45 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,8 @@
 // 			printf("you won!\n");
 // 			break ;
 // 		}
-// 		else if (map->grid[player->y][player->x] == map->grid[enemy->y][enemy->x])
+// 		else if (map->grid[player->y][player->x]
+// == map->grid[enemy->y][enemy->x])
 // 		{
 // 			printf("you Lost!\n");
 // 			move_count++;

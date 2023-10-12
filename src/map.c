@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/11 15:15:09 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:41:51 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,11 @@ void	init_map2(t_game *game)
 		.has_m = false,
 		.count_c = 0,
 		.items = 0,
-		.grid = (char **)malloc(sizeof(char *) * (100))};
+		.grid = (char **)malloc(sizeof(char *) * (100)),
+	};
 }
 
 void	populate_row(char *str, size_t row_idx, t_map *map)
 {
 	map->grid[row_idx] = str;
-}
-
-char	**map_malloc(char **grid, size_t map_size)
-{
-	grid = (char **)malloc(sizeof(char *) * (map_size + 1));
-	if (!grid)
-	{
-		return (NULL);
-	}
-	return (grid);
 }

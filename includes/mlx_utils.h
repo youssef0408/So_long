@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:25:13 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 01:31:32 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:48:12 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void		win_or_lose(t_game *game, size_t x, size_t y);
 void		enemy_moves(void *(param));
 void		kill_player(t_game *game, size_t x, size_t y);
 int	        errror();
+void	clean_images(t_game game);
+void	display_collectables_and_moves(t_game *game);
 
 // void	error(void);
 

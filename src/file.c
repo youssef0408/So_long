@@ -6,7 +6,7 @@
 /*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:01:04 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/10 17:46:42 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:41:57 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,10 @@ void	free_map(char **grid, size_t height)
 		}
 		free(grid);
 	}
+}
+
+void	full_free(t_game game, char *file_name)
+{
+	free(file_name);
+	free_map(game.map.grid, game.map.height);
 }
