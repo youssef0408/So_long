@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:01:04 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 22:11:02 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:38:14 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+# include "so_long_bonus.h"
 
 int	open_file(char *file_path)
 {
@@ -70,8 +70,8 @@ void	free_map(char **grid, size_t height)
 	}
 }
 
-// void	full_free(t_game game, char *file_name)
-// {
-// 	// free(file_name);
-// 	free_map(game.map.grid, game.map.height);
-// }
+void	full_free(t_game game, char *file_name)
+{
+	free(file_name);
+	free_map(game.map.grid, game.map.height);
+}

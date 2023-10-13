@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:10:13 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:39:21 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+# include "so_long_bonus.h"
 
 size_t	real_len(char *s)
 {
@@ -31,6 +31,7 @@ void	init_map2(t_game *game)
 		.width = 0,
 		.has_p = false,
 		.has_e = false,
+		.has_m = false,
 		.count_c = 0,
 		.items = 0,
 		.grid = (char **)malloc(sizeof(char *) * (100)),

@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:19:09 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:39:52 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	render_map_textures(t_game *game)
 {
@@ -41,6 +41,15 @@ static void	render_objects(t_game *game)
 	if (mlx_image_to_window(game->mlx, game->texture.img_player, game->map.p_x
 			* SIZE_IMG, game->map.p_y * SIZE_IMG) < 0)
 		errror();
+	if (game->map.has_m)
+	{
+		if (mlx_image_to_window(game->mlx, game->texture.img_ennemy,
+				game->map.m_x * SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
+			errror();
+		if (mlx_image_to_window(game->mlx, game->texture.img_ennemy2,
+				game->map.m_x * SIZE_IMG, game->map.m_y * SIZE_IMG) < 0)
+			errror();
+	}
 }
 
 void	ft_render_window(t_game *game)

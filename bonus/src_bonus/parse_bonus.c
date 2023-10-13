@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:09:02 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:41:00 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	row_check(char *str, t_map *map)
 {
@@ -65,12 +65,23 @@ int	col_check(char *str, t_map *map, size_t row_idx, size_t col_idx)
 			map->has_p = true;
 		}
 	}
+	else if (str[col_idx] == 'M')
+	{
+		if (map->has_m)
+			return (-69);
+		else
+		{
+			map->m_x = col_idx;
+			map->m_y = row_idx;
+			map->has_m = true;
+		}
+	}
 	else if (str[col_idx] == 'C')
 	{
 		map->count_c = map->count_c + 1;
 		map->items = map->items + 1;
 	}
-	else if (str[col_idx] != '1' && str[col_idx] != '0'
+	else if (str[col_idx] != '1' && str[col_idx] != 'M' && str[col_idx] != '0'
 		&& str[col_idx] != '\n')
 		return (-5);
 	return (0);

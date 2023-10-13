@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:35:48 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:25:56 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:46:48 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+# include "so_long_bonus.h"
 
 bool	init_game(char *file_name, t_map *map)
 {
@@ -39,6 +39,13 @@ void	win_or_lose(t_game *game, size_t x, size_t y)
 	{
 		puts("U WON!");
 		if (mlx_image_to_window(game->mlx, game->texture.img_win, 0, 0) < 0)
+			errror();
+		game->g_stop_action = true;
+	}
+	if (game->map.grid[y][x] == 'M')
+	{
+		puts("U LOST!");
+		if (mlx_image_to_window(game->mlx, game->texture.img_loser, 0, 0) < 0)
 			errror();
 		game->g_stop_action = true;
 	}
@@ -73,7 +80,7 @@ void	display_collectables_and_moves(t_game *game)
 	moves_count = NULL;
 }
 
-void	toggle_exit(void *param)
+void	toggle_exite(void *param)
 {
 	t_game	*game;
 
@@ -94,7 +101,8 @@ void	play_game(t_game *game)
 			* SIZE_IMG) + 25);
 	display_collectables_and_moves(game);
 	mlx_key_hook(game->mlx, key_hook, game);
-	mlx_loop_hook(game->mlx, toggle_exit, game);
+	mlx_loop_hook(game->mlx, enemy_moves, game);
+	mlx_loop_hook(game->mlx, toggle_exite, game);
 	mlx_loop(game->mlx);
 	clean_images(*game);
 	clean_texture(*game);

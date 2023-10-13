@@ -6,16 +6,17 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 15:10:31 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:24:45 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:41:24 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 bool	is_position_valid(t_game *game, size_t x, size_t y)
 {
 	return (x >= 0 && x < game->map.width && y >= 0 && y < game->map.height
-		&& game->map.grid[y][x] != 'V' && game->map.grid[y][x] != '1');
+		&& game->map.grid[y][x] != 'V' && game->map.grid[y][x] != '1'
+				&& game->map.grid[y][x] != 'M');
 }
 
 void	path_finder(t_game *game, size_t x, size_t y)
