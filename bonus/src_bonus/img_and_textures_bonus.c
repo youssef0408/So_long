@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img_and_textures.c                                 :+:      :+:    :+:   */
+/*   img_and_textures_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:50:53 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:38:39 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:48:38 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long_bonus.h"
+#include "./so_long_bonus.h"
 
 void	load_textures(t_game *game);
 void	create_texture_images(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:05:00 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/06 15:51:54 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:22:58 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ bool	parse_file(t_map *map, int fd);
 bool	check_first_line(char *current_line, t_map *map, int fd);
 bool	check_last_line(char *current_line, char *previous_line, t_map *map,
 			int fd);
-            
+
 #endif

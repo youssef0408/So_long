@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:29:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 01:53:48 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 04:23:54 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
-// # include "./bonus_includes/so_long_bonus.h"
 # include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -99,7 +98,6 @@ typedef struct s_game
 
 }						t_game;
 
-
 void					init_player(t_player *player, int x, int y);
 bool					init_game(char *file_name, t_map *map);
 size_t					real_len(char *s);
@@ -140,8 +138,8 @@ void					populate_row(char *str, size_t row_idx, t_map *map);
 
 size_t					real_len(char *s);
 
-void					init_map2(t_game *game);
-
+void					init_map(t_game *game);
+int						initialize_game_data(t_game *game, char *file_name);
 bool					is_position_valid(t_game *game, size_t x, size_t y);
 void					path_finder(t_game *game, size_t x, size_t y);
 bool					map_is_playable(t_game *game);

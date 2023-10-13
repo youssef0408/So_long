@@ -6,7 +6,7 @@
 #    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/13 12:30:51 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/13 12:37:20 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,12 @@ norm :
 
 norm_bonus :
 	@norminette $(BONUS_SRC) $(INCS_DIR_BONUS)
+
+leaks:
+	leaks --atExit -- ./so_long
+
+leaks_bonus:
+	leaks --atExit -- ./so_long_bonus
 
 clean :
 	@make -C $(LIBFT_DIR) clean

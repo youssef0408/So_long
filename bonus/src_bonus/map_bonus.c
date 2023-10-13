@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:39:21 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 04:05:13 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long_bonus.h"
+#include "./so_long_bonus.h"
 
 size_t	real_len(char *s)
 {
@@ -24,7 +24,7 @@ size_t	real_len(char *s)
 	return (i);
 }
 
-void	init_map2(t_game *game)
+void	init_map(t_game *game)
 {
 	game->map = (t_map){
 		.height = 0,

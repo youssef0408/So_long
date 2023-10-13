@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:25:13 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:36:21 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:22:53 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ void	win_or_lose(t_game *game, size_t x, size_t y);
 int		errror(void);
 void	clean_images(t_game game);
 void	display_collectables_and_moves(t_game *game);
-
 
 #endif
