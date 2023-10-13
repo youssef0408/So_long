@@ -6,7 +6,7 @@
 #    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/13 12:37:20 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/13 18:14:32 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,9 @@ BONUS_SRC 			= $(wildcard $(BONUS_DIR)/*.c)
 OBJ 				= $(SRC:.c=.o)
 BONUS_OBJ 			= $(BONUS_SRC:.c=.o)
 
+
+MLX42_REPO = https://github.com/codam-coding-college/MLX42.git
+
 all: $(NAME)
 
 bonus: $(NAME_BONUS)
@@ -63,6 +66,12 @@ $(MLX):
 	@echo $(CUT)$(BOLD)$(MINT) Compiling with $(CFLAGS)...$(RESET)
 	@echo $(CUT)$(MAUVE) [$(notdir $^)] to [$(notdir $@)] $(RESET)
 	@printf $(UP)$(UP)
+
+install:
+	@cd lib && git clone $(MLX42_REPO) MLX42
+	@cd lib && cd MLX42 && cmake -B build
+	@cd lib && cd MLX42 && cmake --build build -j4
+
 
 norm :
 	@norminette $(SRC) $(INC_DIR)
