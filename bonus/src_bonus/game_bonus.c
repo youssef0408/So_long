@@ -6,11 +6,11 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:35:48 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:46:48 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:52:06 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long_bonus.h"
+#include "./so_long_bonus.h"
 
 bool	init_game(char *file_name, t_map *map)
 {

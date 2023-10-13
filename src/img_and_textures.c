@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 00:50:53 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:16:10 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:17:00 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	load_textures(t_game *game)
 		= mlx_load_png("includes/textures/true.png");
 	game->texture.texture_win = mlx_load_png("./includes/textures/winner.png");
 	if (!game->texture.texture_win || !game->texture.texture_player
-	 	|| !game->texture.texture_wall || !game->texture.texture_floor
+		|| !game->texture.texture_wall || !game->texture.texture_floor
 		|| !game->texture.texture_collectables
-		|| !game->texture.texture_exit_close || !game->texture.texture_exit_open)
+		|| !game->texture.texture_exit_close
+		|| !game->texture.texture_exit_open)
 	{
 		errror();
 	}

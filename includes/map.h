@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:36:55 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 04:25:48 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ typedef struct s_game
 	struct s_map		map;
 	struct s_textures	texture;
 	struct s_player		player;
-	struct s_player		enemy;
-	struct s_player		enemy2;
 	bool				g_stop_action;
 	int					g_timer;
 
@@ -84,15 +82,13 @@ bool					check_first_line(char *current_line, t_map *map,
 bool					check_last_line(char *current_line, char *previous_line,
 							t_map *map, int fd);
 void					populate_row(char *str, size_t row_idx, t_map *map);
-
 size_t					real_len(char *s);
-
-void					init_map2(t_game *game);
-
+void					init_map(t_game *game);
 bool					is_position_valid(t_game *game, size_t x, size_t y);
 void					path_finder(t_game *game, size_t x, size_t y);
 bool					map_is_playable(t_game *game);
 void					clean_texture(t_game game);
 void					full_free(t_game game, char *file_name);
+int						initialize_game_data(t_game *game, char *file_name);
 
 #endif

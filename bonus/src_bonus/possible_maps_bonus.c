@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   possible_maps.c                                    :+:      :+:    :+:   */
+/*   possible_maps_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 15:10:31 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:41:24 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:49:12 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "./so_long_bonus.h"
 
 bool	is_position_valid(t_game *game, size_t x, size_t y)
 {
