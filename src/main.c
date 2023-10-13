@@ -3,21 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 14:37:18 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:52:48 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int32_t	main(void)
+int32_t	main(int argc, char **argv)
 {
 	char	*file_name;
 	t_game	game;
+	int		i;
 
-	file_name = "src/maps/map0.ber";
+	if (argc != 2)
+		errror();
+	file_name = argv[1];
+	i = ft_strlen(file_name);
+	if (argv[1][i - 1] != 'r' && argv[1][i - 2] != 'e' && argv[1][i - 3] != 'b'
+		&& argv[1][i - 4] != '.')
+	{
+		printf("error\n");
+		return (-1);
+	}
 	if (initialize_game_data(&game, file_name) == -1)
 	{
 		free_map(game.map.grid, game.map.height);

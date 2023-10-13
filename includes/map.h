@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:54:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 04:25:48 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:22:12 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_game
 
 }						t_game;
 
+int						get_exit(t_map *map, size_t row_idx, size_t col_idx);
+int						get_player(t_map *map, size_t row_idx, size_t col_idx);
 int						row_check(char *str, t_map *map);
 int						col_check(char *str, t_map *map, size_t row_idx,
 							size_t col_idx);

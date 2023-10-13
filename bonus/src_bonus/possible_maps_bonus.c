@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   possible_maps_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 15:10:31 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 03:49:12 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:09:34 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,27 @@ bool	map_is_playable(t_game *game)
 		return (true);
 	}
 	return (false);
+}
+
+void	show_move_count(t_game *game)
+{
+	char	*moves_count;
+
+	system("clear");
+	if (game->texture.g_img_p_move)
+		mlx_delete_image(game->mlx, game->texture.g_img_p_move);
+	game->player.count_move += 1;
+	moves_count = ft_itoa(game->player.count_move);
+	printf(" \n   your current moves are  %i moves \n",
+		game->player.count_move);
+	game->texture.g_img_p_move = mlx_put_string(game->mlx, moves_count, SIZE_IMG
+			* 5, (game->map.height * SIZE_IMG) + 50);
+	free(moves_count);
+	moves_count = NULL;
+}
+
+int	errror(void)
+{
+	puts(mlx_strerror(mlx_errno));
+	exit(-1);
 }

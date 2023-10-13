@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 01:04:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 03:49:03 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:13:39 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,17 @@ int	col_check(char *str, t_map *map, size_t row_idx, size_t col_idx)
 {
 	if (map->height == 0 && str[col_idx] != '1')
 		return (-9);
-	else if (str[col_idx] == 'E')
-	{
-		if (map->has_e)
-			return (-3);
-		else
-		{
-			map->e_x = col_idx;
-			map->e_y = row_idx;
-			map->has_e = true;
-		}
-	}
+	if (str[col_idx] == 'E')
+		return (get_exit(map, row_idx, col_idx));
 	else if (str[col_idx] == 'P')
 	{
-		if (map->has_p)
-			return (-4);
-		else
-		{
-			map->p_x = col_idx;
-			map->p_y = row_idx;
-			map->has_p = true;
-		}
+		if (get_player(map, row_idx, col_idx) < 0)
+			return (-1);
 	}
 	else if (str[col_idx] == 'M')
 	{
-		if (map->has_m)
-			return (-69);
-		else
-		{
-			map->m_x = col_idx;
-			map->m_y = row_idx;
-			map->has_m = true;
-		}
+		if (get_ennemy(map, row_idx, col_idx) < 0)
+			return (-1);
 	}
 	else if (str[col_idx] == 'C')
 	{
@@ -92,16 +71,9 @@ bool	parse_file(t_map *map, int fd)
 	char	*current_line;
 	char	*previous_line;
 
-	previous_line = NULL;
 	current_line = get_next_line(fd);
 	if (!check_first_line(current_line, map, fd))
-	{
-		free(previous_line);
-		free(current_line);
-		current_line = NULL;
-		previous_line = NULL;
 		return (false);
-	}
 	while (current_line != NULL)
 	{
 		previous_line = current_line;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:29:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 04:23:54 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:11:34 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@
 # include <stdio.h>
 # include <time.h>
 # include <unistd.h>
-# define SIZE_IMG 50
+# define SIZE_IMG 75
+
+# define REAL_POS_X 0
+# define REAL_POS_Y 1
+# define MAP_POS_X 2
+# define MAP_POS_Y 3
 
 typedef struct s_map
 {
@@ -149,5 +154,17 @@ void					full_free(t_game game, char *file_name);
 int						open_file(char *file_path);
 void					free_file(char *str, int fd);
 void					free_map(char **grid, size_t height);
+int						get_exit(t_map *map, size_t row_idx, size_t col_idx);
+int						get_player(t_map *map, size_t row_idx, size_t col_idx);
+int						get_ennemy(t_map *map, size_t row_idx, size_t col_idx);
+void					update_img_pos(t_game *game, size_t x, size_t y);
+void					enemy_moves_up(int input, t_game *game,
+							int map_positions[4]);
+void					enemy_moves_left(int input, t_game *game,
+							int map_positions[4]);
+void					enemy_moves_right(int input, t_game *game,
+							int map_positions[4]);
+void					enemy_moves(void *param);
+void					toggle_img(t_game *game);
 
 #endif
