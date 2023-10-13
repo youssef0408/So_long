@@ -6,13 +6,13 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 04:30:20 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:37:28 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./so_long_bonus.h"
 
-int32_t main(void)
+int32_t	main(void)
 {
 	char	*file_name;
 	t_game	game;
