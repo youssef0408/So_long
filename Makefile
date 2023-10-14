@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
+#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/13 18:14:32 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/13 22:11:55 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,10 +80,10 @@ norm_bonus :
 	@norminette $(BONUS_SRC) $(INCS_DIR_BONUS)
 
 leaks:
-	leaks --atExit -- ./so_long
+	leaks --atExit -- ./so_long  src/maps/map0.ber
 
 leaks_bonus:
-	leaks --atExit -- ./so_long_bonus
+	leaks --atExit -- ./so_long_bonus  bonus/maps/map0.ber
 
 clean :
 	@make -C $(LIBFT_DIR) clean
