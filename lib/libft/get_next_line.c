@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:48:32 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/14 12:46:30 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 02:32:39 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_before_newline(const char *str)
 		i++;
 	if (str[i] != '\0' && str[i] == '\n')
 		i++;
-	res = ft_malloc_zero(i + 1, sizeof *res);
+	res = ft_malloc_zero(i + 1, sizeof (*res));
 	if (!res)
 	{
 		return (NULL);
@@ -54,7 +54,7 @@ char	*get_after_newline(const char *str)
 		i++;
 	if (str[i] != '\0' && str[i] == '\n')
 		i++;
-	res = ft_malloc_zero((ii - i) + 1, sizeof *res);
+	res = ft_malloc_zero((ii - i) + 1, sizeof (*res));
 	if (!res)
 	{
 		return (NULL);
@@ -73,7 +73,7 @@ void	ft_read_line(int fd, char **save, char **temporary)
 	char	*buf;
 	int		status;
 
-	buf = malloc(sizeof *buf * (BUFFER_SIZE + 1));
+	buf = malloc(sizeof (*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return ;
 	status = 1;
@@ -110,9 +110,9 @@ char	*ft_parse_line(char **save, char **temporary)
 
 char	*get_next_line(int fd)
 {
-	char *line;
-	char *temporary;
-	static char *save = NULL;
+	char		*line;
+	char		*temporary;
+	static char	*save = NULL;
 
 	line = NULL;
 	temporary = NULL;

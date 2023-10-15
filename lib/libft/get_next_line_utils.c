@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:53:34 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/14 12:45:42 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 02:29:36 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strdup(const char *str_1)
 	i = 0;
 	while (str_1[i])
 		i++;
-	str_2 = ft_malloc_zero(i + 1, sizeof *str_2);
+	str_2 = ft_malloc_zero(i + 1, sizeof * str_2);
 	if (!str_2)
 		return (NULL);
 	i = -1;
@@ -88,11 +88,11 @@ int	ft_contains_newline(const char *str)
 	return (0);
 }
 
-char	*ft_join_strs(const char *str_1, const char *str_2)
+char	*ft_join_strs(const char *str_1, const char	*str_2)
 {
-	char *new_str;
-	int len_str_1;
-	int len_str_2;
+	char	*new_str;
+	int		len_str_1;
+	int		len_str_2;
 
 	len_str_1 = 0;
 	if (!str_1 && !str_2)
@@ -102,7 +102,7 @@ char	*ft_join_strs(const char *str_1, const char *str_2)
 	len_str_2 = 0;
 	while (str_2 && str_2[len_str_2])
 		len_str_2++;
-	new_str = ft_malloc_zero(len_str_1 + len_str_2 + 1, sizeof *new_str);
+	new_str = ft_malloc_zero(len_str_1 + len_str_2 + 1, sizeof * new_str);
 	if (!new_str)
 		return (NULL);
 	len_str_1 = -1;

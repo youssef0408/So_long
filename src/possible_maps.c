@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   possible_maps.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 15:10:31 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 17:46:19 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:30:37 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void	show_move_count(t_game *game)
 int	errror(void)
 {
 	printf("Error\n");
-	exit(-1);
+	exit(1);
 }

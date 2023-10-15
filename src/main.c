@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:00:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 17:52:48 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:30:30 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int32_t	main(int argc, char **argv)
 		&& argv[1][i - 4] != '.')
 	{
 		printf("error\n");
-		return (-1);
+		return (1);
 	}
 	if (initialize_game_data(&game, file_name) == -1)
 	{
 		free_map(game.map.grid, game.map.height);
-		return (-1);
+		return (1);
 	}
 	play_game(&game);
 	free_map(game.map.grid, game.map.height);

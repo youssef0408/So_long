@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:29:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 17:11:34 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 00:44:30 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void					key_hook(mlx_key_data_t keydata, void *param);
 void					play_game(t_game *game);
 void					ft_render_texture_img(t_game *game, size_t x, size_t y);
 void					delete_c_img(t_game *game);
+void					delete_c_img(t_game *game);
 void					show_move_count(t_game *game);
 void					show_items_count(t_game *game);
 void					win_or_lose(t_game *game, size_t x, size_t y);
@@ -166,5 +167,13 @@ void					enemy_moves_right(int input, t_game *game,
 							int map_positions[4]);
 void					enemy_moves(void *param);
 void					toggle_img(t_game *game);
+void					key_hook_up(t_game *game, int map_pos_x, int map_pos_y,
+							mlx_key_data_t keydata);
+void					key_hook_down(t_game *game, int map_pos_x,
+							int map_pos_y, mlx_key_data_t keydata);
+void					key_hook_right(t_game *game, int map_pos_x,
+							int map_pos_y, mlx_key_data_t keydata);
+void					key_hook_left(t_game *game, int map_pos_x,
+							int map_pos_y, mlx_key_data_t keydata);
 
 #endif

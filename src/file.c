@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:01:04 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 22:11:02 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:32:32 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	open_file(char *file_path)
 	if (fd < 0)
 	{
 		perror("Error opening file");
-		return (-1);
+		return (1);
 	}
 	return (fd);
 }
