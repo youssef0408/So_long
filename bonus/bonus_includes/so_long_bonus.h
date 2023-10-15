@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:29:55 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/15 00:44:30 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 03:26:41 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <time.h>
 # include <unistd.h>
-# define SIZE_IMG 75
+# define SIZE_IMG 25
 
 # define REAL_POS_X 0
 # define REAL_POS_Y 1

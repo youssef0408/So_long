@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:04:18 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 21:08:41 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 04:16:02 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # include <stdio.h>
 # include <time.h>
 # include <unistd.h>
-# define SIZE_IMG 50
+
+# define SIZE_IMG 25
 
 bool	init_game(char *file_name, t_map *map);
 size_t	real_len(char *s);

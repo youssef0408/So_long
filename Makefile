@@ -6,7 +6,7 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/15 02:41:29 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/15 04:29:41 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,14 +58,14 @@ bonus: $(NAME_BONUS)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $@ $^ $(INC) -lglfw -L"/usr/local/Cellar/glfw/3.3.8/lib/" -framework Cocoa -framework OpenGL -framework IOKit
-	@printf $(CUT)$(CUT)
+	@printf $(CUT)$(CUT)$(CUT)$(CUT)
 	@echo "`tput bold``tput setaf 5` 🏥 Welcome to your mission, Dr Hero! This is the calm before the `tput setaf 2`bonus `tput bold``tput setaf 5`part storm. Collect those vaccines 💉 `tput setaf 6`and don't forget to reach the ambulance for victory! 🚑💨`tput sgr0`"
 	
 
 $(NAME_BONUS): $(BONUS_OBJ) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) -o $@ $^ $(INC_BONUS) -lglfw -L"/usr/local/Cellar/glfw/3.3.8/lib/" -framework Cocoa -framework OpenGL -framework IOKit
-	@printf $(CUT)$(CUT)
-	@echo $(BOLD)$(L_PURPLE) 🦸‍♂️ Get ready, Dr Hero! Your mission to defeat the $(GREEN)COVID 🦠 $(BOLD)$(L_PURPLE)virus is about to begin!$(GREEN) Best of luck, savior of the world! 💪💥$(RESET)
+	@printf $(CUT)$(CUT)$(CUT)$(CUT)
+	@echo $(BOLD)$(L_PURPLE) 🦸‍♂️ Get ready, Dr Hero! Your mission to defeat the $(BOLD)$(GREEN)COVID 🦠 $(BOLD)$(L_PURPLE)virus is about to begin!$(GREEN) Best of luck, savior of the world! 💪💥$(RESET)
 	
 
 $(LIBFT):
@@ -81,24 +81,27 @@ $(MLX):
 MLX42_EXISTS := $(wildcard lib/MLX42)
 
 install:
-	@if [ ! -d "$(MLX42_EXISTS)" ]; then \
-    cd lib && git clone $(MLX42_REPO) MLX42; \
-	fi
-	@cd lib/MLX42 && cmake -B build
-	@cd lib/MLX42 && cmake --build build -j4
+	@if [ -d "lib/MLX42" ]; then \
+    	echo $(BOLD)$(PINK)" MLX42 already exists\n Nothing to be done for 'all' "; \
+	else \
+    	cd lib && git clone $(MLX42_REPO) MLX42; \
+    fi
+	@cd lib/MLX42 && cmake -B build > /dev/null 2>&1
+	@cd lib/MLX42 && cmake --build build -j4 > /dev/null 2>&1
+
 
 norm :
+	@echo $(BOLD)$(PINK)" Mandatory part!"$(MINT)
 	@norminette $(SRC) $(INC_DIR)
-
-norm_bonus :
+	@echo $(BOLD)$(PINK)" Bonus part!"$(MINT)
 	@norminette $(BONUS_SRC) $(INCS_DIR_BONUS)
 
 
 leaks:
-	leaks --atExit -- ./so_long  src/maps/map0.ber
+	leaks --atExit -- ./so_long  src/maps/map42.ber
 
 leaks_bonus:
-	leaks --atExit -- ./so_long_bonus  bonus/maps/map0.ber
+	leaks --atExit -- ./so_long_bonus  bonus/maps/map42.ber
 
 clean :
 	@make -C $(LIBFT_DIR) clean
@@ -114,7 +117,7 @@ fclean : clean
 	@printf $(CUT)$(CUT)
 	@echo $(BOLD)$(L_PURPLE) ✨so_long✨ $(PINK)All cleaned up! ....🧹🗑️$(RESET)
 
-re: fclean all
+re: fclean all bonus
 
 .PHONY: all bonus clean fclean re
 
