@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   possible_maps.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 15:10:31 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/14 18:30:37 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:28:24 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	path_finder(t_game *game, size_t x, size_t y)
 	if (game->map.grid[y][x] == 'E')
 	{
 		game->map.is_possible = 1;
-		return ;
+		// return ;
 	}
 	if (game->map.grid[y][x] == 'C')
 	{

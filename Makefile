@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yothmani <yothmani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/15 20:04:01 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/16 15:16:16 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,13 +57,13 @@ all: install $(NAME)
 bonus: $(NAME_BONUS)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -o $@ $^ $(INC) -lglfw -L"/usr/local/Cellar/glfw/3.3.8/lib/" -framework Cocoa -framework OpenGL -framework IOKit
+	$(CC) $(CFLAGS) -o $@ $^ $(INC) -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit
 	@printf $(CUT)$(CUT)$(CUT)$(CUT)
 	@echo "`tput bold``tput setaf 5` 🏥 Welcome to your mission, Dr Hero! This is the calm before the `tput setaf 2`bonus `tput bold``tput setaf 5`part storm. Collect those vaccines 💉 `tput setaf 6`and don't forget to reach the ambulance for victory! 🚑💨`tput sgr0`"
 	
 
 $(NAME_BONUS): $(BONUS_OBJ) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -o $@ $^ $(INC_BONUS) -lglfw -L"/usr/local/Cellar/glfw/3.3.8/lib/" -framework Cocoa -framework OpenGL -framework IOKit
+	$(CC) $(CFLAGS) -o $@ $^ $(INC_BONUS) -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit
 	@printf $(CUT)$(CUT)$(CUT)$(CUT)
 	@echo $(BOLD)$(L_PURPLE) 🦸‍♂️ Get ready, Dr Hero! Your mission to defeat the $(BOLD)$(GREEN)COVID 🦠 $(BOLD)$(L_PURPLE)virus is about to begin!$(GREEN) Best of luck, savior of the world! 💪💥$(RESET)
 	
