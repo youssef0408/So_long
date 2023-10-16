@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:50:25 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/13 04:05:13 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 04:57:21 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_map(t_game *game)
 		.has_m = false,
 		.count_c = 0,
 		.items = 0,
-		.grid = (char **)malloc(sizeof(char *) * (100)),
+		.grid = (char **)malloc(sizeof(char *) * (500000)),
 	};
 }
 

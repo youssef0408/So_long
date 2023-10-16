@@ -6,7 +6,7 @@
 #    By: yothmani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:03:58 by yothmani          #+#    #+#              #
-#    Updated: 2023/10/15 04:29:41 by yothmani         ###   ########.fr        #
+#    Updated: 2023/10/15 20:04:01 by yothmani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,10 +98,10 @@ norm :
 
 
 leaks:
-	leaks --atExit -- ./so_long  src/maps/map42.ber
+	leaks --atExit -- ./so_long  src/maps/batmap.ber
 
 leaks_bonus:
-	leaks --atExit -- ./so_long_bonus  bonus/maps/map42.ber
+	leaks --atExit -- ./so_long_bonus  bonus/maps/batmap.ber
 
 clean :
 	@make -C $(LIBFT_DIR) clean

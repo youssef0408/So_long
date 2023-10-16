@@ -6,7 +6,7 @@
 /*   By: yothmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:43 by yothmani          #+#    #+#             */
-/*   Updated: 2023/10/12 20:19:09 by yothmani         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:01:50 by yothmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	render_objects(t_game *game)
 void	ft_render_window(t_game *game)
 {
 	game->mlx = mlx_init((game->map.width) * SIZE_IMG,
-			(game->map.height * SIZE_IMG) + 100, "so_long", false);
+			(game->map.height * SIZE_IMG) + 100, "so_long", true);
 	if (!game->mlx)
 		errror();
 	ft_create_texture(game);
