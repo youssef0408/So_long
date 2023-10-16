@@ -25,7 +25,6 @@ void	path_finder(t_game *game, size_t x, size_t y)
 	if (game->map.grid[y][x] == 'E')
 	{
 		game->map.is_possible = 1;
-		// return ;
 	}
 	if (game->map.grid[y][x] == 'C')
 	{
