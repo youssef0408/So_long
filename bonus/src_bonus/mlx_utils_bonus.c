@@ -55,7 +55,7 @@ static void	render_objects(t_game *game)
 void	ft_render_window(t_game *game)
 {
 	game->mlx = mlx_init((game->map.width) * SIZE_IMG,
-			(game->map.height * SIZE_IMG) + 100, "so_long", true);
+			(game->map.height * SIZE_IMG) + 100, "so_long", false);
 	if (!game->mlx)
 		errror();
 	ft_create_texture(game);
