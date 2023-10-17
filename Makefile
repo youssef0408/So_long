@@ -24,7 +24,7 @@ MLX 				= $(MLX_DIR)/libmlx42.a
 SRC_DIR 			= src
 BONUS_DIR 			= bonus/src_bonus
 INC_DIR 			= includes
-INCS_DIR_BONUS		= bonus/bonus_includes
+INCS_DIR_BONUS			= bonus/bonus_includes
 LIBFT_DIR 			= lib/libft
 MLX_DIR 			= lib/MLX42/build
 
@@ -42,11 +42,9 @@ SRC = $(SRC_DIR)/file.c $(SRC_DIR)/game.c $(SRC_DIR)/main.c $(SRC_DIR)/img_and_t
 BONUS_SRC = $(BONUS_DIR)/enemy_bonus.c $(BONUS_DIR)/file_bonus.c $(BONUS_DIR)/game_bonus.c \
             $(BONUS_DIR)/img_and_textures_bonus.c $(BONUS_DIR)/main_bonus.c $(BONUS_DIR)/map_bonus.c \
             $(BONUS_DIR)/mlx_clean_up_bonus.c $(BONUS_DIR)/moves_bonus.c $(BONUS_DIR)/parse_bonus.c \
-            $(BONUS_DIR)/parse_utils_bonus.c $(BONUS_DIR)/possible_maps_bonus.c
+            $(BONUS_DIR)/parse_utils_bonus.c $(BONUS_DIR)/possible_maps_bonus.c $(BONUS_DIR)/mlx_utils_bonus.c $(BONUS_DIR)/player_bonus.c
 
 
-SRC 				= $(wildcard $(SRC_DIR)/*.c)
-BONUS_SRC 			= $(wildcard $(BONUS_DIR)/*.c)
 OBJ 				= $(SRC:.c=.o)
 BONUS_OBJ 			= $(BONUS_SRC:.c=.o)
 
