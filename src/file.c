@@ -20,7 +20,7 @@ int	open_file(char *file_path)
 	if (fd < 0)
 	{
 		perror("Error opening file");
-		return (1);
+		return (-1);
 	}
 	return (fd);
 }
