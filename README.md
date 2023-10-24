@@ -4,7 +4,7 @@
 
 
 <p align="center">
-  <img src="./includes/textures/covid-19-4999779_1280.png" width="600" >
+  <img src="./includes/textures/Screen Shot 2023-10-24 at 3.44.42 PM.png" width="600" >
 </p>
 
 
