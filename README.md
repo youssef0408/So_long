@@ -1,5 +1,13 @@
 # So_long
 
+
+
+
+<p align="center">
+  <img src="./includes/textures/covid-19-4999779_1280.png" width="600" >
+</p>
+
+
 ## This project is a 2D game divided into two parts:
 
  Mandatory Part: In this section, the map doesn't contain any enemies.
