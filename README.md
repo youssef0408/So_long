@@ -18,16 +18,21 @@
 **********Compiling mandatory part :**********
 
 
+```
 make
 
 ./so_long src/maps/batmap.ber
 
+```
 
 **********Compiling bonus part :**********
 
+```
 make bonus
 
 ./so_long_bonus bonus/maps/batmap.ber
+
+```
 
 You can replace 'batmap.ber' with another map file of your choice, but it should follow the '.ber' file format.
 
